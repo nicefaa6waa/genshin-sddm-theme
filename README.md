@@ -5,7 +5,7 @@ implemented changing backgrounds for the time of day.
 (will be added in the future)With every login-session,new wallpaper
 will be shown based on the time on your OS. 
 
-![](https://github.com/nicefaa6waa/genshin-sddm-theme/blob/master/preview/2.png)
+![](https://github.com/nicefaa6waa/genshin-sddm-theme/tree/main/preview/2.png)
 ## Features
 
 It includes Power Menu and Session Menu.Date&Time will be added.
