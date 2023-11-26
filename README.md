@@ -77,19 +77,21 @@ sddm-greeter --test-mode --theme genshin-sddm-theme
 
 If you are new and you don't know how to change the SDDM theme, follow these steps:
 
-1. Edit the config file in /etc/sddm.conf.If you don't have sddm.conf file then copy it from /usr/lib/sddm/default.conf.If you are on hyprdots then config file will be in /etc/sddm.conf.d/kde_settings.conf
-```bash
-sudo nano /path/to/your/config/file```
-2. Look for
+1. Edit the config file in '/etc/sddm.conf'. If you don't have 'sddm.conf' file, then copy it from '/usr/lib/sddm/default.conf'. If you are on hyprdots, then the config file will be in '/etc/sddm.conf.d/kde_settings.conf'.
 
-[Theme]
-Current=
+    ```bash
+    sudo nano /path/to/your/config/file
+    ```
 
-3. Step 3
-Change your theme to genshin-sddm-theme
+2. Look for the following section in the configuration file:
 
-    
+    ```ini
+    [Theme]
+    Current=
+    ```
+
+3. Change your theme to `genshin-sddm-theme`.
+
 ## Credits
 
 This is the modified version of [prasanthrangan's corner theme](https://github.com/prasanthrangan/hyprdots) for hyprland
-
