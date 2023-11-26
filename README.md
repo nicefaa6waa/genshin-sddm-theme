@@ -66,12 +66,28 @@ Then copy the downloaded video to your theme folder.In order to do this first cd
 sudo cp -r 1.mp4 /usr/share/sddm/themes/genshin-sddm-theme
 ```
 
+I HIGHLY RECOMMEND TESTING FIRST.There may be some visual bugs on varying distros so before changing your theme test it first with the command.
 Now, assuming that you've installed it correctly to test it:
 
 ```bash
 sddm-greeter --test-mode --theme genshin-sddm-theme
 ```
-I HIGHLY RECOMMEND TESTING FIRST.There may be some visual bugs on varying distros so before changing your theme test it first with the command.
+
+## Applying
+
+If you are new and you don't know how to change the SDDM theme, follow these steps:
+
+1. Edit the config file in /etc/sddm.conf.If you don't have sddm.conf file then copy it from /usr/lib/sddm/default.conf.If you are on hyprdots then config file will be in /etc/sddm.conf.d/kde_settings.conf
+```bash
+sudo nano /path/to/your/config/file```
+2. Look for
+
+[Theme]
+Current=
+
+3. Step 3
+Change your theme to genshin-sddm-theme
+
     
 ## Credits
 
