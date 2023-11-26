@@ -28,7 +28,7 @@ Item {
 			
                     MediaPlayer {
     id: videoPlayer
-    source: "/usr/share/sddm/themes/corners/1.mp4"
+    source: "/usr/share/sddm/themes/genshin-sdmm-theme/1.mp4"
     autoPlay: true
     muted: false
 	volume: 1.0
@@ -70,7 +70,7 @@ width : 1920
     Image {
         id: basicImage
 	    visible: root.state === "login"
-        source: "/usr/share/sddm/themes/corners/1.png"  // Provide the actual path to your PNG image
+        source: "/usr/share/sddm/themes/genshin-sddm-theme/1.png"  // Provide the actual path to your PNG image
         // Set the maximum width and center the image
         width: Math.min(parent.width, sourceSize.width)
         height: sourceSize.height * (width / sourceSize.width)
