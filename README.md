@@ -5,7 +5,7 @@ implemented changing backgrounds for the time of day.
 (will be added in the future)With every login-session,new wallpaper
 will be shown based on the time on your OS. 
 
-![](https://github.com/nicefaa6waa/genshin-sddm-theme/tree/main/preview/2.png)
+![](preview/2.png)
 ## Features
 
 It includes Power Menu and Session Menu.Date&Time will be added.
@@ -31,11 +31,11 @@ If you would like to contribute to this repo please do so by creating a PR. I am
 Install sddm(Simple Desktop Display Manager).To do so 
 For Arch Linux
 ```bash
-        sudo pacman -S sddm 
+sudo pacman -S sddm 
 ```
 For Debian-based systems
 ```bash
-        sudo apt-get install sddm
+sudo apt-get install sddm
 ```
 
 
@@ -48,22 +48,22 @@ To test it before use you need to install this repo and copy it to your sddm the
 In order to do this:
 For Arch Linux:
 ```bash
-        cd
-		git clone https://github.com/nicefaa6waa/genshin-sddm-theme.git
-		sudo cp -r /genshin-sddm-theme/ /usr/share/sddm/themes/
+cd
+git clone https://github.com/nicefaa6waa/genshin-sddm-theme.git
+sudo cp -r /genshin-sddm-theme/ /usr/share/sddm/themes/
 ```
 For Debian-based systems:
 ```bash
-        cd
-		git clone https://github.com/nicefaa6waa/genshin-sddm-theme.git
-		sudo cp -r genshin-sddm-theme /usr/share/sddm/themes/
+cd
+git clone https://github.com/nicefaa6waa/genshin-sddm-theme.git
+sudo cp -r genshin-sddm-theme /usr/share/sddm/themes/
 ```
 
 
 Now, assuming that you've installed it correctly to test it:
 
 ```bash
-        sddm-greeter --test-mode --theme genshin-sddm-theme
+sddm-greeter --test-mode --theme genshin-sddm-theme
 ```
     
 ## Credits
