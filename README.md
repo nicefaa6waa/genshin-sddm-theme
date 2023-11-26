@@ -71,7 +71,7 @@ Now, assuming that you've installed it correctly to test it:
 ```bash
 sddm-greeter --test-mode --theme genshin-sddm-theme
 ```
-!!!!I HIGHLY RECOMMEND TESTING FIRST.There may be some visual bugs on varying distros so before changing your theme test it first with the command.
+I HIGHLY RECOMMEND TESTING FIRST.There may be some visual bugs on varying distros so before changing your theme test it first with the command.
     
 ## Credits
 
