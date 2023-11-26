@@ -58,13 +58,20 @@ cd
 git clone https://github.com/nicefaa6waa/genshin-sddm-theme.git
 sudo cp -r genshin-sddm-theme /usr/share/sddm/themes/
 ```
+After that install the background file.(700+Mb for high-bitrate 1080p lossles video)
+[Google Drive](https://drive.google.com/file/d/19Z3NEZn-dg8KSQkk1vRF4KmI5S7ztSeP/view?usp=sharing)
 
+Then copy the downloaded video to your theme folder.In order to do this first cd to your downloads folder.Then
+```bash
+sudo cp -r 1.mp4 /usr/share/sddm/themes/genshin-sddm-theme
+```
 
 Now, assuming that you've installed it correctly to test it:
 
 ```bash
 sddm-greeter --test-mode --theme genshin-sddm-theme
 ```
+!!!!I HIGHLY RECOMMEND TESTING FIRST.There may be some visual bugs on varying distros so before changing your theme test it first with the command.
     
 ## Credits
 
