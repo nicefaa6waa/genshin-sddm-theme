@@ -28,7 +28,7 @@ Item {
 			
                     MediaPlayer {
     id: videoPlayer
-    source: "/usr/share/sddm/themes/genshin-sdmm-theme/1.mp4"
+    source: "/usr/share/sddm/themes/genshin-sddm-theme/1.mp4"
     autoPlay: true
     muted: false
 	volume: 1.0
