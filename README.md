@@ -28,18 +28,27 @@ If you would like to contribute to this repo please do so by creating a PR. I am
 
 ## Dependencies
 
-Install sddm(Simple Desktop Display Manager).To do so 
+Install sddm(Simple Desktop Display Manager).You also need QT5 which includes Qt Quick Controls 2, Qt Graphical Effects, Qt SVG, Qt Quick Layouts with version 5.11 or new.To do so 
 
 
-For Arch Linux
+For **Arch** based distros using **pacman**
+(Obarun/Artix/Manjaro/KaOS/Chakra etc.)
 ```bash
-sudo pacman -S sddm 
+sudo pacman -S --needed sddm
+qt5‑graphicaleffects
+qt5‑quickcontrols2
+qt5‑svg
 ```
-For Debian-based systems
+For **Debian** based distros using **apt**
+(Ubuntu/Kubuntu/Kali/Neon/antiX etc.)
 ```bash
-sudo apt-get install sddm
+sudo apt install ‑‑no‑install‑recommends
+sddm
+qml‑module‑qtquick‑layouts
+qml‑module‑qtgraphicaleffects
+qml‑module‑qtquick‑controls2
+libqt5svg5
 ```
-
 
 
 ## Procedure to Test
@@ -52,13 +61,13 @@ To test it before use you need to install this repo and copy it to your sddm the
 In order to do this:
 
 
-For Arch Linux:
+For Arch based distros:
 ```bash
 cd
 git clone https://github.com/nicefaa6waa/genshin-sddm-theme.git
 sudo cp -r /genshin-sddm-theme/ /usr/share/sddm/themes/
 ```
-For Debian-based systems:
+For Debian based distros:
 ```bash
 cd
 git clone https://github.com/nicefaa6waa/genshin-sddm-theme.git
