@@ -8,18 +8,53 @@ will be shown based on the time on your OS.
 ![](preview/2.png)
 ## Features
 
-It includes Power Menu and Session Menu.Date&Time will be added.
-You can change almost all the colors within the 'theme.conf' file.
+You can change almost all the colors within the 'theme.conf' file.More color options will be added in the future
 
-1. <b>Power Menu</b>: 
+- [x] <b>Animated Background</b>:
+
+    Animated Background that goes on infinite loop.
+
+- [x] <b>Login Menu</b>:
+
+    One by one replica of genshins login menu.
+
+- [x] <b>Power Menu</b>:
+      
     Ability to sleep,shut-down or restart the os.
 
-2. <b>Session Menu</b>: 
+- [x] <b>Session Menu</b>:
+      
     Ability to choose a session
 
-#### Background Changer
+- [ ] <b>Date&Time Menu</b>:
+      
+    Ability to see date and time on main meu
 
-I want to add different wallpapers for different time of the day but still working on it.Will be added asap.
+- [ ] <b>Door Animation</b>
+
+    Will be avalible soon
+
+- [ ] <b>Loading Animation</b>
+
+    Will be avalible soon
+
+
+- [ ] <b>Custom Grub and plymouth theme</b>
+
+    Will be avalible soon
+
+- [ ] <b>Variable Animations for different time of the day</b>:
+      
+    Will be avalible soon
+
+- [ ] <b>Install Script</b>:
+      
+    Will be avalible soon
+
+
+
+
+
 
 ## Issues and Contribution
 
