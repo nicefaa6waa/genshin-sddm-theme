@@ -10,50 +10,98 @@ will be shown based on the time on your OS.
 
 You can change almost all the colors within the 'theme.conf' file.More color options will be added in the future
 
-- [x] <b>Animated Background</b>:
+<details>
+  <summary><b>⚙️Animated Background (1/2)</b></summary>
+    
+- [x] Uncompressed Videos
+    - [x] Morning Background
+    - [x] Sunlight Backround
+    - [x] Night Background
+- [x] Compressed Videos
+    - [x] Morning Background
+    - [ ] Sunlight Background
+    - [x] Night Background
+</details>
 
-    Animated Background that goes on infinite loop.
 
-- [x] <b>Login Menu</b>:
+<details>
+  <summary>✔️<b>Login Menu (4/4)</b></summary>
 
-    One by one replica of genshins login menu.
+- [x] Login Background
+- [x] Username Area
+- [x] Password Area
+- [x] Github and Linkedin Credits
+</details>
 
-- [x] <b>Power Menu</b>:
+
+<details>
+   <summary>✔️<b>Power Menu (2/2)</b></summary>
+    
+- [x] Mouse Area
+- [x] Pop-Up Menu
+   - [x] Shutdown
+   - [x] Restart
+   - [x] Sleep
+</details>
       
-    Ability to sleep,shut-down or restart the os.
-
-- [x] <b>Session Menu</b>:
+<details>
+   <summary>✔️<b>Session Menu (2/2)</b></summary>
+    
+- [x] Mouse Area
+- [x] Pop Up Menu
+   - [x] Ability to choose session
+</details>
       
-    Ability to choose a session
+<details>
+<summary><b>⚙️Date&Time Menu (0/1)</b></summary>
 
-- [ ] <b>Date&Time Menu</b>:
+- [ ] Layout
+</details>
       
-    Ability to see date and time on main meu
+<details>
+   <summary><b>⚙️gDoor Animation (2/5)</b></summary>
 
-- [ ] <b>Door Animation</b>
+- [x] Function to validate Username and Password
+- [x] fragmentShader config for Transparent videos
+- [ ] Door Videos
+    - [x] Morning Door
+    - [ ] Sunlight Door
+    - [ ] Night Door
+- [ ] Transparent Videos
+    - [x] Morning Door
+    - [ ] Sunlight Door
+    - [ ] Night Door
+- [ ] Encoded Videos
+    - [x] Morning Door
+    - [ ] Sunlight Door
+    - [ ] Night Door
+</details>
 
-    Will be avalible soon
-
-- [ ] <b>Loading Animation</b>
-
-    Will be avalible soon
 
 
-- [ ] <b>Custom Grub and plymouth theme</b>
+<details>
+    <summary><b>⚙️Loading Animation (0/1)</b></summary>
+    
+- [ ] Loading Animation
+</details>
 
-    Will be avalible soon
+<details>
+    <summary><b>⚙️Variable Animations for different time of the day (1/3)</b></summary>
 
-- [ ] <b>Variable Animations for different time of the day</b>:
+- [x] Morning Animations
+- [ ] Sunlight Animations
+- [ ] Night Animations
+</details>
+
+
+❌ ~~<b>Custom Grub and plymouth theme</b>~~ (Maybe Later)
+
+
+❌ ~~<b>Install Script</b>~~ (Maybe Later)
+
+
+❌ ~~<b>Custom swaylock and wlogout theme</b>~~ (Maybe Later)
       
-    Will be avalible soon
-
-- [ ] <b>Install Script</b>:
-      
-    Will be avalible soon
-
-
-
-
 
 
 ## Issues and Contribution
