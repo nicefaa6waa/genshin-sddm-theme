@@ -166,9 +166,9 @@ After that install and unzip various backgronud videos.Choose the one you like a
 Then unzip the downloaded folder to your themes folder.In order to do so:
 ```bash
 For Uncompressed zip
-sudo unzip -q -d /usr/share/sddm/themes/2/backgrounds/ ~/Downloads/Uncompressed*.zip
+sudo unzip -q -d /usr/share/sddm/themes/genshin-sddm-theme/backgrounds/ ~/Downloads/Uncompressed*.zip
 For Compressed zip
-sudo unzip -q -d /usr/share/sddm/themes/2/backgrounds/ ~/Downloads/Compressed*.zip
+sudo unzip -q -d /usr/share/sddm/themes/genshin-sddm-theme/backgrounds/ ~/Downloads/Compressed*.zip
 ```
 
 I HIGHLY RECOMMEND TESTING FIRST.
