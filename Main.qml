@@ -8,6 +8,20 @@ Item {
     id: root
     height: Screen.height
     width: Screen.width
+
+    function getTimeOfDay() {
+        var currentTime = new Date();
+        var hours = currentTime.getHours();
+
+        if (hours >= 6 && hours < 12) {
+            return "sunrisebg.mp4";
+        } else if (hours >= 12 && hours < 18) {
+            return "morningbg.mp4";
+        } else {
+            return "nightbg.mp4";
+        }
+    }
+	
     MouseArea {
     id: clickArea
     anchors.fill: parent
@@ -19,7 +33,7 @@ Item {
 
     MediaPlayer {
         id: videoPlayer1
-        source: "/usr/share/sddm/themes/genshin-sddm-theme/sunlightbg.mp4"
+        source: "/usr/share/sddm/themes/genshin-sddm-theme/backgrounds" + getTimeOfDay()
         autoPlay: true
         muted: false
         volume: 1.0
