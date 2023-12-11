@@ -1,8 +1,7 @@
 # Genshin Sddm Theme
 
 An animated genshin sddm-theme, comes with animated background
-implemented changing backgrounds for the time of day. 
-(will be added in the future)With every login-session,new wallpaper
+implemented changing backgrounds for the time of day.With every login-session,new wallpaper
 will be shown based on the time on your OS. 
 
 ![](preview/2.png)
@@ -156,15 +155,20 @@ cd
 git clone https://github.com/nicefaa6waa/genshin-sddm-theme.git
 sudo cp -r genshin-sddm-theme /usr/share/sddm/themes/
 ```
-After that install the background file.(700+Mb for high-bitrate 1080p lossles video)
+After that install and unzip various backgronud videos.Choose the one you like and download as a zip.
+
+(2,3GB for Uncompressed videos.~400mb For compressed ones)
 
 
 [Google Drive](https://drive.google.com/file/d/19Z3NEZn-dg8KSQkk1vRF4KmI5S7ztSeP/view?usp=sharing)
 
 
-Then copy the downloaded video to your theme folder.In order to do this first cd to your downloads folder.Then
+Then unzip the downloaded folder to your themes folder.In order to do so:
 ```bash
-sudo cp -r sunlightbg.mp4 /usr/share/sddm/themes/genshin-sddm-theme
+For Uncompressed zip
+sudo unzip -q -d /usr/share/sddm/themes/2/backgrounds/ ~/Downloads/Uncompressed*.zip
+For Compressed zip
+sudo unzip -q -d /usr/share/sddm/themes/2/backgrounds/ ~/Downloads/Compressed*.zip
 ```
 
 I HIGHLY RECOMMEND TESTING FIRST.
