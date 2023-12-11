@@ -59,7 +59,7 @@ You can change almost all the colors within the 'theme.conf' file.More color opt
 </details>
       
 <details>
-   <summary><b>⚙️gDoor Animation (2/5)</b></summary>
+   <summary><b>⚙️Door Animation (2/5)</b></summary>
 
 - [x] Function to validate Username and Password
 - [x] fragmentShader config for Transparent videos
