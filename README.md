@@ -11,7 +11,7 @@ will be shown based on the time on your OS.
 You can change almost all the colors within the 'theme.conf' file.More color options will be added in the future
 
 <details>
-  <summary><b>✔️Animated Background (1/2)</b></summary>
+  <summary><b>✔️Animated Background (2/2)</b></summary>
     
 - [x] Uncompressed Videos
     - [x] Morning Background
