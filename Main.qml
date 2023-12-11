@@ -19,7 +19,7 @@ Item {
 
     MediaPlayer {
         id: videoPlayer1
-        source: "/usr/share/sddm/themes/genshin-sddm-theme/1.mp4"
+        source: "/usr/share/sddm/themes/genshin-sddm-theme/sunlightbg.mp4"
         autoPlay: true
         muted: false
         volume: 1.0
