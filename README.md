@@ -164,7 +164,7 @@ After that install the background file.(700+Mb for high-bitrate 1080p lossles vi
 
 Then copy the downloaded video to your theme folder.In order to do this first cd to your downloads folder.Then
 ```bash
-sudo cp -r 1.mp4 /usr/share/sddm/themes/genshin-sddm-theme
+sudo cp -r sunlightbg.mp4 /usr/share/sddm/themes/genshin-sddm-theme
 ```
 
 I HIGHLY RECOMMEND TESTING FIRST.
