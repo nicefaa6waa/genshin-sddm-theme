@@ -143,9 +143,9 @@ libqt5svg5
 ```
 
 
-## Procedure to Test
+## Installing and Testing
 
-Follow the below steps to test it:
+Follow the steps below to install and test it:
 
 To test it before use you need to install this repo and copy it to your sddm themes folder.
 
