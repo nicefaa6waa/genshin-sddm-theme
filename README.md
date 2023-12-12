@@ -5,7 +5,7 @@ implemented changing backgrounds for the time of day.With every login-session,ne
 will be shown based on the time on your OS. 
 
 ![](preview/2.png)
-## Features
+## Features (71.87% Completed)
 
 You can change almost all the colors within the 'theme.conf' file.More color options will be added in the future
 
@@ -65,15 +65,25 @@ You can change almost all the colors within the 'theme.conf' file.More color opt
 - [ ] Door Videos
     - [x] Morning Door
     - [ ] Sunlight Door
-    - [ ] Night Door
+    - [x] Night Door
 - [ ] Transparent Videos
     - [x] Morning Door
     - [ ] Sunlight Door
-    - [ ] Night Door
+    - [x] Night Door
 - [ ] Encoded Videos
-    - [x] Morning Door
+
+      ❌ Transparent MOV (Didn't work)
+      
+      ❌ Transparent Webm (Didn't work)
+      
+      ❌ Custom Function For Png Sequence (Didn't work)
+      
+     ✔️ Currently fragmentShader config with black background kind of works but looks weird.Will try to find a better solution in the future.
+      
+    - [ ] Morning Door
     - [ ] Sunlight Door
     - [ ] Night Door
+
 </details>
 
 
