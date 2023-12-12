@@ -211,4 +211,4 @@ If you are new and you don't know how to change the SDDM theme, follow these ste
 
 ## Credits
 
-This is the modified version of [prasanthrangan's corner theme](https://github.com/prasanthrangan/hyprdots) for hyprland
+This is the modified version of [aczw's corner theme](https://github.com/aczw/sddm-theme-corners)
