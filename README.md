@@ -5,7 +5,7 @@ implemented changing backgrounds for the time of day.With every login-session,ne
 will be shown based on the time on your OS. 
 
 ![](preview/2.png)
-## Features (71.87% Completed)
+## Features (74.68% Completed)
 
 You can change almost all the colors within the 'theme.conf' file.More color options will be added in the future
 
@@ -62,7 +62,7 @@ You can change almost all the colors within the 'theme.conf' file.More color opt
 
 - [x] Function to validate Username and Password
 - [x] fragmentShader config for Transparent videos
-- [ ] Door Videos
+- [x] Door Videos
     - [x] Morning Door
     - [x] Sunlight Door
     - [x] Night Door
