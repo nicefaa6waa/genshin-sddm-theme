@@ -64,11 +64,11 @@ You can change almost all the colors within the 'theme.conf' file.More color opt
 - [x] fragmentShader config for Transparent videos
 - [ ] Door Videos
     - [x] Morning Door
-    - [ ] Sunlight Door
+    - [x] Sunlight Door
     - [x] Night Door
-- [ ] Transparent Videos
+- [x] Transparent Videos
     - [x] Morning Door
-    - [ ] Sunlight Door
+    - [x] Sunlight Door
     - [x] Night Door
 - [ ] Encoded Videos
 
