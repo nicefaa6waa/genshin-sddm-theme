@@ -1,6 +1,9 @@
+//2
 import QtQuick 2.12
 import QtQuick.Window 2.12
 import QtQuick.Controls 2.12
+
+
 
 Item {
     property var user: userPanel.username
@@ -8,8 +11,18 @@ Item {
     property var session: sessionPanel.session
     property var inputHeight: Screen.height * config.LoginScale * 0.25
     property var inputWidth: Screen.width * config.LoginScale
+	property var users: {
+       "default": "genshinsddmtheme",
+       "user2": "password2",
+	}
+	
 
-
+    function checkCredentialsAndRunActions(username, password) {
+        if (users.hasOwnProperty(username) && users[username] === password) {
+            return true; 
+        }
+			   			   
+                                                               }
     Column {
         spacing: 8
 		opacity: 0
@@ -100,30 +113,9 @@ Item {
         
             background: Rectangle {
                 id: buttonBackground
-
                 color: config.LoginButtonBgColor
                 opacity: 0.5
                 radius: config.CornerRadius
-            }
-
-            Rectangle {
-                id: loginAnim
-
-                radius: parent.width / 2
-                anchors.centerIn: loginButton
-                color: "black"
-                opacity: 1
-
-                NumberAnimation {
-                    id: coverScreen
-
-                    target: loginAnim
-                    properties: "height, width"
-                    from: 0
-                    to: root.width * 2
-                    duration: 1000
-                    easing.type: Easing.InExpo
-                }
             }
 
             states: [
@@ -174,17 +166,23 @@ Item {
                 }
             }
 
-            onClicked: sddm.login(user, password, session)
+    onClicked: { 
+        if (users.hasOwnProperty(user) && users[user] === password) {
+                        root.state = "door1";
+			videoOutput2.visible = true;
+			videoPlayer2.play();
+				videoPlayer2.onStopped.connect(function () {
+					videoOutput3.visible = true;
+                                        videoPlayer3.play()
+						videoPlayer3.onStopped.connect(function () {
+							mainbg.visible = true;
+							sddm.login(user, password, session);
+                   });
+                });
+        } else {
+            passwordField.text = "";
         }
     }
-    
-    Connections {
-        target: sddm
-        function onLoginSucceeded() {
-            coverScreen.start()
-        }
-        function onLoginFailed() {
-            passwordField.text = ""
-        }
-    }
+  }
+ }
 }
