@@ -5,7 +5,7 @@ implemented changing backgrounds for the time of day.With every login-session,ne
 will be shown based on the time on your OS. 
 
 ![](preview/2.png)
-## Features (74.68% Completed)
+## Features (85% Completed)
 
 You can change almost all the colors within the 'theme.conf' file.More color options will be added in the future
 
@@ -58,7 +58,7 @@ You can change almost all the colors within the 'theme.conf' file.More color opt
 </details>
       
 <details>
-   <summary><b>⚙️Door Animation (2/5)</b></summary>
+   <summary>✔️<b>Door Animation (5/5)</b></summary>
 
 - [x] Function to validate Username and Password
 - [x] fragmentShader config for Transparent videos
@@ -70,7 +70,7 @@ You can change almost all the colors within the 'theme.conf' file.More color opt
     - [x] Morning Door
     - [x] Sunlight Door
     - [x] Night Door
-- [ ] Encoded Videos
+- [x] Encoded Videos
 
       ❌ Transparent MOV (Didn't work)
       
@@ -80,26 +80,26 @@ You can change almost all the colors within the 'theme.conf' file.More color opt
       
      ✔️ Currently fragmentShader config with black background kind of works but looks weird.Will try to find a better solution in the future.
       
-    - [ ] Morning Door
-    - [ ] Sunlight Door
-    - [ ] Night Door
+    - [x] Morning Door
+    - [x] Sunlight Door
+    - [x] Night Door
 
 </details>
 
 
 
 <details>
-    <summary><b>⚙️Loading Animation (0/1)</b></summary>
-    
-- [ ] Loading Animation
+    <summary>✔️<b>Loading Animation (1/1)</b></summary>
+  
+- [x] 1:1 Replica of Genshins Loading animation when you succesfully log in.
 </details>
 
 <details>
-    <summary><b>⚙️Variable Animations for different time of the day (1/3)</b></summary>
+    <summary>✔️<b>Variable Animations for different time of the day (1/3)</b></summary>
 
 - [x] Morning Animations
-- [ ] Sunlight Animations
-- [ ] Night Animations
+- [x] Sunlight Animations
+- [x] Night Animations
 </details>
 
 
