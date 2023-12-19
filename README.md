@@ -145,6 +145,12 @@ libqt5svg5
 
 ## Installing and Testing
 
+#__!IMPORTANT NOTE!__
+Default username is `default` and default password is `genshinsddmtheme`
+In order to add your username and password you have to edit `users` property in `LoginPanel.qml`.Replace `user2` with your username and `password2` with your password.I know it is not secure to save username and password in a file so I will add encryption in install script later
+
+
+
 Follow the steps below to install and test it:
 
 To test it before use you need to install this repo and copy it to your sddm themes folder.
@@ -194,7 +200,9 @@ sddm-greeter --test-mode --theme genshin-sddm-theme
 
 If you are new and you don't know how to change the SDDM theme, follow these steps:
 
-1. Edit the config file in '/etc/sddm.conf'. If you don't have 'sddm.conf' file, then copy it from '/usr/lib/sddm/default.conf'. If you are on hyprdots, then the config file will be in '/etc/sddm.conf.d/kde_settings.conf'.
+If you are on KDE Plasma you can easily change sddm theme from settings.If you use something else
+
+1. Edit the config file in '/etc/sddm.conf'. If you don't have 'sddm.conf' file, then copy it from '/usr/lib/sddm/default.conf'. If you are on hyprdots, then the config file will be in '/etc/sddm.conf.d/kde_settings.conf'.Furthermore you may have kde_settings.conf in your current active sddm theme.
 
     ```bash
     sudo nano /path/to/your/config/file
