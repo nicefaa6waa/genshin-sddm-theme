@@ -102,6 +102,13 @@ You can change almost all the colors within the 'theme.conf' file.More color opt
 - [x] Night Animations
 </details>
 
+<details>
+  <summary><b>⚙️Custom songs and Music Player (0/2)</b></summary>
+
+- [ ] List of custom songs
+- [ ] Music Player on login screen to change the currently playing song
+</details>
+
 
 ❌ ~~<b>Custom Grub and plymouth theme</b>~~ (Maybe Later)
 
