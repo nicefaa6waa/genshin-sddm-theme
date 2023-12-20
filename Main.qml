@@ -9,9 +9,6 @@ Item {
     id: root
     height: Screen.height
     width: Screen.width
-	property int currentIndex: 1
-    property int totalFrames: 393
-	property int i: 0
 	
     function getTimeOfDay() {
         var currentTime = new Date();
@@ -30,14 +27,16 @@ Item {
     id: clickArea
     anchors.fill: parent
     onClicked: {
+
         if (root.state === "door") {
+
         } else {
             root.state = "login";
                }
              }
            }
 	 
-  
+
 	Image {
         id: mainbg
         anchors.fill: parent
@@ -52,6 +51,7 @@ Item {
 	    z : 3
 	    visible : false
     }
+
 	
     MediaPlayer {
     id: musicPlayer
@@ -62,12 +62,15 @@ Item {
     autoPlay: true
     }
 
+
     MediaPlayer {
         id: videoPlayer1
         source: "/usr/share/sddm/themes/genshin-sddm-theme/backgrounds/" + getTimeOfDay() + "bg.mp4"
         autoPlay: true
         muted: true
+
 		volume: 1.0
+
         loops: -1
     }
 
@@ -99,6 +102,7 @@ Item {
     width: 1920
     height: 1080
     visible: false
+
     z: 3
     layer.enabled: true
     layer.effect: ShaderEffect {
@@ -133,6 +137,7 @@ Item {
         width: 1920
         height: 1080
 		visible: false
+
         z: 3
     }
 			

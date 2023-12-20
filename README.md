@@ -7,6 +7,7 @@ will be shown based on the time on your OS.
 ![](preview/2.png)
 ## Features (90% Completed)
 
+
 You can change almost all the colors within the 'theme.conf' file.More color options will be added in the future
 
 <details>
@@ -97,9 +98,19 @@ You can change almost all the colors within the 'theme.conf' file.More color opt
 <details>
     <summary>✔️<b>Variable Animations for different time of the day (3/3)</b></summary>
 
+
 - [x] Morning Animations
 - [x] Sunlight Animations
 - [x] Night Animations
+  
+</details>
+
+<details>
+  <summary><b>⚙️Custom songs and Music Player (0/2)</b></summary>
+
+- [ ] List of custom songs
+- [ ] Music Player on login screen to change the currently playing song
+
 </details>
 
 
@@ -163,6 +174,12 @@ If you want manual installation:
 <summary><b>⚙️Manual Installation Instructions </b></summary>
 
 
+#__!IMPORTANT NOTE!__
+Default username is `default` and default password is `genshinsddmtheme`
+In order to add your username and password you have to edit `users` property in `LoginPanel.qml`.Replace `user2` with your username and `password2` with your password.I know it is not secure to save username and password in a file so I will add encryption in install script later
+
+
+
 Follow the steps below to install and test it:
 
 To test it before use you need to install this repo and copy it to your sddm themes folder.
@@ -212,7 +229,9 @@ sddm-greeter --test-mode --theme genshin-sddm-theme
 
 If you are new and you don't know how to change the SDDM theme, follow these steps:
 
-1. Edit the config file in '/etc/sddm.conf'. If you don't have 'sddm.conf' file, then copy it from '/usr/lib/sddm/default.conf'. If you are on hyprdots, then the config file will be in '/etc/sddm.conf.d/kde_settings.conf'.
+If you are on KDE Plasma you can easily change sddm theme from settings.If you use something else
+
+1. Edit the config file in '/etc/sddm.conf'. If you don't have 'sddm.conf' file, then copy it from '/usr/lib/sddm/default.conf'. If you are on hyprdots, then the config file will be in '/etc/sddm.conf.d/kde_settings.conf'.Furthermore you may have kde_settings.conf in your current active sddm theme.
 
     ```bash
     sudo nano /path/to/your/config/file

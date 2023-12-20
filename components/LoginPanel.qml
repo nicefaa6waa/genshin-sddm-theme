@@ -74,6 +74,7 @@ Item {
 }
 	
 
+
     Column {
         spacing: 8
 		opacity: 0
