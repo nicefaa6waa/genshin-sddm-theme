@@ -51,16 +51,16 @@ function downloadFolder {
     read -p "Enter your choice: " choice
 
     if [ "$choice" = "c" ]; then
-        output="backgrounds/morningbg.mp4"
+        output="backgrounds/sunrisebg.mp4"
 		output2="backgrounds/nightbg.mp4"
-        output3="backgrounds/sunrisebg.mp4"
+        output3="backgrounds/morningbg.mp4"
 		file_id="1D_W1t5TKsqjseavUu1pc5cbLd2IhGQML"
 		file2_id="1N_WUU9oHWUKI5MNsVQVZ17v_X9iN5JQt"
 		file3_id="1beMx8c8DQ0oKDLJFdQE58HNqNLYjL49P"
     elif [ "$choice" = "u" ]; then
-        output="backgrounds/morningbg.mp4"
+        output="backgrounds/sunrisebg.mp4"
 		output2="backgrounds/nightbg.mp4"
-        output3="backgrounds/sunrisebg.mp4"
+        output3="backgrounds/morningbg.mp4"
 		file_id="19Z3NEZn-dg8KSQkk1vRF4KmI5S7ztSeP"
 		file2_id="1epHfOy7dXPeA-LC2MjZ_k6IqH6XimSVO"
 		file3_id="1htirTt5Nuj-tN1kKIhg4z-KMtdWWwMJ8"
