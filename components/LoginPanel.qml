@@ -58,10 +58,8 @@ Item {
 	function checkAndLogin() {
     if (credentialsLoaded && checkCredentials(user, password)) {
         root.state = "door";
-        videoOutput2.visible = true;
         videoPlayer2.play();
         videoPlayer2.onStopped.connect(function () {
-            videoOutput3.visible = true;
             videoPlayer3.play();
             videoPlayer3.onStopped.connect(function () {
                 sddm.login(user, password, session);
