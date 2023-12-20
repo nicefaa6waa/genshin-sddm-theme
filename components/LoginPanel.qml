@@ -11,18 +11,70 @@ Item {
     property var session: sessionPanel.session
     property var inputHeight: Screen.height * config.LoginScale * 0.25
     property var inputWidth: Screen.width * config.LoginScale
-	property var users: {
-       "default": "genshinsddmtheme",
-       "user2": "password2",
+	property var users: []
+	property var credentialsLoaded: false
+	
+	
+	function loadCredentials(callback) {
+	    users = [];
+				
+    	var file = Qt.resolvedUrl("credentials.txt");
+
+    	var xhr = new XMLHttpRequest();
+    	xhr.onreadystatechange = function() {
+        	if (xhr.readyState === XMLHttpRequest.DONE) {
+            	if (xhr.status === 200) {
+                	var fileContent = xhr.responseText.split("\n");
+
+                	for (var i = 0; i < fileContent.length; i++) {
+                    	var credentials = fileContent[i].split(":");
+                    	if (credentials.length === 2) {
+                        	users.push({ "username": credentials[0], "password": credentials[1] });
+                    	}
+                	}
+					credentialsLoaded = true;
+					callback();
+            	} else {
+                	console.error("Failed to load credentials file: " + file + ", status: " + xhr.status);
+            	}
+        	}
+    	};
+
+    	xhr.open("GET", file);
+    	xhr.send();
+	}
+    
+	function checkCredentials(username, password) {
+    for (var i = 0; i < users.length; ++i) {
+        if (users[i].username === username && users[i].password === password) {
+            console.log("Credentials are valid for user: " + username);
+            return true; // Credentials are valid
+        }
+    }
+    console.log("Invalid credentials for user: " + username);
+    return false;
 	}
 	
+	function checkAndLogin() {
+    if (credentialsLoaded && checkCredentials(user, password)) {
+        root.state = "door1";
+        videoOutput2.visible = true;
+        videoPlayer2.play();
+        videoPlayer2.onStopped.connect(function () {
+            videoOutput3.visible = true;
+            videoPlayer3.play();
+            videoPlayer3.onStopped.connect(function () {
+                mainbg.visible = true;
+                sddm.login(user, password, session);
+            });
+        });
+    } else {
+        passwordField.text = "";
+    }
+}
+	
 
-    function checkCredentialsAndRunActions(username, password) {
-        if (users.hasOwnProperty(username) && users[username] === password) {
-            return true; 
-        }
-			   			   
-                                                               }
+
     Column {
         spacing: 8
 		opacity: 0
@@ -167,21 +219,7 @@ Item {
             }
 
     onClicked: { 
-        if (users.hasOwnProperty(user) && users[user] === password) {
-                        root.state = "door1";
-			videoOutput2.visible = true;
-			videoPlayer2.play();
-				videoPlayer2.onStopped.connect(function () {
-					videoOutput3.visible = true;
-                                        videoPlayer3.play()
-						videoPlayer3.onStopped.connect(function () {
-							mainbg.visible = true;
-							sddm.login(user, password, session);
-                   });
-                });
-        } else {
-            passwordField.text = "";
-        }
+    	loadCredentials(checkAndLogin);
     }
   }
  }
