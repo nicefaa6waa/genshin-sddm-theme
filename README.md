@@ -95,7 +95,7 @@ You can change almost all the colors within the 'theme.conf' file.More color opt
 </details>
 
 <details>
-    <summary>✔️<b>Variable Animations for different time of the day (1/3)</b></summary>
+    <summary>✔️<b>Variable Animations for different time of the day (3/3)</b></summary>
 
 - [x] Morning Animations
 - [x] Sunlight Animations
