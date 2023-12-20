@@ -49,7 +49,7 @@ Item {
         mipmap: true
         clip: true
 	    z : 3
-	    visible : false
+	    visible : true
     }
 
 	
@@ -101,7 +101,7 @@ Item {
     source: videoPlayer2
     width: 1920
     height: 1080
-    visible: false
+    visible: true
 
     z: 3
     layer.enabled: true
@@ -136,7 +136,7 @@ Item {
         source: videoPlayer3
         width: 1920
         height: 1080
-		visible: false
+		visible: true
 
         z: 3
     }
