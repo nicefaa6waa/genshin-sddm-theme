@@ -64,7 +64,6 @@ Item {
             videoOutput3.visible = true;
             videoPlayer3.play();
             videoPlayer3.onStopped.connect(function () {
-                mainbg.visible = true;
                 sddm.login(user, password, session);
             });
         });
