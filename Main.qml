@@ -9,6 +9,9 @@ Item {
     id: root
     height: Screen.height
     width: Screen.width
+	property int currentIndex: 1
+    property int totalFrames: 393
+	property int i: 0
 	
     function getTimeOfDay() {
         var currentTime = new Date();
@@ -27,14 +30,14 @@ Item {
     id: clickArea
     anchors.fill: parent
     onClicked: {
-        if (root.state === "door1") {
+        if (root.state === "door") {
         } else {
             root.state = "login";
                }
              }
            }
 	 
-    
+  
 	Image {
         id: mainbg
         anchors.fill: parent
@@ -49,12 +52,22 @@ Item {
 	    z : 3
 	    visible : false
     }
+	
+    MediaPlayer {
+    id: musicPlayer
+    source: "/usr/share/sddm/themes/genshin-sddm-theme/sounds/snow_buried_tales.mp3"
+    volume: 1.0
+    muted: false
+    loops: MediaPlayer.Infinite
+    autoPlay: true
+    }
 
     MediaPlayer {
         id: videoPlayer1
         source: "/usr/share/sddm/themes/genshin-sddm-theme/backgrounds/" + getTimeOfDay() + "bg.mp4"
         autoPlay: true
         muted: true
+		volume: 1.0
         loops: -1
     }
 
@@ -67,7 +80,7 @@ Item {
 
     MediaPlayer {
         id: videoPlayer3
-        source: "/usr/share/sddm/themes/2/backgrounds/loading.mp4"
+        source: "/usr/share/sddm/themes/genshin-sddm-theme/backgrounds/loading.mp4"
         autoPlay: false
         muted: true
     }	
@@ -85,7 +98,7 @@ Item {
     source: videoPlayer2
     width: 1920
     height: 1080
-    visible: true
+    visible: false
     z: 3
     layer.enabled: true
     layer.effect: ShaderEffect {
@@ -119,7 +132,7 @@ Item {
         source: videoPlayer3
         width: 1920
         height: 1080
-	visible: false
+		visible: false
         z: 3
     }
 			
