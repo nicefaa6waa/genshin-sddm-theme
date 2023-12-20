@@ -5,7 +5,7 @@ implemented changing backgrounds for the time of day.With every login-session,ne
 will be shown based on the time on your OS. 
 
 ![](preview/2.png)
-## Features (85% Completed)
+## Features (90% Completed)
 
 You can change almost all the colors within the 'theme.conf' file.More color options will be added in the future
 
@@ -103,10 +103,18 @@ You can change almost all the colors within the 'theme.conf' file.More color opt
 </details>
 
 
+<details>
+    <summary>✔️ <b>Install Script</b> (3/3)</summary>
+
+- [x] Auto-download videos
+- [x] Add Users
+- [x] Change current theme
+</details>
+
+
+
 ❌ ~~<b>Custom Grub and plymouth theme</b>~~ (Maybe Later)
 
-
-❌ ~~<b>Install Script</b>~~ (Maybe Later)
 
 
 ❌ ~~<b>Custom swaylock and wlogout theme</b>~~ (Maybe Later)
@@ -144,6 +152,16 @@ libqt5svg5
 
 
 ## Installing and Testing
+Installation just got easier.Just clone this repo then cd into repo and run installer.
+```bash
+git clone https://github.com/nicefaa6waa/genshin-sddm-theme.git
+cd genshin-sddm-theme
+bash install-sddm-theme.sh
+```
+If you want manual installation:
+<details>
+<summary><b>⚙️Manual Installation Instructions </b></summary>
+
 
 Follow the steps below to install and test it:
 
@@ -208,6 +226,7 @@ If you are new and you don't know how to change the SDDM theme, follow these ste
     ```
 
 3. Change your theme to `genshin-sddm-theme`.
+</details>
 
 ## Credits
 
