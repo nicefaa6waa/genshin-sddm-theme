@@ -169,14 +169,16 @@ git clone https://github.com/nicefaa6waa/genshin-sddm-theme.git
 cd genshin-sddm-theme
 bash install-sddm-theme.sh
 ```
+After installing and testing if it says invalid credentials on log that means you mistyped the password while installing.To fix this just go to /usr/share/sddm/themes/genshin-sddm-theme/components/credentials.txt and correct the second password.
+
+
 If you want manual installation:
 <details>
 <summary><b>⚙️Manual Installation Instructions </b></summary>
 
 
 #__!IMPORTANT NOTE!__
-Default username is `default` and default password is `genshinsddmtheme`
-In order to add your username and password you have to edit `users` property in `LoginPanel.qml`.Replace `user2` with your username and `password2` with your password.I know it is not secure to save username and password in a file so I will add encryption in install script later
+edit credentials.txt like username:password to be able to login.
 
 
 
