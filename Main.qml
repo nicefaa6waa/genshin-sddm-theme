@@ -48,7 +48,7 @@ Item {
         cache: true
         mipmap: true
         clip: true
-	    z : 3
+	    z : 1
 	    visible : true
     }
 
