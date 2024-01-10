@@ -145,20 +145,17 @@ Install sddm(Simple Desktop Display Manager).You also need QT5 which includes Qt
 For **Arch** based distros using **pacman**
 (Obarun/Artix/Manjaro/KaOS/Chakra etc.)
 ```bash
-sudo pacman -S --needed sddm
-qt5‑graphicaleffects
-qt5‑quickcontrols2
-qt5‑svg
+sudo pacman -S gst-libav phonon-qt5-gstreamer gst-plugins-good qt5-quickcontrols qt5-graphicaleffects qt5-multimedia
 ```
 For **Debian** based distros using **apt**
-(Ubuntu/Kubuntu/Kali/Neon/antiX etc.)
+(Ubuntu/Kali/Neon/antiX etc.Excluding Kubuntu)
 ```bash
-sudo apt install ‑‑no‑install‑recommends
-sddm
-qml‑module‑qtquick‑layouts
-qml‑module‑qtgraphicaleffects
-qml‑module‑qtquick‑controls2
-libqt5svg5
+sudo apt-get install gstreamer1.0-libav qml-module-qtmultimedia libqt5multimedia5-plugins
+```
+
+For **Kubuntu** using **apt**
+```bash
+sudo apt install gstreamer1.0-libav phonon4qt5-backend-gstreamer gstreamer1.0-plugins-good qml-module-qtquick-controls qml-module-qtgraphicaleffects qml-module-qtmultimedia qt5-default
 ```
 
 
