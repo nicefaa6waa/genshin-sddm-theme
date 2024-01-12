@@ -4,7 +4,9 @@ An animated genshin sddm-theme, comes with animated background
 implemented changing backgrounds for the time of day.With every login-session,new wallpaper
 will be shown based on the time on your OS. 
 
-![](preview/2.png)
+![](preview/image1.png)
+
+
 ## Features (90% Completed)
 
 
@@ -21,6 +23,8 @@ You can change almost all the colors within the 'theme.conf' file.More color opt
     - [x] Morning Background
     - [x] Sunlight Background
     - [x] Night Background
+![](preview/image.png)
+
 </details>
 
 
@@ -31,6 +35,9 @@ You can change almost all the colors within the 'theme.conf' file.More color opt
 - [x] Username Area
 - [x] Password Area
 - [x] Github and Linkedin Credits
+      
+![](preview/image4.png)
+
 </details>
 
 
@@ -42,6 +49,8 @@ You can change almost all the colors within the 'theme.conf' file.More color opt
    - [x] Shutdown
    - [x] Restart
    - [x] Sleep
+  ![](preview/image3.png)
+
 </details>
       
 <details>
@@ -50,6 +59,9 @@ You can change almost all the colors within the 'theme.conf' file.More color opt
 - [x] Mouse Area
 - [x] Pop Up Menu
    - [x] Ability to choose session
+         
+  ![](preview/image2.png)
+
 </details>
       
 <details>
@@ -84,6 +96,7 @@ You can change almost all the colors within the 'theme.conf' file.More color opt
     - [x] Morning Door
     - [x] Sunlight Door
     - [x] Night Door
+   ![](preview/image5.png)
 
 </details>
 
@@ -93,6 +106,8 @@ You can change almost all the colors within the 'theme.conf' file.More color opt
     <summary>✔️<b>Loading Animation (1/1)</b></summary>
   
 - [x] 1:1 Replica of Genshins Loading animation when you succesfully log in.
+      ![](preview/image6.png)
+
 </details>
 
 <details>
