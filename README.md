@@ -53,9 +53,9 @@ You can change almost all the colors within the 'theme.conf' file.More color opt
 </details>
       
 <details>
-<summary><b>⚙️Date&Time Menu (0/1)</b></summary>
+<summary><b>✔️Date&Time Menu (1/1)</b></summary>
 
-- [ ] Layout
+- [x] Layout
 </details>
       
 <details>
@@ -106,10 +106,10 @@ You can change almost all the colors within the 'theme.conf' file.More color opt
 </details>
 
 <details>
-  <summary><b>⚙️Custom songs and Music Player (0/2)</b></summary>
+  <summary><b>✔️Custom songs and Music Player (2/2)</b></summary>
 
-- [ ] List of custom songs
-- [ ] Music Player on login screen to change the currently playing song
+- [x] List of custom songs
+- [x] Music Player on login screen to change the currently playing song
 
 </details>
 
@@ -161,6 +161,7 @@ sudo apt install gstreamer1.0-libav phonon4qt5-backend-gstreamer gstreamer1.0-pl
 
 ## Installing and Testing
 Installation just got easier.Just clone this repo then cd into repo and run installer.
+(!IMPORTANT NOTE) For some reason video files are not avalible to download with wget,curl or even gdown anymore.Please after using install script go to [Google Drive](https://drive.google.com/drive/folders/1Yz2GxV8uvZJM16YSbE2yPRMT58H5o0Bs?usp=drive_link) link and install videos manually.More details about videos are in "Manual Installation".If you are stuck on Login Screen check wiki
 ```bash
 git clone https://github.com/nicefaa6waa/genshin-sddm-theme.git
 cd genshin-sddm-theme

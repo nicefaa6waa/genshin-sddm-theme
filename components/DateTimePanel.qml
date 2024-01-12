@@ -11,7 +11,6 @@ Column {
         opacity: config.DateOpacity
 
         renderType: Text.NativeRendering
-        font.family: config.Font
         font.pointSize: config.DateSize
         font.bold: config.DateIsBold == "true" ? true : false
         color: config.DateColor
@@ -29,7 +28,6 @@ Column {
 
         renderType: Text.NativeRendering
         font.family: config.Font
-        font.pointSize: config.TimeSize
         font.bold: config.TimeIsBold == "true" ? true : false
         color: config.TimeColor
 

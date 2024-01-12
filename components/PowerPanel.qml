@@ -21,7 +21,6 @@ Item {
         width: inputHeight
         hoverEnabled: true
 
-        icon.source: Qt.resolvedUrl("../icons/power.svg")
         icon.height: height
         icon.width: width
         icon.color: config.PowerIconColor
@@ -124,7 +123,6 @@ Item {
 
                         anchors.centerIn: parent
                         renderType: Text.NativeRendering
-                        font.family: config.Font
                         font.pointSize: config.GeneralFontSize
                         font.bold: true
                         horizontalAlignment: Text.AlignHCenter
