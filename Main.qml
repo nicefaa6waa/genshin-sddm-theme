@@ -6,9 +6,14 @@ import QtQuick.Controls 2.12
 import "components"
 
 Item {
+    property var currentSongIndex : 0
     id: root
     height: Screen.height
     width: Screen.width
+    property var songList: [
+        "snow_buried_tales.mp3","moonlike_smile.mp3","unfinished_frescoes.mp3",
+    ]
+
 	
     function getTimeOfDay() {
         var currentTime = new Date();
@@ -22,7 +27,24 @@ Item {
             return "night";
         }
     }
-	
+
+function changeSong(direction) {
+    if (direction === 1) {
+        currentSongIndex = (currentSongIndex + 1) % songList.length;
+    } else if (direction === -1) {
+        currentSongIndex = (currentSongIndex - 1 + songList.length) % songList.length;
+    }
+    
+    if (currentSongIndex === songList.length) {
+        currentSongIndex = 0;
+    }
+
+    musicPlayer.source = "/usr/share/sddm/themes/genshin-sddm-theme/sounds/" + songList[currentSongIndex];
+    console.log("/usr/share/sddm/themes/genshin-sddm-theme/sounds/" + songList[currentSongIndex]);
+    console.log(currentSongIndex);
+}
+
+
     MouseArea {
     id: clickArea
     anchors.fill: parent
@@ -48,7 +70,7 @@ Item {
         cache: true
         mipmap: true
         clip: true
-	    z : 1
+        z:1
 	    visible : true
     }
 
@@ -58,8 +80,12 @@ Item {
     source: "/usr/share/sddm/themes/genshin-sddm-theme/sounds/snow_buried_tales.mp3"
     volume: 1.0
     muted: false
-    loops: MediaPlayer.Infinite
     autoPlay: true
+    onPlaybackStateChanged: {
+        if (musicPlayer.state === MediaPlayer.EndOfMedia) {
+            changeSong(1); 
+        }
+    }
     }
 
 
@@ -159,7 +185,6 @@ Item {
 		anchors.right: parent.right	
 		anchors.rightMargin: 350
         text: "nicefaa6waa"
-		font.family: zhcn
         font.pixelSize: 15 
         color: "black"     
 		z:3
@@ -170,7 +195,6 @@ Item {
 		anchors.right: parent.right 
 		anchors.rightMargin: 80
         text: "ibrahim-mammadli"
-		font.family: zhcn
         font.pixelSize: 15 
         color: "black"   
 		z:3
@@ -179,7 +203,6 @@ Item {
 	
     Item {
         id: contentPanel
-		visible: root.state === "login"
 		z:3
 
         anchors {
