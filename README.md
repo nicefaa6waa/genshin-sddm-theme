@@ -53,9 +53,9 @@ You can change almost all the colors within the 'theme.conf' file.More color opt
 </details>
       
 <details>
-<summary><b>⚙️Date&Time Menu (0/1)</b></summary>
+<summary><b>✔️Date&Time Menu (1/1)</b></summary>
 
-- [ ] Layout
+- [x] Layout
 </details>
       
 <details>
@@ -106,10 +106,10 @@ You can change almost all the colors within the 'theme.conf' file.More color opt
 </details>
 
 <details>
-  <summary><b>⚙️Custom songs and Music Player (0/2)</b></summary>
+  <summary><b>✔️Custom songs and Music Player (2/2)</b></summary>
 
-- [ ] List of custom songs
-- [ ] Music Player on login screen to change the currently playing song
+- [x] List of custom songs
+- [x] Music Player on login screen to change the currently playing song
 
 </details>
 
