@@ -74,7 +74,8 @@ Item {
 
     Column {
         spacing: 8
-		opacity: 0
+        opacity: 0
+
 
         anchors {
             bottom: parent.bottom
@@ -87,6 +88,39 @@ Item {
             id: powerPanel
         }
     }
+    
+        Column {
+        spacing: 8
+        opacity: 1
+
+
+        anchors {
+            top: parent.top
+            right: parent.right
+			topMargin: 450
+            rightMargin: 19
+        }
+
+        DateTimePanel {
+            id: dateTimePanel
+        }
+    }
+
+    Column {
+        spacing: 8
+        opacity: 1
+        anchors {
+            top: parent.top
+            left: parent.left
+			topMargin: 450
+            leftMargin: 19
+        }
+
+        PlayerPanel {
+            id: playerPanel
+        }
+    }    
+
     Column {
         spacing: 8
 		opacity: 0
@@ -108,11 +142,17 @@ Item {
         spacing: 10
         width: inputWidth + 10
         anchors.centerIn: parent
+        visible: root.state === "login"
+
 	
 
     
         UserPanel {
             id: userPanel
+            anchors.right: parent.right - 20
+            anchors.top: parent.top
+            anchors.bottom: parent.bottom
+            anchors.left: parent.left
         }
 
         PasswordPanel {
@@ -149,7 +189,6 @@ Item {
                 id: buttonText
 
                 renderType: Text.NativeRendering
-                font.family: config.Font
                 font.pointSize: config.GeneralFontSize
                 font.bold: true
                 horizontalAlignment: Text.AlignHCenter
