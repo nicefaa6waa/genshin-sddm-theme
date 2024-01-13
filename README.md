@@ -137,6 +137,7 @@ You can change almost all the colors within the 'theme.conf' file.More color opt
 - [x] Change current theme
 </details>
 
+⚙️ <b>Windows Version</b> (It may take some time, as no one has ever done something like this before.)
 
 
 ❌ ~~<b>Custom Grub and plymouth theme</b>~~ (Maybe Later)
