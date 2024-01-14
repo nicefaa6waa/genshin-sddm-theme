@@ -138,14 +138,16 @@ You can change almost all the colors within the 'theme.conf' file.More color opt
 </details>
 
 <details>
-   <summary>✔️<b>⚙️ <b>Windows Version</b> (It may take some time, as no one has ever done something like this before.) (2/2)</b></summary>
+   <summary>✔️<b> <b>Windows Version</b> (It may take some time, as no one has ever done something like this before.) (2/2)</b></summary>
     
 - [x] Re-Create whole qml theme in QT 6 Framework
 - [x] Re-Create or fix Types and Arguments
 - [x] Optimize Variables
 - [x] Change os-based settings
-- [ ] Create and executable
-- [ ] Find a way to replace windows lock screen
+- [x] Build Application
+- [x] Deploy Build
+
+Currently working on new Repo for Windows theme
 
 
 </details>
