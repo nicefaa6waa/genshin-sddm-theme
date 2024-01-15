@@ -152,6 +152,9 @@ Currently working on new Repo for Windows theme
 
 </details>
 
+⚙️ <b>Custom swaylock theme</b> (Worknig on it)
+
+
 
 ❌ ~~<b>Custom Grub and plymouth theme</b>~~ (Maybe Later)
 
