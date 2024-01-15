@@ -168,23 +168,24 @@ If you would like to contribute to this repo please do so by creating a PR. I am
 
 ## Dependencies
 
-Install sddm(Simple Desktop Display Manager).You also need QT5 which includes Qt Quick Controls 2, Qt Graphical Effects, Qt SVG, Qt Quick Layouts with version 5.11 or new.To do so 
+Install sddm(Simple Desktop Display Manager).You also need QT5 which includes Qt Quick Controls 2, Qt Graphical Effects, Qt SVG, Qt Quick Layouts with version 5.11 or new.In qt5 video loads so slow and late so you will also need qt6-base.To do so 
 
 
 For **Arch** based distros using **pacman**
 (Obarun/Artix/Manjaro/KaOS/Chakra etc.)
 ```bash
-sudo pacman -S gst-libav phonon-qt5-gstreamer gst-plugins-good qt5-quickcontrols qt5-graphicaleffects qt5-multimedia
+sudo pacman -S gst-libav phonon-qt5-gstreamer gst-plugins-good qt5-quickcontrols qt5-graphicaleffects qt5-multimedia qt6-base
+
 ```
 For **Debian** based distros using **apt**
 (Ubuntu/Kali/Neon/antiX etc.Excluding Kubuntu)
 ```bash
-sudo apt-get install gstreamer1.0-libav qml-module-qtmultimedia libqt5multimedia5-plugins
+sudo apt-get install gstreamer1.0-libav qml-module-qtmultimedia libqt5multimedia5-plugins qt6-base
 ```
 
 For **Kubuntu** using **apt**
 ```bash
-sudo apt install gstreamer1.0-libav phonon4qt5-backend-gstreamer gstreamer1.0-plugins-good qml-module-qtquick-controls qml-module-qtgraphicaleffects qml-module-qtmultimedia qt5-default
+sudo apt install gstreamer1.0-libav phonon4qt5-backend-gstreamer gstreamer1.0-plugins-good qml-module-qtquick-controls qml-module-qtgraphicaleffects qml-module-qtmultimedia qt5-default qt6-base
 ```
 
 
@@ -196,6 +197,10 @@ git clone https://github.com/nicefaa6waa/genshin-sddm-theme.git
 cd genshin-sddm-theme
 bash install-sddm-theme.sh
 ```
+
+If door video and background video is slow then just add MinimumQtVersion=6.2.0 at the end of /etc/sddm.conf file.I assume that you have qt6 installed you can check it by qmake6 --version
+
+
 After installing and testing if it says invalid credentials on log that means you mistyped the password while installing.To fix this just go to /usr/share/sddm/themes/genshin-sddm-theme/components/credentials.txt and correct the second password.
 
 
@@ -253,6 +258,8 @@ Now, assuming that you've installed it correctly to test it:
 ```bash
 sddm-greeter --test-mode --theme genshin-sddm-theme
 ```
+
+If background door and loading video loads so slow in your /etc/sddm.conf file add MinimumQtVersion=6.2.0 at the end.Make sure you have qt6 installed by runnig qmake6 --version.
 
 ## Applying
 
