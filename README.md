@@ -152,7 +152,15 @@ Currently working on new Repo for Windows theme
 
 </details>
 
-⚙️ <b>Custom swaylock theme</b> (Worknig on it)
+<details>
+    <summary>⚙️ <b>Custom lock theme</b> (Working on it)</summary>
+
+- [ ] So i will need to create my own lockscreen since swaylock won't work with widgets because of layers 
+- [ ] From this point i will mainly work on optimization,layout fixes and lock screen.
+
+
+
+</details>
 
 
 
@@ -160,7 +168,7 @@ Currently working on new Repo for Windows theme
 
 
 
-❌ ~~<b>Custom swaylock and wlogout theme</b>~~ (Maybe Later)
+❌ ~~<b>Custom and wlogout theme</b>~~ (Maybe Later)
       
 
 
