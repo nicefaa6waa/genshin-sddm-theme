@@ -42,38 +42,6 @@ function handleMultipleAccounts {
     done
 }
 
-function downloadFolder {
-    local folder_id="$1"
-    local choice="$2"
-	
-	
-	echo -e "Do you want to download a compressed (c) or uncompressed (u) folder?"
-    read -p "Enter your choice: " choice
-
-    if [ "$choice" = "c" ]; then
-        output="backgrounds/sunrisebg.mp4"
-		output2="backgrounds/nightbg.mp4"
-        output3="backgrounds/morningbg.mp4"
-		file_id="1D_W1t5TKsqjseavUu1pc5cbLd2IhGQML"
-		file2_id="1N_WUU9oHWUKI5MNsVQVZ17v_X9iN5JQt"
-		file3_id="1beMx8c8DQ0oKDLJFdQE58HNqNLYjL49P"
-    elif [ "$choice" = "u" ]; then
-        output="backgrounds/sunrisebg.mp4"
-		output2="backgrounds/nightbg.mp4"
-        output3="backgrounds/morningbg.mp4"
-		file_id="19Z3NEZn-dg8KSQkk1vRF4KmI5S7ztSeP"
-		file2_id="1epHfOy7dXPeA-LC2MjZ_k6IqH6XimSVO"
-		file3_id="1htirTt5Nuj-tN1kKIhg4z-KMtdWWwMJ8"
-    else
-        echo "Invalid choice. Exiting."
-        exit 1
-    fi
-		   
-            wget --load-cookies /tmp/cookies.txt "https://docs.google.com/uc?export=download&confirm=$(wget --quiet --save-cookies /tmp/cookies.txt --keep-session-cookies --no-check-certificate 'https://docs.google.com/uc?export=download&id=$file_id' -O- | sed -rn 's/.*confirm=([0-9A-Za-z_]+).*/\1\n/p')&id=$file_id" -O $output && rm -rf /tmp/cookies.txt
-			wget --load-cookies /tmp/cookies.txt "https://docs.google.com/uc?export=download&confirm=$(wget --quiet --save-cookies /tmp/cookies.txt --keep-session-cookies --no-check-certificate 'https://docs.google.com/uc?export=download&id=$file2_id' -O- | sed -rn 's/.*confirm=([0-9A-Za-z_]+).*/\1\n/p')&id=$file2_id" -O $output2 && rm -rf /tmp/cookies.txt
-			wget --load-cookies /tmp/cookies.txt "https://docs.google.com/uc?export=download&confirm=$(wget --quiet --save-cookies /tmp/cookies.txt --keep-session-cookies --no-check-certificate 'https://docs.google.com/uc?export=download&id=$file3_id' -O- | sed -rn 's/.*confirm=([0-9A-Za-z_]+).*/\1\n/p')&id=$file3_id" -O $output3 && rm -rf /tmp/cookies.txt
-}
-
 function testTheme {
     echo -e "\nDo you want to test the theme now?"
     select sel in "Yes" "No"; do
@@ -90,7 +58,6 @@ function createConfig {
 }
 
     handleMultipleAccounts
-	downloadFolder
 
 if sudo cp -R . $DIR; then
     echo "Theme installed in $DIR"
