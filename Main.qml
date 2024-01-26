@@ -11,7 +11,7 @@ Item {
     height: Screen.height
     width: Screen.width
     property var songList: [
-        "snow_buried_tales.mp3","moonlike_smile.mp3","unfinished_frescoes.mp3",
+        "snow_buried_tales.mp3","moonlike_smile.mp3","unfinished_frescoes.mp3","the_flourishing_past.mp3","finale_of_the_snowtomb.mp3","spin_of_the_ice_crystals.mp3","glistening_shards.mp3",
     ]
 
 	
@@ -178,7 +178,24 @@ function changeSong(direction) {
 	anchors.topMargin: 540
 	z:3
 		
-		
+    Button {
+        id: xbutton
+        anchors.top: parent.top
+        anchors.right: parent.right
+        anchors.topMargin: 15
+        anchors.rightMargin: 20
+        width: 30
+        height: width
+        onClicked: {
+            root.state = "first"
+        }
+        text: qsTr("X")
+
+        background: Rectangle {
+                color: "white" 
+        }
+    }
+    	
     Text {
         anchors.top: parent.top
 		anchors.topMargin: 385

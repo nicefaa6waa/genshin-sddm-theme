@@ -12,6 +12,11 @@ Item {
     "file:///usr/share/sddm/themes/genshin-sddm-theme/sounds/snow_buried_tales.mp3": "Snow Buried Tales",
     "file:///usr/share/sddm/themes/genshin-sddm-theme/sounds/moonlike_smile.mp3" : "Moonlike Smile",
     "file:///usr/share/sddm/themes/genshin-sddm-theme/sounds/unfinished_frescoes.mp3":"Unfinished Frescoes",
+    "file:///usr/share/sddm/themes/genshin-sddm-theme/sounds/the_flourishing_past.mp3":"The Flourishing Past",
+    "file:///usr/share/sddm/themes/genshin-sddm-theme/sounds/finale_of_the_snowtomb.mp3":"Finale of The Snowtomb",
+    "file:///usr/share/sddm/themes/genshin-sddm-theme/sounds/spin_of_the_ice_crystals.mp3":"Spin of The Ice Crystals",
+    "file:///usr/share/sddm/themes/genshin-sddm-theme/sounds/glistening_shards.mp3":"Glistening Shards",
+    
     }
 
     function currentlyPlaying() {
@@ -141,7 +146,7 @@ Item {
                     anchors.fill: parent
                     onClicked: {
                         playerPopup.close()
-                        index == 0 ? sddm.suspend() : (index == 1 ? (changeSong(1),console.log("previous song"),currentlyPlaying()) : (changeSong(-1),console.log("next song"),currentlyPlaying()))
+                        index == 0 ? sddm.suspend() : (index == 1 ? (changeSong(-1),console.log("previous song"),currentlyPlaying()) : (changeSong(1),console.log("next song"),currentlyPlaying()))
                     }
                 }
             }
