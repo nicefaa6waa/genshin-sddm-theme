@@ -297,4 +297,6 @@ If you are on KDE Plasma you can easily change sddm theme from settings.If you u
 ## Credits
 
 This is the modified version of [aczw's corner theme](https://github.com/aczw/sddm-theme-corners)
+
+
 !DISCLAIMER ALL VIDEOS BELONGS TO HOYOVERSE.I DO NOT OWN ANY OF THEM
