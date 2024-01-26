@@ -178,24 +178,24 @@ If you would like to contribute to this repo please do so by creating a PR. I am
 
 ## Dependencies
 
-Install sddm(Simple Desktop Display Manager).You also need QT5 which includes Qt Quick Controls 2, Qt Graphical Effects, Qt SVG, Qt Quick Layouts with version 5.11 or new.In qt5 video loads so slow and late so you will also need qt6-base.To do so 
+Install sddm(Simple Desktop Display Manager).You also need QT5 which includes Qt Quick Controls 2, Qt Graphical Effects, Qt SVG, Qt Quick Layouts with version 5.11 or new.In qt5 video loads so slow and late so you will also need qt6-base.Also git lfs to download videos.To do so 
 
 
 For **Arch** based distros using **pacman**
 (Obarun/Artix/Manjaro/KaOS/Chakra etc.)
 ```bash
-sudo pacman -S gst-libav phonon-qt5-gstreamer gst-plugins-good qt5-quickcontrols qt5-graphicaleffects qt5-multimedia qt6-base
+sudo pacman -S gst-libav phonon-qt5-gstreamer gst-plugins-good qt5-quickcontrols qt5-graphicaleffects qt5-multimedia qt6-base git-lfs
 
 ```
 For **Debian** based distros using **apt**
 (Ubuntu/Kali/Neon/antiX etc.Excluding Kubuntu)
 ```bash
-sudo apt-get install gstreamer1.0-libav qml-module-qtmultimedia libqt5multimedia5-plugins qt6-base
+sudo apt-get install gstreamer1.0-libav qml-module-qtmultimedia libqt5multimedia5-plugins qt6-base git-lfs
 ```
 
 For **Kubuntu** using **apt**
 ```bash
-sudo apt install gstreamer1.0-libav phonon4qt5-backend-gstreamer gstreamer1.0-plugins-good qml-module-qtquick-controls qml-module-qtgraphicaleffects qml-module-qtmultimedia qt5-default qt6-base
+sudo apt install gstreamer1.0-libav phonon4qt5-backend-gstreamer gstreamer1.0-plugins-good qml-module-qtquick-controls qml-module-qtgraphicaleffects qml-module-qtmultimedia qt5-default qt6-base git-lfs
 ```
 
 
@@ -203,7 +203,7 @@ sudo apt install gstreamer1.0-libav phonon4qt5-backend-gstreamer gstreamer1.0-pl
 Installation just got easier.Just clone this repo then cd into repo and run installer.
 Added videos to repo using LFS so no more installation using wget.If you are stuck on Login Screen check wiki
 ```bash
-git clone https://github.com/nicefaa6waa/genshin-sddm-theme.git
+git lfs clone https://github.com/nicefaa6waa/genshin-sddm-theme.git
 cd genshin-sddm-theme
 bash install-sddm-theme.sh
 ```
@@ -235,18 +235,16 @@ In order to do this:
 For Arch based distros:
 ```bash
 cd
-git clone https://github.com/nicefaa6waa/genshin-sddm-theme.git
+git lfs clone https://github.com/nicefaa6waa/genshin-sddm-theme.git
 sudo cp -r /genshin-sddm-theme/ /usr/share/sddm/themes/
 ```
 For Debian based distros:
 ```bash
 cd
-git clone https://github.com/nicefaa6waa/genshin-sddm-theme.git
+git lfs clone https://github.com/nicefaa6waa/genshin-sddm-theme.git
 sudo cp -r genshin-sddm-theme /usr/share/sddm/themes/
 ```
-After that install and unzip various backgronud videos.Choose the one you like and download as a zip.
-
-(2,3GB for Uncompressed videos.~400mb For compressed ones)
+(!!!WITH LATEST VERSION GIT LFS DOWNLOADS VIDEOS AUTOMATICALLY!!!)
 
 
 [Google Drive](https://drive.google.com/drive/folders/1Yz2GxV8uvZJM16YSbE2yPRMT58H5o0Bs?usp=drive_link)
