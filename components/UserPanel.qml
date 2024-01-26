@@ -102,10 +102,6 @@ Column {
         }
     }
 
-    Item {
-        width: inputWidth + 10
-        implicitHeight: pictureBorder.height
-    }
 
 UserFieldPanel {
     id: usernameField
@@ -119,6 +115,4 @@ UserFieldPanel {
         bottomMargin: -125
     }
 }
-
-    Component.onCompleted: userPicture.source = userWrapper.items.get(userList.currentIndex).model.icon
 }
