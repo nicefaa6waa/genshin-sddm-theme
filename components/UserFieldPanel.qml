@@ -12,7 +12,6 @@ TextField {
     selectionColor: config.TextFieldTextColor
 
     renderType: Text.NativeRendering
-    font.family: config.Font
     font.pointSize: config.GeneralFontSize
     font.bold: true
     color: config.TextFieldTextColor
