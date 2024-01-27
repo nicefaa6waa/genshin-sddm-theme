@@ -297,3 +297,10 @@ This is the modified version of [aczw's corner theme](https://github.com/aczw/sd
 
 
 !DISCLAIMER ALL VIDEOS BELONGS TO HOYOVERSE.I DO NOT OWN ANY OF THEM
+
+## Stars
+
+Thank you all!
+
+[![Stargazers over time](https://starchart.cc/nicefaa6waa/genshin-sddm-theme.svg?variant=adaptive)](https://starchart.cc/nicefaa6waa/genshin-sddm-theme)
+
