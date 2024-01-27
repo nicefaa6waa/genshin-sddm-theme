@@ -167,7 +167,7 @@ Currently most features doesn't work or removed for compatibility and transition
 
 
 
-❌ ~~<b>Custom and wlogout theme</b>~~ (Maybe Later)
+❌ ~~<b>Custom wlogout theme</b>~~ (Maybe Later)
       
 
 
