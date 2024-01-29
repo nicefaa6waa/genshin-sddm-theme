@@ -178,7 +178,7 @@ If you would like to contribute to this repo please do so by creating a PR. I am
 
 ## Dependencies
 
-Install sddm(Simple Desktop Display Manager).You also need QT5 which includes Qt Quick Controls 2, Qt Graphical Effects, Qt SVG, Qt Quick Layouts with version 5.11 or new.In qt5 video loads so slow and late so you will also need qt6-base.Also git lfs to download videos.To do so 
+Install sddm(Simple Desktop Display Manager).You also need QT5 which includes Qt Quick Controls 2, Qt Graphical Effects, Qt SVG, Qt Quick Layouts with version 5.11 or new.In qt5 video loads so slow and late so you will also need qt6-base.Also megatools to download videos.To do so 
 
 
 For **Arch** based distros using **pacman**
@@ -190,7 +190,7 @@ sudo pacman -S gst-libav phonon-qt5-gstreamer gst-plugins-base gst-plugins-good 
 For **Debian** based distros using **apt**
 (Ubuntu/Kali/Neon/antiX etc.Excluding Kubuntu)
 ```bash
-sudo apt-get install gstreamer1.0-libav qml-module-qtmultimedia libqt5multimedia5-plugins qt6-base git-lfs
+sudo apt-get install gstreamer1.0-libav qml-module-qtmultimedia libqt5multimedia5-plugins qt6-base megatools
 ```
 
 For **Kubuntu** using **apt**
@@ -201,9 +201,9 @@ sudo apt install gstreamer1.0-libav phonon4qt5-backend-gstreamer gstreamer1.0-pl
 
 ## Installing and Testing
 Installation just got easier.Just clone this repo then cd into repo and run installer.
-Added videos to repo using LFS so no more installation using wget.If you are stuck on Login Screen check wiki
+Videos will be installed using megatools.If you are stuck on Login Screen check wiki
 ```bash
-git lfs clone https://github.com/nicefaa6waa/genshin-sddm-theme.git
+git clone https://github.com/nicefaa6waa/genshin-sddm-theme.git
 cd genshin-sddm-theme
 bash install-sddm-theme.sh
 ```
@@ -235,16 +235,16 @@ In order to do this:
 For Arch based distros:
 ```bash
 cd
-git lfs clone https://github.com/nicefaa6waa/genshin-sddm-theme.git
+git clone https://github.com/nicefaa6waa/genshin-sddm-theme.git
 sudo cp -r /genshin-sddm-theme/ /usr/share/sddm/themes/
 ```
 For Debian based distros:
 ```bash
 cd
-git lfs clone https://github.com/nicefaa6waa/genshin-sddm-theme.git
+git clone https://github.com/nicefaa6waa/genshin-sddm-theme.git
 sudo cp -r genshin-sddm-theme /usr/share/sddm/themes/
 ```
-(!!!WITH LATEST VERSION GIT LFS DOWNLOADS VIDEOS AUTOMATICALLY!!!)
+(!!!WITH LATEST VERSION MEGATOOLS DOWNLOADS VIDEOS AUTOMATICALLY!!!)
 
 
 [Google Drive](https://drive.google.com/drive/folders/1Yz2GxV8uvZJM16YSbE2yPRMT58H5o0Bs?usp=drive_link)
