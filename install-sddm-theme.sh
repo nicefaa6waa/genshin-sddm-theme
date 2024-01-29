@@ -76,13 +76,13 @@ function selectOS {
 function installPackages {
     case $1 in
         Ubuntu )
-            sudo apt-get install gstreamer1.0-libav qml-module-qtmultimedia libqt5multimedia5-plugins qt6-base git-lfs
+            sudo apt-get install gstreamer1.0-libav qml-module-qtmultimedia libqt5multimedia5-plugins qt6-base megatools
             ;;
         Kubuntu )
-            sudo apt install gstreamer1.0-libav phonon4qt5-backend-gstreamer gstreamer1.0-plugins-good qml-module-qtquick-controls qml-module-qtgraphicaleffects qml-module-qtmultimedia qt5-default qt6-base git-lfs
+            sudo apt install gstreamer1.0-libav phonon4qt5-backend-gstreamer gstreamer1.0-plugins-good qml-module-qtquick-controls qml-module-qtgraphicaleffects qml-module-qtmultimedia qt5-default qt6-base megatools
             ;;
         Arch )
-            sudo pacman -S --needed gst-libav phonon-qt5-gstreamer gst-plugins-base gst-plugins-good gst-plugins-bad gst-plugins-ugly qt5-quickcontrols qt5-graphicaleffects qt5-multimedia qt6-base git-lfs
+            sudo pacman -S --needed gst-libav phonon-qt5-gstreamer gst-plugins-base gst-plugins-good gst-plugins-bad gst-plugins-ugly qt5-quickcontrols qt5-graphicaleffects qt5-multimedia qt6-base megatools
             ;;
         * )
             echo "Error: Invalid OS option"
@@ -113,6 +113,17 @@ function disableVirtualKeyboard {
             esac
         done
     fi
+}
+
+function downloadVideos {
+    echo "Changing directory"
+    cd "backgrounds"
+    echo "Downloading Videos"
+    megadl https://mega.nz/file/AqNS0Sxa#3_E0apJ6JFmIFsGJ6_q1XXlI0klsXwsnh3QrRZhe6nI
+    megadl https://mega.nz/file/tnMWiTaa#0KRYpof6fJ0cF1m85N1ZF-7AKaqDm2GaaZYWo8D3P70
+    megadl https://mega.nz/file/cj8CCY6J#Ap94bhUgEocvMF9EsX_tQCnfF0hbOxA4JY3POtArLDk
+    echo "Changing Directory Back"
+    cd ..
 }
 
 function handleMultipleAccounts {
@@ -157,11 +168,11 @@ if [ ! -f $CFG ]; then
     echo -e "\nSDDM configuration file $CFG does not exist, do you want to create it based on current configuration?"
     select sel in "Yes" "No"; do
         case $sel in
-            Yes ) createConfig; changeCurrentTheme; selectOS; disableVirtualKeyboard; testTheme; break;;
+            Yes ) createConfig; changeCurrentTheme; selectOS; downloadVideos; disableVirtualKeyboard; testTheme; break;;
             No ) echo "Theme installed in $DIR but configuration not changed."; testTheme; break;;
         esac
     done
 else
-    selectOS; changeCurrentTheme; disableVirtualKeyboard; testTheme;
+    selectOS; downloadVideos; changeCurrentTheme; disableVirtualKeyboard; testTheme;
 fi
 
