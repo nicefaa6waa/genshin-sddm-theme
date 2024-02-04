@@ -161,6 +161,19 @@ Currently most features doesn't work or removed for compatibility and transition
 
 </details>
 
+<details>
+    <summary>⚙️ <b>SHA3-512 Encryption</b> (Working on it)</summary>
+
+- [x] Write a python code that encrypts the password
+- [x] Change LoginPanel as it checks for encrpyted password and also compares it to user input
+- [ ] Change installer to save username and password in sha512 encrypted text.
+
+
+
+</details>
+
+
+
 
 
 ❌ ~~<b>Custom Grub and plymouth theme</b>~~ (Maybe Later)
