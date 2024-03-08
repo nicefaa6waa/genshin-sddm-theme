@@ -33,6 +33,8 @@ function changeSong(direction) {
         currentSongIndex = (currentSongIndex + 1) % songList.length;
     } else if (direction === -1) {
         currentSongIndex = (currentSongIndex - 1 + songList.length) % songList.length;
+    } else if (direction === 0 ) {
+        musicPlayer.pause();
     }
     
     if (currentSongIndex === songList.length) {
