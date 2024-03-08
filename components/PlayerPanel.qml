@@ -30,6 +30,7 @@ Item {
 
         ListElement { name: "Image" }
         ListElement { name: "Previous" }
+        ListElement { name: "Pause" }
         ListElement { name: "Next" }
     }
 
@@ -128,7 +129,8 @@ Item {
 
                 Image {
                     source: index == 1 ? Qt.resolvedUrl("../icons/previous.png") :
-                            index == 2 ? Qt.resolvedUrl("../icons/next.png") : ""
+                            index == 2 ? Qt.resolvedUrl("../icons/pause.png") : 
+                            index == 3 ? Qt.resolvedUrl("../icons/next.png") : ""
                     anchors.fill: parent
                     fillMode: Image.PreserveAspectFit
                 }
@@ -146,7 +148,7 @@ Item {
                     anchors.fill: parent
                     onClicked: {
                         playerPopup.close()
-                        index == 0 ? sddm.suspend() : (index == 1 ? (changeSong(-1),console.log("previous song"),currentlyPlaying()) : (changeSong(1),console.log("next song"),currentlyPlaying()))
+                        index == 0 ? currentlyPlaying() : (index == 1 ? (changeSong(-1),console.log("previous song"),currentlyPlaying()) : (index == 2 ? (changeSong(0),console.log("paused song"),currentlyPlaying()) : (changeSong(1),console.log("next song"),currentlyPlaying())))
                     }
                 }
             }
