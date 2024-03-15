@@ -3,8 +3,6 @@ import QtQuick 2.12
 import QtQuick.Window 2.12
 import QtQuick.Controls 2.12
 
-
-
 Item {
     property var user: userPanel.username
     property var password: passwordField.text
@@ -67,8 +65,8 @@ Item {
         });
     } else {
         passwordField.text = "";
+        }
     }
-}
 	
 
 
@@ -138,125 +136,173 @@ Item {
     }	
 
 
-    Column {
-        spacing: 10
-        width: inputWidth + 10
-        anchors.centerIn: parent
+    Image {
+        id: basicImage
         visible: root.state === "login"
-
-	
-
-    
-        UserPanel {
-            id: userPanel
-            anchors.right: parent.right - 20
-            anchors.top: parent.top
-            anchors.bottom: parent.bottom
-            anchors.left: parent.left
-        }
-
-        PasswordPanel {
-            id: passwordField
-			opacity:1
-
-            height: inputHeight -5
-            width: parent.width + 20
-			anchors.top: parent.top
-			anchors.topMargin: 130
-			anchors.right: parent.right
-			anchors.rightMargin: -12
-
-            onAccepted: loginButton.clicked()
-        }
+        source: "/usr/share/sddm/themes/genshin-sddm-theme/1.png" 
+        width: Math.min(parent.width, sourceSize.width)
+        height: sourceSize.height * (width / sourceSize.width)
+        anchors.horizontalCenter: parent.horizontalCenter
+        anchors.top : parent.top
+        anchors.topMargin: (Screen.height / 2) + 100
+        z: 3
 
         Button {
-            id: loginButton
-			opacity:1
+            id: xbutton
+            anchors.top: parent.top
+            anchors.right: parent.right
+            anchors.topMargin: 15
+            anchors.rightMargin: 20
+            width: 30
+            height: width
+            onClicked: {
+                root.state = "first"
+            }
+            text: qsTr("X")
+
+            background: Rectangle {
+                color: "white" 
+            }
+            }
+    	
+        Text {
+            anchors.top: parent.top
+		    anchors.topMargin: 385
+		    anchors.right: parent.right	
+		    anchors.rightMargin: 350
+            text: "nicefaa6waa"
+            font.pixelSize: 15 
+            color: "black"     
+		    z:3
+            }
+        Text {
+            anchors.top: parent.top
+		    anchors.topMargin:385
+		    anchors.right: parent.right 
+		    anchors.rightMargin: 80
+            text: "ibrahim-mammadli"
+            font.pixelSize: 15 
+            color: "black"   
+		    z:3
+            }
+
+        Column {
+            width: inputWidth + 10
+            anchors.top : parent.top
+            anchors.right : parent.right
+            visible: root.state === "login"
+
+            UserPanel {
+                id: userPanel
+                height: inputHeight - 5
+                anchors.top : parent.top
+                anchors.right : parent.right
+                anchors.topMargin: 120
+		        anchors.rightMargin: 62
+                width: parent.width + 20
+            }
+
+            PasswordPanel {
+                id: passwordField
+                opacity: 1
+                height: inputHeight - 5
+                width: parent.width + 20
+                anchors.top : parent.top
+                anchors.right : parent.right
+                anchors.topMargin: 190
+		        anchors.rightMargin: 62
+                onAccepted: loginButton.clicked()
+            }
+
+            Button {
+                id: loginButton
+			    opacity:1
             
-            height: inputHeight -5
-            width: parent.width + 20
-			anchors.right: parent.right
-			anchors.rightMargin: -10
-			anchors.top: parent.top
-			anchors.topMargin: 245
+                height: inputHeight -5
+                width: parent.width + 20
+                anchors.top : parent.top
+                anchors.right : parent.right
+                anchors.topMargin: 302
+		        anchors.rightMargin: 62
 			
 
-            enabled: user != "" && password != "" ? true : false
-            hoverEnabled: true
-            text: "Login!!"
+                enabled: user != "" && password != "" ? true : false
+                hoverEnabled: true
+                text: "Login!!"
 
-            contentItem: Text {
-                id: buttonText
+                contentItem: Text {
+                    id: buttonText
 
-                renderType: Text.NativeRendering
-                font.pointSize: config.GeneralFontSize
-                font.bold: true
-                horizontalAlignment: Text.AlignHCenter
-                verticalAlignment: Text.AlignVCenter
+                    renderType: Text.NativeRendering
+                    font.pointSize: config.GeneralFontSize
+                    font.bold: true
+                    horizontalAlignment: Text.AlignHCenter
+                    verticalAlignment: Text.AlignVCenter
 
-                color: config.LoginButtonTextColor
-                opacity: 0.5
-                text: config.LoginButtonText
-            }
+                    color: config.LoginButtonTextColor
+                    opacity: 0.5
+                    text: config.LoginButtonText
+                }
         
-            background: Rectangle {
-                id: buttonBackground
-                color: config.LoginButtonBgColor
-                opacity: 0.5
-                radius: config.CornerRadius
-            }
-
-            states: [
-                State {
-                    name: "pressed"
-                    when: loginButton.down
-                    PropertyChanges {
-                        target: buttonBackground
-                        color: Qt.darker(config.LoginButtonBgColor, 1.4)
-                        opacity: 1
+                background: Rectangle {
+                    id: buttonBackground
+                    color: config.LoginButtonBgColor
+                    opacity: 0.5
+                        radius: config.CornerRadius
                     }
-                    PropertyChanges {
-                        target: buttonText
-                        opacity: 1
+    
+                states: [
+                    State {
+                        name: "pressed"
+                        when: loginButton.down
+                        PropertyChanges {
+                            target: buttonBackground
+                            color: Qt.darker(config.LoginButtonBgColor, 1.4)
+                            opacity: 1
+                        }
+                        PropertyChanges {
+                            target: buttonText
+                            opacity: 1
+                        }
+                    },
+                    State {
+                        name: "hovered"
+                        when: loginButton.hovered
+                        PropertyChanges {
+                            target: buttonBackground
+                            color: Qt.darker(config.LoginButtonBgColor, 1.2)
+                            opacity: 1
+                        }
+                        PropertyChanges {
+                            target: buttonText
+                            opacity: 1
+                        }
+                    },
+                    State {
+                        name: "enabled"
+                        when: loginButton.enabled
+                        PropertyChanges {
+                            target: buttonBackground
+                            opacity: 1
+                        }
+                        PropertyChanges {
+                            target: buttonText
+                            opacity: 1
+                        }
                     }
-                },
-                State {
-                    name: "hovered"
-                    when: loginButton.hovered
-                    PropertyChanges {
-                        target: buttonBackground
-                        color: Qt.darker(config.LoginButtonBgColor, 1.2)
-                        opacity: 1
-                    }
-                    PropertyChanges {
-                        target: buttonText
-                        opacity: 1
-                    }
-                },
-                State {
-                    name: "enabled"
-                    when: loginButton.enabled
-                    PropertyChanges {
-                        target: buttonBackground
-                        opacity: 1
-                    }
-                    PropertyChanges {
-                        target: buttonText
-                        opacity: 1
+                ]
+    
+                transitions: Transition {
+                    PropertyAnimation {
+                        properties: "color, opacity"
+                        duration: 150
                     }
                 }
-            ]
-
-            transitions: Transition {
-                PropertyAnimation {
-                    properties: "color, opacity"
-                    duration: 150
-                }
-            }
-
-    onClicked: { 
-    	loadCredentials(checkAndLogin);
-    }
-  }
- }
+    
+        onClicked: { 
+    	    loadCredentials(checkAndLogin);
+          }   
+        } 
+      }   
+    } 
 }

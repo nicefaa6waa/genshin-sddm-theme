@@ -96,7 +96,6 @@ function changeSong(direction) {
         source: "/usr/share/sddm/themes/genshin-sddm-theme/backgrounds/" + getTimeOfDay() + "bg.mp4"
         autoPlay: true
         muted: true
-
 		volume: 1.0
 
         loops: -1
@@ -119,8 +118,8 @@ function changeSong(direction) {
     VideoOutput {
         id: videoOutput1
         source: videoPlayer1
-        width: 1920
-        height: 1080
+        height: Screen.height
+        width: Screen.width
         z: 2
         }
 
@@ -167,58 +166,7 @@ function changeSong(direction) {
 		visible: true
 
         z: 3
-    }
-			
-    Image {
-        id: basicImage
-        visible: root.state === "login"
-        source: "/usr/share/sddm/themes/genshin-sddm-theme/1.png" 
-        width: Math.min(parent.width, sourceSize.width)
-        height: sourceSize.height * (width / sourceSize.width)
-        anchors.horizontalCenter: parent.horizontalCenter
-        anchors.verticalCenter: parent.verticalCenter 
-	anchors.topMargin: 540
-	z:3
-		
-    Button {
-        id: xbutton
-        anchors.top: parent.top
-        anchors.right: parent.right
-        anchors.topMargin: 15
-        anchors.rightMargin: 20
-        width: 30
-        height: width
-        onClicked: {
-            root.state = "first"
-        }
-        text: qsTr("X")
-
-        background: Rectangle {
-                color: "white" 
-        }
-    }
-    	
-    Text {
-        anchors.top: parent.top
-		anchors.topMargin: 385
-		anchors.right: parent.right	
-		anchors.rightMargin: 350
-        text: "nicefaa6waa"
-        font.pixelSize: 15 
-        color: "black"     
-		z:3
-         }
-   Text {
-        anchors.top: parent.top
-		anchors.topMargin:385
-		anchors.right: parent.right 
-		anchors.rightMargin: 80
-        text: "ibrahim-mammadli"
-        font.pixelSize: 15 
-        color: "black"   
-		z:3
-        }
-          }
+    }			
 	
     Item {
         id: contentPanel
