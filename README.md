@@ -1,4 +1,5 @@
 # Genshin Sddm Theme
+#TO FIX COMPATIBILITY ISSUES THIS THEME WILL BE REWRITTEN USING ANOTHER METHOD AND THIS VERSION WILL BE ARCHIVED IN A BRANCH
 
 An animated genshin sddm-theme, comes with animated background
 implemented changing backgrounds for the time of day.With every login-session,new wallpaper
