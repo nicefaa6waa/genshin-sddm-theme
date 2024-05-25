@@ -154,25 +154,40 @@ function createConfig {
     echo "Configuration file created in $CFG"
 }
 
-    displayArtAndWelcome    
-    handleMultipleAccounts
+function mainOperations {
+    if [ ! -f $CFG ]; then
+        echo -e "\nSDDM configuration file $CFG does not exist. Do you want to create it based on current configuration?"
+        select sel in "Yes" "No"; do
+            case $sel in
+                Yes )
+                    createConfig
+                    changeCurrentTheme
+                    selectOS
+                    downloadVideos
+                    sudo cp -R . $DIR
+                    disableVirtualKeyboard
+                    testTheme
+                    break
+                    ;;
+                No )
+                    echo "Theme installed in $DIR but configuration not changed."
+                    downloadVideos
+                    sudo cp -R . $DIR
+                    testTheme
+                    break
+                    ;;
+            esac
+        done
+    else
+        selectOS
+        downloadVideos
+        sudo cp -R . $DIR
+        changeCurrentTheme
+        disableVirtualKeyboard
+        testTheme
+    fi
+}
 
-if sudo cp -R . $DIR; then
-    echo "Theme installed in $DIR"
-else
-    echo "Errors occurred during installation, exiting"
-    exit;
-fi
-
-if [ ! -f $CFG ]; then
-    echo -e "\nSDDM configuration file $CFG does not exist, do you want to create it based on current configuration?"
-    select sel in "Yes" "No"; do
-        case $sel in
-            Yes ) createConfig; changeCurrentTheme; selectOS; downloadVideos; disableVirtualKeyboard; testTheme; break;;
-            No ) echo "Theme installed in $DIR but configuration not changed."; testTheme; break;;
-        esac
-    done
-else
-    selectOS; downloadVideos; changeCurrentTheme; disableVirtualKeyboard; testTheme;
-fi
-
+displayArtAndWelcome    
+handleMultipleAccounts
+mainOperations
