@@ -170,7 +170,7 @@ function mainOperations {
                     break
                     ;;
                 No )
-                    echo "Theme installed in $DIR but configuration not changed."
+                    echo "Theme will be installed in $DIR but configuration not changed."
                     downloadVideos
                     sudo cp -R . $DIR
                     testTheme
