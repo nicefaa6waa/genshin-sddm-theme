@@ -260,7 +260,7 @@ For Arch based distros:
 ```bash
 cd
 git clone https://github.com/nicefaa6waa/genshin-sddm-theme.git
-sudo cp -r /genshin-sddm-theme/ /usr/share/sddm/themes/
+sudo cp -r genshin-sddm-theme/ /usr/share/sddm/themes/
 ```
 For Debian based distros:
 ```bash
