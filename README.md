@@ -214,7 +214,7 @@ sudo pacman -S gst-libav phonon-qt5-gstreamer gst-plugins-base gst-plugins-good 
 For **Debian** based distros using **apt**
 (Ubuntu/Kali/Neon/antiX etc.Excluding Kubuntu)
 ```bash
-sudo apt-get install gstreamer1.0-libav qml-module-qtmultimedia libqt5multimedia5-plugins qt6-base megatools
+sudo apt-get install gstreamer1.0-libav qml-module-qtmultimedia libqt5multimedia5-plugins qt6-base-dev megatools
 ```
 
 For **Kubuntu** using **apt**
