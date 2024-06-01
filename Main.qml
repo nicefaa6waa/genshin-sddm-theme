@@ -118,17 +118,16 @@ function changeSong(direction) {
     VideoOutput {
         id: videoOutput1
         source: videoPlayer1
-        height: Screen.height
-        width: Screen.width
+        fillMode: VideoOutput.Stretch
         z: 2
+        layer.enabled: true
+        anchors.fill: parent
         }
 
     VideoOutput {
     id: videoOutput2
     source: videoPlayer2
-    width: 1920
-    height: 1080
-    visible: true
+    fillMode: VideoOutput.Stretch
 
     z: 3
     layer.enabled: true
@@ -161,8 +160,7 @@ function changeSong(direction) {
     VideoOutput {
         id: videoOutput3
         source: videoPlayer3
-        width: 1920
-        height: 1080
+        fillMode: VideoOutput.Stretch
 		visible: true
 
         z: 3
