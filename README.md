@@ -8,7 +8,7 @@ will be shown based on the time on your OS.
 ![](preview/image1.png)
 
 
-## Features (90% Completed)
+## Features (79.06% Completed)
 
 
 You can change almost all the colors within the 'theme.conf' file.More color options will be added in the future
@@ -153,7 +153,20 @@ Currently most features doesn't work or removed for compatibility and transition
 </details>
 
 <details>
-    <summary>⚙️ <b>Custom lock theme</b> (Working on it)</summary>
+    <summary>⚙️ <b>Custom Grub theme</b> (1/7)</summary>
+
+- [x] Design a custom background image.
+- [ ] Customize fonts and colors for the menu items.
+- [ ] Add icons for different menu entries.
+- [ ] Configure the boot menu layout.
+- [ ] Test the theme on a virtual machine.
+- [ ] Troubleshoot and fix any display issues.
+- [ ] Write a script for automated installation.
+
+</details>
+
+<details>
+    <summary>⏸️ <b>Custom lock theme</b> (0/2)(Paused)</summary>
 
 - [ ] So i will need to create my own lockscreen since swaylock won't work with widgets because of layers 
 - [ ] From this point i will mainly work on optimization,layout fixes and lock screen.
@@ -163,7 +176,7 @@ Currently most features doesn't work or removed for compatibility and transition
 </details>
 
 <details>
-    <summary>⚙️ <b>SHA3-512 Encryption</b> (Working on it)</summary>
+    <summary>⏸️ <b>SHA3-512 Encryption</b> (2/3)(Paused)</summary>
 
 - [x] Write a python code that encrypts the password
 - [x] Change LoginPanel as it checks for encrpyted password and also compares it to user input
@@ -174,10 +187,7 @@ Currently most features doesn't work or removed for compatibility and transition
 </details>
 
 
-
-
-
-❌ ~~<b>Custom Grub and plymouth theme</b>~~ (Maybe Later)
+❌ ~~<b>Custom plymouth theme</b>~~ (Maybe Later)
 
 
 
