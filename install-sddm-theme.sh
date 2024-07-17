@@ -154,6 +154,36 @@ function createConfig {
     echo "Configuration file created in $CFG"
 }
 
+function skipLoadingAnimation {
+  echo -e "\nDo you want to skip the login screen loading animation?"
+  select sel in "Yes" "No"; do
+    case $sel in
+      Yes )
+        echo "Loading animation will be skipped."
+        if [ -f "components/LoginPanel.qml" ]; then
+          rm "components/LoginPanel.qml"
+        fi
+
+        if [ -f "components/LoginPanel2.qml" ]; then
+          mv "components/LoginPanel2.qml" "components/LoginPanel.qml"
+        else
+          echo "LoginPanel2.qml not found. Skipping rename."
+        fi
+        ;;
+      No )
+        echo "Loading animation will be displayed."
+        if [ -f "components/LoginPanel2.qml" ]; then
+          rm "components/LoginPanel2.qml"
+        fi
+        ;;
+      * )
+        echo "Invalid selection. Please try again."
+        ;;
+    esac
+    break
+  done
+}
+
 function mainOperations {
     if [ ! -f $CFG ]; then
         echo -e "\nSDDM configuration file $CFG does not exist. Do you want to create it based on current configuration?"
@@ -164,6 +194,7 @@ function mainOperations {
                     changeCurrentTheme
                     selectOS
                     downloadVideos
+                    skipLoadingAnimation
                     sudo cp -R . $DIR
                     disableVirtualKeyboard
                     testTheme
@@ -172,6 +203,7 @@ function mainOperations {
                 No )
                     echo "Theme will be installed in $DIR but configuration not changed."
                     downloadVideos
+                    skipLoadingAnimation
                     sudo cp -R . $DIR
                     testTheme
                     break
@@ -181,6 +213,7 @@ function mainOperations {
     else
         selectOS
         downloadVideos
+        skipLoadingAnimation
         sudo cp -R . $DIR
         changeCurrentTheme
         disableVirtualKeyboard
