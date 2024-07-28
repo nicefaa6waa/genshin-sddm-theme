@@ -115,15 +115,42 @@ function disableVirtualKeyboard {
     fi
 }
 
-function downloadVideos {
+function download_from_mega {
     echo "Changing directory"
     cd "backgrounds"
-    echo "Downloading Videos"
-    megadl https://mega.nz/file/AqNS0Sxa#3_E0apJ6JFmIFsGJ6_q1XXlI0klsXwsnh3QrRZhe6nI
-    megadl https://mega.nz/file/tnMWiTaa#0KRYpof6fJ0cF1m85N1ZF-7AKaqDm2GaaZYWo8D3P70
-    megadl https://mega.nz/file/cj8CCY6J#Ap94bhUgEocvMF9EsX_tQCnfF0hbOxA4JY3POtArLDk
-    echo "Changing Directory Back"
+    echo "Downloading videos from Mega.nz..."
+    megadl 'https://mega.nz/#!sJAgHTaA!Y9D5W4jGibVSeGT8j5bKOz_X2kXNCz_b7XIvSjy0RPE' 
+    megadl 'https://mega.nz/#!cUI0BSLZ!kD0cSblTb1g9z8i9cB7ik5NSeBuNO3Iz9ek8D-bCXBs' 
+    megadl 'https://mega.nz/#!rVBwFRxZ!bBHo1_aT_MbDmdScyy5S_CXwHEsv_G_GEsUUnz-ONcM'
+	echo "Changing Directory Back"
     cd ..
+}
+
+# Function to download videos from Dropbox
+function download_from_dropbox {
+    echo "Changing directory"
+    cd "backgrounds"
+    echo "Downloading videos from Dropbox..."
+    curl -L 'https://www.dropbox.com/scl/fi/e6kio0zet8j5lax9ztu7y/nightbg.mp4?rlkey=29ni1jq0a9sr02b6l0s61oiiq&st=en7rqgmy&dl=0' > nightbg.mp4 
+    curl -L 'https://www.dropbox.com/scl/fi/8om5p5d3ul984krbnhfgu/morningbg.mp4?rlkey=jedf5qcycj310oqx8djy9yomz&st=yupg7zz8&dl=0' > morningbg.mp4 
+    curl -L 'https://www.dropbox.com/scl/fi/f3x5jfr8sk06ij3c8kgoy/sunrisebg.mp4?rlkey=r0lzylvhze4lq3xglwkvf4iya&st=ybukfsgv&dl=0' > sunrisebg.mp4
+	echo "Changing Directory Back"
+    cd ..
+}
+
+function choose_server {
+    echo "Choose the server to download videos from:"
+    echo "1) Mega.nz"
+    echo "2) Dropbox"
+    read -p "Enter the number (1 or 2): " server_choice
+    if [ "$server_choice" == "1" ]; then
+        download_from_mega || download_from_dropbox
+    elif [ "$server_choice" == "2" ]; then
+        download_from_dropbox || download_from_mega
+    else
+        echo "Invalid choice. Defaulting to Mega.nz."
+        download_from_mega || download_from_dropbox
+    fi
 }
 
 function handleMultipleAccounts {
@@ -193,7 +220,7 @@ function mainOperations {
                     createConfig
                     changeCurrentTheme
                     selectOS
-                    downloadVideos
+                    choose_server
                     skipLoadingAnimation
                     sudo cp -R . $DIR
                     disableVirtualKeyboard
@@ -202,7 +229,7 @@ function mainOperations {
                     ;;
                 No )
                     echo "Theme will be installed in $DIR but configuration not changed."
-                    downloadVideos
+                    choose_server
                     skipLoadingAnimation
                     sudo cp -R . $DIR
                     testTheme
@@ -212,7 +239,7 @@ function mainOperations {
         done
     else
         selectOS
-        downloadVideos
+        choose_server
         skipLoadingAnimation
         sudo cp -R . $DIR
         changeCurrentTheme
