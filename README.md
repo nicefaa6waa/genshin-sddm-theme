@@ -153,6 +153,14 @@ Currently most features doesn't work or removed for compatibility and transition
 </details>
 
 <details>
+    <summary>⚙️ <b>Custom Ui for Installer</b> (0/?)</summary>
+
+- [ ] Add installer UI with qt6 for better usability and easier installation for new people.
+
+
+</details>
+
+<details>
     <summary>⚙️ <b>Custom Grub theme</b> (1/7)</summary>
 
 - [x] Design a custom background image.
