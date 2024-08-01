@@ -133,7 +133,7 @@ You can change almost all the colors within the 'theme.conf' file.More color opt
 <details>
     <summary>✔️ <b>Install Script</b> (3/3)</summary>
 
-- [x] Auto-download videos (Videos are uploaded to repo with LFS)
+- [x] Auto-download videos (Some of the videos are uploaded to rep whioe the others are uploaded to Google Drive/Mega/Dropbox.Only Dropbox and Mega are automatic.Will add automatic installation for Google Drive in the future)
 - [x] Add Users
 - [x] Change current theme
 </details>
