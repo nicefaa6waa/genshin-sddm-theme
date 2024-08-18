@@ -207,7 +207,7 @@ Currently most features doesn't work or removed for compatibility and transition
 
 ## Issues and Contribution
 
-If you would like to contribute to this repo please do so by creating a PR or you can donate some money to help the development. I am open to suggestions.
+If you would like to contribute to this repo please do so by creating a PR. I am open to suggestions.
 
 
 ## Dependencies
