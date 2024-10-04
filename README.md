@@ -1,5 +1,4 @@
 # Genshin Sddm Theme
-### [🔔] TO FIX COMPATIBILITY ISSUES THIS THEME WILL BE REWRITTEN USING ANOTHER METHOD AND THIS VERSION WILL BE ARCHIVED IN A BRANCH
 ### [🔔] SLOW DEVELOPMENT TIME BECAUSE IM CURRENTLY BOTH STUDYING AND WORKING.THANK YOU FOR YOUR UNDERSTANDING
 
 An animated genshin sddm-theme, comes with animated background
@@ -233,6 +232,7 @@ sudo apt install gstreamer1.0-libav phonon4qt5-backend-gstreamer gstreamer1.0-pl
 
 
 ## Installing and Testing
+### NOTE:If you have weird resolution issues reinstall the theme and set desired resolution to 1920x1080
 Installation just got easier.Just clone this repo then cd into repo and run installer.
 Videos will be installed using megatools.If you are stuck on Login Screen check wiki
 ```bash
