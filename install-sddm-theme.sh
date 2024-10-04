@@ -90,6 +90,37 @@ function installPackages {
     esac
 }
 
+function updateXsetup {
+    XSETUP_FILE="/usr/share/sddm/scripts/Xsetup"
+
+    echo -e "\nYour resolution is too high. Do you want to add an xrandr configuration for better compatibility?"
+    select sel in "Yes" "No"; do
+        case $sel in
+            Yes )
+                echo "Enter your desired resolution (e.g., 1920x1080):"
+                read -r desired_resolution
+
+                XRANDR_CMD="xrandr --output eDP-1 --mode $desired_resolution --pos 0x0 --rotate normal"
+
+                if ! sudo grep -Fxq "$XRANDR_CMD" "$XSETUP_FILE"; then
+                    echo "$XRANDR_CMD" | sudo tee -a "$XSETUP_FILE" > /dev/null
+                    echo "Xsetup file updated with xrandr command for resolution $desired_resolution."
+                else
+                    echo "xrandr command for resolution $desired_resolution already exists in Xsetup file."
+                fi
+                break;;
+            No )
+                echo "No changes made to the Xsetup file."
+                break;;
+            * )
+                echo "Invalid option. Please select 1 for Yes or 2 for No."
+                ;;
+        esac
+    done
+}
+
+
+
 function changeCurrentTheme {
     sudo sed -i "s/^Current=.*/Current=$NAME/" $CFG
     echo "Current theme changed to $NAME"
@@ -218,6 +249,7 @@ function mainOperations {
             case $sel in
                 Yes )
                     createConfig
+		    updateXsetup
                     changeCurrentTheme
                     selectOS
                     choose_server
@@ -230,6 +262,7 @@ function mainOperations {
                 No )
                     echo "Theme will be installed in $DIR but configuration not changed."
                     choose_server
+		    updateXsetup
                     skipLoadingAnimation
                     sudo cp -R . $DIR
                     testTheme
@@ -240,6 +273,7 @@ function mainOperations {
     else
         selectOS
         choose_server
+        updateXsetup
         skipLoadingAnimation
         sudo cp -R . $DIR
         changeCurrentTheme
