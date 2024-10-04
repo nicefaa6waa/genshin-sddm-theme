@@ -150,9 +150,9 @@ function download_from_mega {
     echo "Changing directory"
     cd "backgrounds"
     echo "Downloading videos from Mega.nz..."
-    megadl 'https://mega.nz/#!sJAgHTaA!Y9D5W4jGibVSeGT8j5bKOz_X2kXNCz_b7XIvSjy0RPE' 
-    megadl 'https://mega.nz/#!cUI0BSLZ!kD0cSblTb1g9z8i9cB7ik5NSeBuNO3Iz9ek8D-bCXBs' 
-    megadl 'https://mega.nz/#!rVBwFRxZ!bBHo1_aT_MbDmdScyy5S_CXwHEsv_G_GEsUUnz-ONcM'
+    megadl 'https://mega.nz/file/AqNS0Sxa#3_E0apJ6JFmIFsGJ6_q1XXlI0klsXwsnh3QrRZhe6nI' 
+    megadl 'https://mega.nz/file/tnMWiTaa#0KRYpof6fJ0cF1m85N1ZF-7AKaqDm2GaaZYWo8D3P70' 
+    megadl 'https://mega.nz/file/cj8CCY6J#Ap94bhUgEocvMF9EsX_tQCnfF0hbOxA4JY3POtArLDk'
 	echo "Changing Directory Back"
     cd ..
 }
