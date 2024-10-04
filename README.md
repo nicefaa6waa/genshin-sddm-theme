@@ -8,7 +8,7 @@ will be shown based on the time on your OS.
 ![](preview/image1.png)
 
 
-## Features (79.06% Completed)
+## Features and Development (79.06% Completed)
 
 
 You can change almost all the colors within the 'theme.conf' file.More color options will be added in the future
@@ -153,6 +153,15 @@ Currently most features doesn't work or removed for compatibility and transition
 </details>
 
 <details>
+    <summary>⚙️ <b>Add Custom SFX</b> (0/?)</summary>
+
+- [ ] SFX For Button Click
+- [ ] SFX For Door Animations
+
+
+</details>
+
+<details>
     <summary>⚙️ <b>Custom Ui for Installer</b> (0/?)</summary>
 
 - [ ] Add installer UI with qt6 for better usability and easier installation for new people.
@@ -161,7 +170,7 @@ Currently most features doesn't work or removed for compatibility and transition
 </details>
 
 <details>
-    <summary>⚙️ <b>Custom Grub theme</b> (1/7)</summary>
+    <summary>⏸️ <b>Custom Grub theme</b> (1/7)</summary>
 
 - [x] Design a custom background image.
 - [ ] Customize fonts and colors for the menu items.
