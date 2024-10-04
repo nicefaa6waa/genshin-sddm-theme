@@ -59,6 +59,7 @@ Item {
         root.state = "door";
         videoPlayer2.play();
         videoPlayer2.onStopped.connect(function () {
+            videoPlayer1.stop();
             sddm.login(user, password, session);
         });
     } else {
