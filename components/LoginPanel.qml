@@ -60,6 +60,7 @@ Item {
         videoPlayer2.onStopped.connect(function () {
             videoPlayer3.play();
             videoPlayer3.onStopped.connect(function () {
+                videoPlayer1.stop();
                 sddm.login(user, password, session);
             });
         });
