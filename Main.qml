@@ -105,7 +105,7 @@ function changeSong(direction) {
         id: videoPlayer2
         source: "/usr/share/sddm/themes/genshin-sddm-theme/backgrounds/doorbg/" + getTimeOfDay() + "door.webm"
         autoPlay: false
-        muted: true
+        muted: false
     }
 
     MediaPlayer {
