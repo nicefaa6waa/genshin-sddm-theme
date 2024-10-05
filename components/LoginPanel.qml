@@ -41,6 +41,18 @@ Item {
     	xhr.open("GET", file);
     	xhr.send();
 	}
+
+	NumberAnimation {
+        	id: volumeFadeOut
+        	target: musicPlayer
+        	property: "volume"
+        	from: musicPlayer.volume
+        	to: 0
+        	duration: 2000
+        	onStopped: {
+            musicPlayer.stop(); // Stop musicPlayer after fade-out
+        }
+    }
     
 	function checkCredentials(username, password) {
     for (var i = 0; i < users.length; ++i) {
@@ -58,6 +70,7 @@ Item {
         root.state = "door";
         videoPlayer2.play();
         videoPlayer2.onStopped.connect(function () {
+	    volumeFadeOut.start();
             videoPlayer3.play();
             videoPlayer3.onStopped.connect(function () {
                 videoPlayer1.stop();
