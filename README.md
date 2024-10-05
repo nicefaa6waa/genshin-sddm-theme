@@ -153,10 +153,10 @@ Currently most features doesn't work or removed for compatibility and transition
 </details>
 
 <details>
-    <summary>⚙️ <b>Add Custom SFX</b> (0/?)</summary>
+    <summary>✔️ <b>Add Custom SFX</b> (2/2)</summary>
 
-- [ ] SFX For Button Click
-- [ ] SFX For Door Animations
+- [X] SFX For Button Click
+- [X] SFX For Door Animations
 
 
 </details>
