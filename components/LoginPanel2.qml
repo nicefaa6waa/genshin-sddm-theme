@@ -52,11 +52,25 @@ Item {
     console.log("Invalid credentials for user: " + username);
     return false;
 	}
+
+    NumberAnimation {
+        id: volumeFadeOut
+        target: musicPlayer
+        property: "volume"
+        from: musicPlayer.volume
+        to: 0
+        duration: 2000
+        onStopped: {
+            musicPlayer.stop(); // Stop musicPlayer after fade-out
+        }
+    }
 	
     
     function checkAndLogin() {
     if (credentialsLoaded && checkCredentials(user, password)) {
         root.state = "door";
+        console.log("Video Should Stop Now");
+        volumeFadeOut.start();
         videoPlayer2.play();
         videoPlayer2.onStopped.connect(function () {
             videoPlayer1.stop();
