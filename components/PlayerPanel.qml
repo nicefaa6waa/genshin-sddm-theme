@@ -15,6 +15,12 @@ Item {
     "file:///usr/share/sddm/themes/genshin-sddm-theme/sounds/the_flourishing_past.mp3":"The Flourishing Past",
     "file:///usr/share/sddm/themes/genshin-sddm-theme/sounds/finale_of_the_snowtomb.mp3":"Finale of The Snowtomb",
     "file:///usr/share/sddm/themes/genshin-sddm-theme/sounds/spin_of_the_ice_crystals.mp3":"Spin of The Ice Crystals",
+    "file:///usr/share/sddm/themes/genshin-sddm-theme/sounds/ballad_of_many_waters.mp3":"Ballad of Many Waters",
+    "file:///usr/share/sddm/themes/genshin-sddm-theme/sounds/another_hopeful_tomorrow.mp3":"Another Hopeful Tomorr",
+    "file:///usr/share/sddm/themes/genshin-sddm-theme/sounds/ad_oblivione.mp3":"Ad Oblivione",
+    "file:///usr/share/sddm/themes/genshin-sddm-theme/sounds/twilight_serenity.mp3":"Twilight Serenity",
+    "file:///usr/share/sddm/themes/genshin-sddm-theme/sounds/clear_sky_over_liyue.mp3":"Clear Sky over Liyue",
+    "file:///usr/share/sddm/themes/genshin-sddm-theme/sounds/enchanting_bedtime_stories.mp3":"Enchanting Bedtime Sto",
     "file:///usr/share/sddm/themes/genshin-sddm-theme/sounds/glistening_shards.mp3":"Glistening Shards",
     
     }

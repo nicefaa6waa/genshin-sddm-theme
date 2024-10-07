@@ -10,8 +10,12 @@ Item {
     id: root
     height: Screen.height
     width: Screen.width
+    property var isPaused: 0
     property var songList: [
-        "snow_buried_tales.mp3","moonlike_smile.mp3","unfinished_frescoes.mp3","the_flourishing_past.mp3","finale_of_the_snowtomb.mp3","spin_of_the_ice_crystals.mp3","glistening_shards.mp3",
+        "enchanting_bedtime_stories.mp3","clear_sky_over_liyue.mp3","twilight_serenity.mp3",
+        "ad_oblivione.mp3","another_hopeful_tomorrow.mp3","ballad_of_many_waters.mp3","snow_buried_tales.mp3",
+        "moonlike_smile.mp3","unfinished_frescoes.mp3","glistening_shards.mp3",
+        "the_flourishing_past.mp3","finale_of_the_snowtomb.mp3","spin_of_the_ice_crystals.mp3",
     ]
 
 	
@@ -28,13 +32,24 @@ Item {
         }
     }
 
+
 function changeSong(direction) {
+    
+
     if (direction === 1) {
         currentSongIndex = (currentSongIndex + 1) % songList.length;
+        isPaused = 0;
     } else if (direction === -1) {
         currentSongIndex = (currentSongIndex - 1 + songList.length) % songList.length;
+        isPaused = 0;
     } else if (direction === 0 ) {
-        musicPlayer.pause();
+        if (isPaused === 1) {
+            musicPlayer.play();
+            isPaused = 0; 
+        } else {
+            musicPlayer.pause();
+            isPaused = 1;
+        }
     }
     
     if (currentSongIndex === songList.length) {
@@ -45,7 +60,6 @@ function changeSong(direction) {
     console.log("/usr/share/sddm/themes/genshin-sddm-theme/sounds/" + songList[currentSongIndex]);
     console.log(currentSongIndex);
 }
-
 
     MouseArea {
     id: clickArea
@@ -79,15 +93,11 @@ function changeSong(direction) {
 	
     MediaPlayer {
     id: musicPlayer
-    source: "/usr/share/sddm/themes/genshin-sddm-theme/sounds/snow_buried_tales.mp3"
+    source: "/usr/share/sddm/themes/genshin-sddm-theme/sounds/enchanting_bedtime_stories.mp3"
     volume: 1.0
     muted: false
     autoPlay: true
-    onPlaybackStateChanged: {
-        if (musicPlayer.state === MediaPlayer.EndOfMedia) {
-            changeSong(1); 
-        }
-    }
+    loops: -1
     }
 
 
