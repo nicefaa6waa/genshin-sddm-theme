@@ -25,7 +25,7 @@ Item {
 
         if (hours >= 6 && hours < 12) {
             return "sunrise";
-        } else if (hours >= 12 && hours < 18) {
+        } else if (hours >= 12 && hours < 19) {
             return "morning";
         } else {
             return "night";
