@@ -161,15 +161,7 @@ Currently most features doesn't work or removed for compatibility and transition
 </details>
 
 <details>
-    <summary>⚙️ <b>Custom Ui for Installer</b> (0/?)</summary>
-
-- [ ] Add installer UI with qt6 for better usability and easier installation for new people.
-
-
-</details>
-
-<details>
-    <summary>⏸️ <b>Custom Grub theme</b> (1/7)</summary>
+    <summary>⚙️ <b>Custom Grub theme</b> (1/7)</summary>
 
 - [x] Design a custom background image.
 - [ ] Customize fonts and colors for the menu items.
@@ -180,6 +172,15 @@ Currently most features doesn't work or removed for compatibility and transition
 - [ ] Write a script for automated installation.
 
 </details>
+
+<details>
+    <summary>⏸️ <b>Custom Ui for Installer</b> (0/?)(Paused)</summary>
+
+- [ ] Add installer UI with qt6 for better usability and easier installation for new people.
+
+
+</details>
+
 
 <details>
     <summary>⏸️ <b>Custom lock theme</b> (0/2)(Paused)</summary>
@@ -201,6 +202,8 @@ Currently most features doesn't work or removed for compatibility and transition
 
 
 </details>
+
+❌ ~~<b>Add AUR compatibility for easier installs on Arch based systems</b>~~ (Maybe Later)
 
 
 ❌ ~~<b>Custom plymouth theme</b>~~ (Maybe Later)
