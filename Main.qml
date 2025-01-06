@@ -12,9 +12,9 @@ Item {
     width: Screen.width
     property var isPaused: 0
     property var songList: [
-        "enchanting_bedtime_stories.mp3","clear_sky_over_liyue.mp3","twilight_serenity.mp3",
+        "blue_dream.mp3","enchanting_bedtime_stories.mp3","clear_sky_over_liyue.mp3","twilight_serenity.mp3",
         "ad_oblivione.mp3","another_hopeful_tomorrow.mp3","ballad_of_many_waters.mp3","snow_buried_tales.mp3",
-        "moonlike_smile.mp3","unfinished_frescoes.mp3","glistening_shards.mp3",
+        "moonlike_smile.mp3","unfinished_frescoes.mp3","glistening_shards.mp3","her_serenity.mp3",
         "the_flourishing_past.mp3","finale_of_the_snowtomb.mp3","spin_of_the_ice_crystals.mp3",
     ]
 
