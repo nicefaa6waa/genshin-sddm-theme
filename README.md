@@ -216,12 +216,10 @@ Currently most features doesn't work or removed for compatibility and transition
 
 ## Issues and Contribution
 
-If you would like to contribute to this repo please do so by creating a PR. I am open to suggestions.
+Before creating an issue, please check the Wiki for common issues and their solutions first.If you would like to contribute to this repo, feel free to do so by creating a PR. I am open to suggestions.
 
 
 ## Dependencies
-
-Install sddm(Simple Desktop Display Manager).You also need QT5 which includes Qt Quick Controls 2, Qt Graphical Effects, Qt SVG, Qt Quick Layouts with version 5.11 or new.In qt5 video loads so slow and late so you will also need qt6-base.Also megatools to download videos.To do so 
 
 
 For **Arch** based distros using **pacman**
@@ -243,29 +241,18 @@ sudo apt install gstreamer1.0-libav phonon4qt5-backend-gstreamer gstreamer1.0-pl
 
 
 ## Installing and Testing
-### NOTE:If you have weird resolution issues reinstall the theme and set desired resolution to 1920x1080
 Installation just got easier.Just clone this repo then cd into repo and run installer.
-Videos will be installed using megatools.If you are stuck on Login Screen check wiki
+Videos will be installed using megatools.
 ```bash
 git clone https://github.com/nicefaa6waa/genshin-sddm-theme.git
 cd genshin-sddm-theme
 bash install-sddm-theme.sh
 ```
 
-If door video and background video is slow then just add MinimumQtVersion=6.2.0 at the end of /etc/sddm.conf file.I assume that you have qt6 installed you can check it by qmake6 --version
-
-
-After installing and testing if it says invalid credentials on log that means you mistyped the password while installing.To fix this just go to /usr/share/sddm/themes/genshin-sddm-theme/components/credentials.txt and correct the second password.
-
 
 If you want manual installation:
 <details>
 <summary><b>⚙️Manual Installation Instructions </b></summary>
-
-
-#__!IMPORTANT NOTE!__
-edit credentials.txt like username:password to be able to login.
-
 
 
 Follow the steps below to install and test it:
@@ -288,11 +275,8 @@ cd
 git clone https://github.com/nicefaa6waa/genshin-sddm-theme.git
 sudo cp -r genshin-sddm-theme /usr/share/sddm/themes/
 ```
-(!!!WITH LATEST VERSION MEGATOOLS DOWNLOADS VIDEOS AUTOMATICALLY!!!)
-
 
 [Google Drive](https://drive.google.com/drive/folders/1Yz2GxV8uvZJM16YSbE2yPRMT58H5o0Bs?usp=drive_link)
-
 
 Then unzip the downloaded folder to your themes folder.In order to do so:
 ```bash
@@ -310,8 +294,6 @@ Now, assuming that you've installed it correctly to test it:
 ```bash
 sddm-greeter --test-mode --theme genshin-sddm-theme
 ```
-
-If background door and loading video loads so slow in your /etc/sddm.conf file add MinimumQtVersion=6.2.0 at the end.Make sure you have qt6 installed by runnig qmake6 --version.
 
 ## Applying
 
