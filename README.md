@@ -7,7 +7,7 @@ will be shown based on the time on your OS.
 ![](preview/image1.png)
 
 
-## Features and Development (79.06% Completed)
+## Features and Development (84.75% Completed)
 
 
 You can change almost all the colors within the 'theme.conf' file.More color options will be added in the future
@@ -161,6 +161,15 @@ Currently most features doesn't work or removed for compatibility and transition
 </details>
 
 <details>
+    <summary>✔️ <b>SHA-256 Encryption</b> (3/3)</summary>
+
+- [x] Write a custom pure JS code to encrypt password
+- [x] New Script to update users
+- [x] Update scripts
+
+</details>
+
+<details>
     <summary>⚙️ <b>Custom Grub theme</b> (1/7)</summary>
 
 - [x] Design a custom background image.
@@ -192,16 +201,6 @@ Currently most features doesn't work or removed for compatibility and transition
 
 </details>
 
-<details>
-    <summary>⏸️ <b>SHA3-512 Encryption</b> (2/3)(Paused)</summary>
-
-- [x] Write a python code that encrypts the password
-- [x] Change LoginPanel as it checks for encrpyted password and also compares it to user input
-- [ ] Change installer to save username and password in sha512 encrypted text.
-
-
-
-</details>
 
 ❌ ~~<b>Add AUR compatibility for easier installs on Arch based systems</b>~~ (Maybe Later)
 
@@ -225,18 +224,18 @@ Before creating an issue, please check the Wiki for common issues and their solu
 For **Arch** based distros using **pacman**
 (Obarun/Artix/Manjaro/KaOS/Chakra etc.)
 ```bash
-sudo pacman -S gst-libav phonon-qt5-gstreamer gst-plugins-base gst-plugins-good gst-plugins-bad gst-plugins-ugly qt5-quickcontrols2 qt5-graphicaleffects qt5-multimedia qt6-base megatools xorg-xrandr --overwrite '*'
+sudo pacman -S gst-libav phonon-qt5-gstreamer gst-plugins-base gst-plugins-good gst-plugins-bad gst-plugins-ugly qt5-quickcontrols2 qt5-graphicaleffects qt5-multimedia qt6-base megatools xorg-xrandr nodejs npm --overwrite '*'
 
 ```
 For **Debian** based distros using **apt**
 (Ubuntu/Kali/Neon/antiX etc.Excluding Kubuntu)
 ```bash
-sudo apt-get install gstreamer1.0-libav qml-module-qtmultimedia libqt5multimedia5-plugins qt6-base-dev megatools
+sudo apt-get install gstreamer1.0-libav qml-module-qtmultimedia libqt5multimedia5-plugins qt6-base-dev megatools nodejs npm
 ```
 
 For **Kubuntu** using **apt**
 ```bash
-sudo apt install gstreamer1.0-libav phonon4qt5-backend-gstreamer gstreamer1.0-plugins-good qml-module-qtquick-controls qml-module-qtgraphicaleffects qml-module-qtmultimedia qt5-default qt6-base megatools 
+sudo apt install gstreamer1.0-libav phonon4qt5-backend-gstreamer gstreamer1.0-plugins-good qml-module-qtquick-controls qml-module-qtgraphicaleffects qml-module-qtmultimedia qt5-default qt6-base megatools  nodejs npm
 ```
 
 
