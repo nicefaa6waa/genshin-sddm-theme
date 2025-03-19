@@ -121,6 +121,7 @@ Item {
         onClicked: {
             sessionPopup.visible ? sessionPopup.close() : sessionPopup.open()
             sessionButton.state = "pressed"
+            popupSound.play()
         }
     }
 

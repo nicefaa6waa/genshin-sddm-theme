@@ -93,11 +93,45 @@ function changeSong(direction) {
 	
     MediaPlayer {
     id: musicPlayer
-    source: "/usr/share/sddm/themes/genshin-sddm-theme/sounds/enchanting_bedtime_stories.mp3"
+    source: "/usr/share/sddm/themes/genshin-sddm-theme/sounds/blue_dream.mp3"
     volume: 1.0
     muted: false
     autoPlay: true
     loops: -1
+    }
+
+    MediaPlayer {
+    id: ambiancePlayer
+    source: "/usr/share/sddm/themes/genshin-sddm-theme/sounds/ambiance.mp3"
+    volume: 0.6
+    muted: false
+    autoPlay: true
+    loops: -1
+    }
+
+    MediaPlayer {
+        id: closeSound
+        source: "/usr/share/sddm/themes/genshin-sddm-theme/sounds/close.mp3"  
+        autoPlay: false
+    }
+
+    MediaPlayer {
+        id: inputFocusSound
+        source: "/usr/share/sddm/themes/genshin-sddm-theme/sounds/input_focus.mp3"  
+        volume: 0.8
+        autoPlay: false
+    }
+
+    MediaPlayer {
+        id: loginSuccessSound
+        source: "/usr/share/sddm/themes/genshin-sddm-theme/sounds/succesfull.mp3"  
+        autoPlay: false
+    }
+
+    MediaPlayer {
+        id: popupSound
+        source: "/usr/share/sddm/themes/genshin-sddm-theme/sounds/popup.mp3"  
+        autoPlay: false
     }
 
 

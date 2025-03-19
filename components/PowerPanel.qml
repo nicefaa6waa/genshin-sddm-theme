@@ -69,6 +69,7 @@ Item {
         onClicked: {
             powerPopup.visible ? powerPopup.close() : powerPopup.open()
             powerButton.state = "pressed"
+            popupSound.play()
         }
     }
 

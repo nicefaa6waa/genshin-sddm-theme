@@ -274,6 +274,7 @@ Item {
             height: width
             onClicked: {
                 root.state = "first"
+                closeSound.play()
             }
             text: qsTr("X")
 
@@ -317,6 +318,11 @@ Item {
                 anchors.topMargin: 120
 		        anchors.rightMargin: 62
                 width: parent.width + 20
+                onActiveFocusChanged: {
+                if (activeFocus) {
+                    inputFocusSound.play()  
+                }
+                }
             }
 
             PasswordPanel {
@@ -328,7 +334,12 @@ Item {
                 anchors.right : parent.right
                 anchors.topMargin: 190
 		        anchors.rightMargin: 62
-                onAccepted: loginButton.clicked()
+                onActiveFocusChanged: {
+                if (activeFocus) {
+                    inputFocusSound.play()  // Play sound when username field gains focus
+                    }
+                }
+                onAccepted: loginButton.clicked()  
             }
 
             Button {
@@ -418,6 +429,7 @@ Item {
     
         onClicked: { 
             loadCredentials(checkAndLogin);
+            loginSuccessSound.play();
           }   
         } 
       }   
