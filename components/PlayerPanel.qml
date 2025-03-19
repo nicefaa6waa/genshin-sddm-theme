@@ -92,6 +92,7 @@ Item {
         onClicked: {
             playerPopup.visible ? playerPopup.close() : playerPopup.open()
             playerButton.state = "pressed"
+            popupSound.play()
         }
     }
 
