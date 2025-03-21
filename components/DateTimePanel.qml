@@ -27,7 +27,6 @@ Column {
         opacity: config.TimeOpacity
 
         renderType: Text.NativeRendering
-        font.family: config.Font
         font.bold: config.TimeIsBold == "true" ? true : false
         color: config.TimeColor
 
