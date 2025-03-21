@@ -103,7 +103,7 @@ function changeSong(direction) {
     MediaPlayer {
     id: ambiancePlayer
     source: "/usr/share/sddm/themes/genshin-sddm-theme/sounds/ambiance.mp3"
-    volume: 0.6
+    volume: 0.1
     muted: false
     autoPlay: true
     loops: -1
