@@ -61,7 +61,6 @@ Item {
         radius: 40
 
         Row {
-            spacing: 8
 
             Image {
                 id: iconImage
@@ -69,22 +68,18 @@ Item {
                 width: 40
                 height: 40
                 fillMode: Image.PreserveAspectFit
-                anchors.verticalCenter: parent.verticalCenter
-                anchors.left: parent.left
-                anchors.verticalCenterOffset: 20
+                 
             }
 
             Text {
                 id: playerText
-                anchors.verticalCenter: iconImage.verticalCenter
-                anchors.left: iconImage.right 
                 renderType: Text.NativeRendering
                 font.pointSize: config.GeneralFontSize
                 font.bold: true
                 horizontalAlignment: Text.AlignLeft
                 color: config.PlayerTextColor
-                text: currentlyPlaying() 
-                anchors.verticalCenterOffset: -1
+                text: currentlyPlaying()
+                y:10 
             }
         }
     }
