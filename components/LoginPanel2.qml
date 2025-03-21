@@ -306,38 +306,38 @@ Item {
             width: inputWidth + 10
             anchors.top : parent.top
             anchors.right : parent.right
+            anchors.topMargin: 120
+            anchors.rightMargin: 82
             visible: root.state === "login"
+            spacing: 10
 
             UserPanel {
                 id: userPanel
                 height: inputHeight - 5
-                anchors.top : parent.top
-                anchors.right : parent.right
-                anchors.topMargin: 120
-		        anchors.rightMargin: 62
-                width: parent.width + 20
+                width: parent.width + 10
                 onActiveFocusChanged: {
-                if (activeFocus) {
-                    inputFocusSound.play()  
+                    if (activeFocus) {
+                        inputFocusSound.play()  
+                    }
+                    }
                 }
-                }
-            }
 
             PasswordPanel {
                 id: passwordField
                 opacity: 1
                 height: inputHeight - 5
                 width: parent.width + 20
-                anchors.top : parent.top
-                anchors.right : parent.right
-                anchors.topMargin: 190
-		        anchors.rightMargin: 62
                 onActiveFocusChanged: {
-                if (activeFocus) {
-                    inputFocusSound.play()  
-                }
+                    if (activeFocus) {
+                        inputFocusSound.play()  
+                    }
                 }
                 onAccepted: loginButton.clicked()
+            }
+
+            Item {
+                height: 30  
+                width: 1   
             }
 
             Button {
@@ -346,10 +346,7 @@ Item {
             
                 height: inputHeight -5
                 width: parent.width + 20
-                anchors.top : parent.top
-                anchors.right : parent.right
-                anchors.topMargin: 302
-		        anchors.rightMargin: 62
+
 			
 
                 enabled: user != "" && password != "" ? true : false
