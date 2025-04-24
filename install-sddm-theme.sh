@@ -70,13 +70,13 @@ function selectOS {
 function installPackages {
     case $1 in
         Ubuntu )
-            sudo apt-get install gstreamer1.0-libav qml-module-qtmultimedia libqt5multimedia5-plugins qt6-base megatools nodejs npm
+            sudo apt-get install gstreamer1.0-libav qml-module-qtmultimedia libqt5multimedia5-plugins qt6-base nodejs npm
             ;;
         Kubuntu )
-            sudo apt install gstreamer1.0-libav phonon4qt5-backend-gstreamer gstreamer1.0-plugins-good qml-module-qtquick-controls qml-module-qtgraphicaleffects qml-module-qtmultimedia qt5-default qt6-base megatools nodejs npm
+            sudo apt install gstreamer1.0-libav phonon4qt5-backend-gstreamer gstreamer1.0-plugins-good qml-module-qtquick-controls qml-module-qtgraphicaleffects qml-module-qtmultimedia qt5-default qt6-base nodejs npm
             ;;
         Arch )
-            sudo pacman -S --needed gst-libav phonon-qt5-gstreamer gst-plugins-base gst-plugins-good gst-plugins-bad gst-plugins-ugly qt5-quickcontrols2 qt5-graphicaleffects qt5-multimedia qt6-base megatools xorg-xrandr nodejs npm --overwrite '*'
+            sudo pacman -S --needed gst-libav phonon-qt5-gstreamer gst-plugins-base gst-plugins-good gst-plugins-bad gst-plugins-ugly qt5-quickcontrols2 qt5-graphicaleffects qt5-multimedia qt6-base xorg-xrandr nodejs npm --overwrite '*'
             ;;
         * )
             echo "Error: Invalid OS option"
@@ -164,12 +164,13 @@ function download_from_dropbox {
 }
 
 function choose_server {
+    echo "Mega server is currently disabled because megatools package causes issues in Arch."
     echo "Choose the server to download videos from:"
     echo "1) Mega.nz"
     echo "2) Dropbox"
     read -p "Enter the number (1 or 2): " server_choice
     if [ "$server_choice" == "1" ]; then
-        download_from_mega || download_from_dropbox
+        download_from_dropbox || download_from_mega
     elif [ "$server_choice" == "2" ]; then
         download_from_dropbox || download_from_mega
     else
