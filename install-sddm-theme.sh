@@ -56,13 +56,24 @@ echo "⣿⣿⣿⣿⣿⣿⣿⣮⡛⣤⣀⣀⡠⣊⠤⠂⠀⠀⢹⠀⠀⠀⢇⠀�
 }
 
 function selectOS {
-    echo "Choose your operating system:"
-    select os in "Ubuntu" "Kubuntu" "Arch"; do
-        case $os in
-            Ubuntu|Kubuntu|Arch ) installPackages $os; break;;
-            * ) echo "Invalid selection. Please try again.";;
-        esac
-    done
+    # Auto detect OS
+    if grep -q "Kubuntu" /etc/os-release; then
+        installPackages Kubuntu
+    elif grep -q "Fedora" /etc/os-release; then
+        installPackages Fedora
+    elif grep -q "Arch" /etc/os-release; then
+        installPackages Arch
+    elif grep -q "Ubuntu" /etc/os-release; then
+        installPackages Ubuntu
+    else
+        echo "Choose your operating system:"
+        select os in "Ubuntu" "Kubuntu" "Arch" "Fedora"; do
+            case $os in
+                Ubuntu|Kubuntu|Arch|Fedora ) installPackages $os; break;;
+                * ) echo "Invalid selection. Please try again.";;
+            esac
+        done
+    fi
 }
 
 
@@ -77,6 +88,9 @@ function installPackages {
             ;;
         Arch )
             sudo pacman -S --needed gst-libav phonon-qt5-gstreamer gst-plugins-base gst-plugins-good gst-plugins-bad gst-plugins-ugly qt5-quickcontrols2 qt5-graphicaleffects qt5-multimedia qt6-base xorg-xrandr nodejs npm --overwrite '*'
+            ;;
+        Fedora )
+            sudo dnf install gstreamer1-plugin-libav phonon-qt4-backend-gstreamer phonon-qt5-backend-gstreamer phonon-qt6-backend-gstreamer gstreamer1-plugins-good gstreamer1-plugins-bad-free gstreamer-plugins-base qt5-qtquickcontrols2 qt5-qtgraphicaleffects qt6-qtbase xrandr wlr-xrandr nodejs nodejs-npm
             ;;
         * )
             echo "Error: Invalid OS option"
