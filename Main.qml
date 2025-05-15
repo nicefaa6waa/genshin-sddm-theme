@@ -1,5 +1,5 @@
 //2
-import QtMultimedia 5.13
+import QtMultimedia
 import QtQuick 2.12
 import QtQuick.Window 2.12
 import QtQuick.Controls 2.12
@@ -92,21 +92,30 @@ function changeSong(direction) {
 
 	
     MediaPlayer {
-    id: musicPlayer
-    source: "/usr/share/sddm/themes/genshin-sddm-theme/sounds/blue_dream.mp3"
-    volume: 1.0
-    muted: false
-    autoPlay: true
-    loops: -1
+        id: musicPlayer
+        audioOutput: AudioOutput {
+            volume: 1.0
+            muted: false
+        }
+        source: "/usr/share/sddm/themes/genshin-sddm-theme/sounds/blue_dream.mp3"
+        Component.onCompleted: { play() }
+        // volume: 1.0
+        // muted: false
+        autoPlay: true
+        loops: -1
     }
 
     MediaPlayer {
-    id: ambiancePlayer
-    source: "/usr/share/sddm/themes/genshin-sddm-theme/sounds/ambiance.mp3"
-    volume: 0.1
-    muted: false
-    autoPlay: true
-    loops: -1
+        id: ambiancePlayer
+        audioOutput: AudioOutput {
+            volume: 0.1
+            muted: false
+        }
+        source: "/usr/share/sddm/themes/genshin-sddm-theme/sounds/ambiance.mp3"
+        // volume: 0.1
+        // muted: false
+        autoPlay: true
+        loops: -1
     }
 
     MediaPlayer {
@@ -117,8 +126,11 @@ function changeSong(direction) {
 
     MediaPlayer {
         id: inputFocusSound
+        audioOutput: AudioOutput {
+            volume: 0.8
+        }
         source: "/usr/share/sddm/themes/genshin-sddm-theme/sounds/input_focus.mp3"  
-        volume: 0.8
+        // volume: 0.8
         autoPlay: false
     }
 
@@ -137,31 +149,44 @@ function changeSong(direction) {
 
     MediaPlayer {
         id: videoPlayer1
+        videoOutput: videoOutput1
+        audioOutput: AudioOutput {
+            volume: 1.0
+            muted: true
+        }
         source: "/usr/share/sddm/themes/genshin-sddm-theme/backgrounds/" + getTimeOfDay() + "bg.mp4"
         autoPlay: true
-        muted: true
-		volume: 1.0
+        // muted: true
+		// volume: 1.0
 
         loops: -1
     }
 
     MediaPlayer {
         id: videoPlayer2
+        videoOutput: videoOutput2
+        audioOutput: AudioOutput {
+            muted: false
+        }
         source: "/usr/share/sddm/themes/genshin-sddm-theme/backgrounds/doorbg/" + getTimeOfDay() + "door.webm"
         autoPlay: false
-        muted: false
+        // muted: false
     }
 
     MediaPlayer {
         id: videoPlayer3
+        videoOutput: videoOutput3
+        audioOutput: AudioOutput {
+            muted: true
+        }
         source: "/usr/share/sddm/themes/genshin-sddm-theme/backgrounds/loading.mp4"
         autoPlay: false
-        muted: true
+        // muted: true
     }	
 	
     VideoOutput {
         id: videoOutput1
-        source: videoPlayer1
+        // source: videoPlayer1
         fillMode: VideoOutput.Stretch
         z: 2
         layer.enabled: true
@@ -170,7 +195,7 @@ function changeSong(direction) {
 
     VideoOutput {
     id: videoOutput2
-    source: videoPlayer2
+    // source: videoPlayer2
     fillMode: VideoOutput.Stretch
 
     z: 3
@@ -180,30 +205,13 @@ function changeSong(direction) {
         property variant source: ShaderEffectSource { sourceItem: videoOutput2; hideSource: false }
         anchors.fill: parent
 
-        fragmentShader: "
-            varying highp vec2 qt_TexCoord0;
-            uniform sampler2D source;
-
-            void main(void)
-            {
-                vec4 color = texture2D(source, qt_TexCoord0);
-                
-                // Adjust threshold to prevent artifacts
-                float threshold = 0.15;
-                
-                if (color.r < threshold && color.g < threshold && color.b < threshold) {
-                    color.a = 0.0;
-                }
-
-                gl_FragColor = color;
-            }
-        "
+        fragmentShader: "/usr/share/sddm/themes/genshin-sddm-theme/components/doorShader.frag.qsb"
    	  }
 	}
 
     VideoOutput {
         id: videoOutput3
-        source: videoPlayer3
+        // source: videoPlayer3
         fillMode: VideoOutput.Stretch
 		visible: true
 
