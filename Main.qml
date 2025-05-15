@@ -5,6 +5,12 @@ import QtQuick.Window 2.12
 import QtQuick.Controls 2.12
 import "components"
 
+// Please increment this counter for the next person
+// whenever you softlock sddm and have to go to tty 
+// and manually change the theme back.
+//
+// sddm_softlock_counter = 4
+
 Item {
     property var currentSongIndex : 0
     id: root
