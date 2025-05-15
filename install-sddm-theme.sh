@@ -65,6 +65,10 @@ function selectOS {
         installPackages Kubuntu
     elif grep -q "Fedora" /etc/os-release; then
         echo "Auto detected distro: Fedora"
+        if [[ ! dnf repolist | grep -q "rpmfusion-free" ]]; then
+            echo "ERROR: You need to add the rpm fusion repository as a source."
+            exit 2
+        fi
         installPackages Fedora
     elif grep -q "Arch" /etc/os-release; then
         echo "Auto detected distro: Arch (btw)"
@@ -97,7 +101,7 @@ function installPackages {
             sudo pacman -S --needed gst-libav phonon-qt5-gstreamer gst-plugins-base gst-plugins-good gst-plugins-bad gst-plugins-ugly qt5-quickcontrols2 qt5-graphicaleffects qt5-multimedia qt6-base xorg-xrandr nodejs npm --overwrite '*'
             ;;
         Fedora )
-            sudo dnf install gstreamer1-plugin-libav phonon-qt4-backend-gstreamer phonon-qt5-backend-gstreamer gstreamer1-plugins-good gstreamer1-plugins-bad-free gstreamer1-plugins-base qt5-qtquickcontrols2 qt5-qtgraphicaleffects qt6-qtbase qt6-qtshadertools-devel xrandr nodejs nodejs-npm
+            sudo dnf install gstreamer1-plugin-libav phonon-qt4-backend-gstreamer phonon-qt5-backend-gstreamer gstreamer1-plugins-good gstreamer1-plugins-bad-free gstreamer1-plugins-base qt5-qtquickcontrols2 qt5-qtgraphicaleffects qt6-qtbase qt6-qtshadertools-devel qt6-qt5compat qt6-qtquickcontrols2 qt5-qtwayland qt6-qtwayland xrandr nodejs nodejs-npm megadl x265 x265-libs
             ;;
         * )
             echo "Error: Invalid OS option"
@@ -191,7 +195,7 @@ function choose_server {
     echo "2) Dropbox"
     read -p "Enter the number (1 or 2): " server_choice
     if [ "$server_choice" == "1" ]; then
-        download_from_dropbox || download_from_mega
+        download_from_mega || download_from_dropbox
     elif [ "$server_choice" == "2" ]; then
         download_from_dropbox || download_from_mega
     else
