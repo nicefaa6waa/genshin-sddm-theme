@@ -9,7 +9,7 @@ import "components"
 // whenever you softlock sddm and have to go to tty 
 // and manually change the theme back.
 //
-// sddm_softlock_counter = 4
+// sddm_softlock_counter = 5
 
 Item {
     property var currentSongIndex : 0

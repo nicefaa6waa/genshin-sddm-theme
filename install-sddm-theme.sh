@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
 
 cd "${0:%/*}"
-SCRIPTPATH=$(pwd)
 
 NAME="genshin-sddm-theme"
 DIR="/usr/share/sddm/themes/$NAME/"
@@ -65,7 +64,7 @@ function selectOS {
         installPackages Kubuntu
     elif grep -q "Fedora" /etc/os-release; then
         echo "Auto detected distro: Fedora"
-        if [[ ! dnf repolist | grep -q "rpmfusion-free" ]]; then
+        if ! dnf repolist | grep -q "rpmfusion-free"; then
             echo "ERROR: You need to add the rpm fusion repository as a source."
             exit 2
         fi
@@ -271,7 +270,7 @@ function compileShaders {
     if [ ! -f components/doorShader.frag.qsb ]; then
         echo "Compiling shaders..."
         cd components
-        . compile_shaders.sh
+        . compile_shader.sh
         cd ..
     fi
 }
