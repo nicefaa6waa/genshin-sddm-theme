@@ -1,5 +1,7 @@
 #!/bin/bash
 
+cd "${dirname $0}" || exit 1
+
 NAME="genshin-sddm-theme"
 DIR="/usr/share/sddm/themes/$NAME/"
 CFG="/etc/sddm.conf"
@@ -260,6 +262,13 @@ function skipLoadingAnimation {
   done
 }
 
+function compileShaders {
+    if [ ! -f components/doorShader.frag.qsb ]; then
+        echo "Compiling shaders..."
+        . components/compile_shaders.sh
+        cd "$(dirname $0)" || exit 1 # that script changes the cwd
+    fi
+}
 
 
 function mainOperations {
@@ -292,6 +301,7 @@ function mainOperations {
         done
     else
         selectOS
+        compileShaders
         if [[ -z "$SKIPDOWNLOAD" ]]; then
             choose_server
         fi
