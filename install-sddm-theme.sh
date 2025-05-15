@@ -1,6 +1,7 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
-cd "${dirname $0}" || exit 1
+cd "${0:%/*}"
+SCRIPTPATH=$(pwd)
 
 NAME="genshin-sddm-theme"
 DIR="/usr/share/sddm/themes/$NAME/"
@@ -265,8 +266,9 @@ function skipLoadingAnimation {
 function compileShaders {
     if [ ! -f components/doorShader.frag.qsb ]; then
         echo "Compiling shaders..."
-        . components/compile_shaders.sh
-        cd "$(dirname $0)" || exit 1 # that script changes the cwd
+        cd components
+        . compile_shaders.sh
+        cd ..
     fi
 }
 
