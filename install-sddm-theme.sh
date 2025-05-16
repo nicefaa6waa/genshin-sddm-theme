@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-cd "${0:%/*}"
+cd "${0%/*}"
 
 NAME="genshin-sddm-theme"
 DIR="/usr/share/sddm/themes/$NAME/"
