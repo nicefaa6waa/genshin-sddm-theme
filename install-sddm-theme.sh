@@ -268,8 +268,7 @@ function skipLoadingAnimation {
 
 function compileShaders {
     if [ ! -f components/doorShader.frag.qsb ]; then
-        echo "Compiling shaders..."
-        if [[ ! -f "$components/doorShader.frag.qsb" && -z "$RECOMPILE_SHADERS" ]]; then  
+        if [[ ! -f "components/doorShader.frag.qsb" && -z "$RECOMPILE_SHADERS" ]]; then  
             echo "Compiling shaders..."
             if [[ -x components/compile_shader.sh ]]; then 
                 cd components 
