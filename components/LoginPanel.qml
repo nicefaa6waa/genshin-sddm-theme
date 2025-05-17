@@ -158,7 +158,7 @@ Item {
         id: volumeFadeOut
         target: musicPlayer
         property: "volume"
-        from: musicPlayer.volume
+        from: musicPlayer.audioOutput.volume
         to: 0
         duration: 2000
         onStopped: {
