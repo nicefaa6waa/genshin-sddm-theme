@@ -64,10 +64,6 @@ function selectOS {
         installPackages Kubuntu
     elif grep -q "Fedora" /etc/os-release; then
         echo "Auto detected distro: Fedora"
-        if ! dnf repolist | grep -q "rpmfusion-free"; then
-            echo "ERROR: You need to add the rpm fusion repository as a source."
-            exit 2
-        fi
         installPackages Fedora
     elif grep -q "Arch" /etc/os-release; then
         echo "Auto detected distro: Arch (btw)"
@@ -100,6 +96,10 @@ function installPackages {
             sudo pacman -S --needed gst-libav phonon-qt5-gstreamer gst-plugins-base gst-plugins-good gst-plugins-bad gst-plugins-ugly qt5-quickcontrols2 qt5-graphicaleffects qt5-multimedia qt6-base xorg-xrandr nodejs npm --overwrite '*'
             ;;
         Fedora )
+            if ! dnf repolist | grep -q "rpmfusion-free"; then
+                echo "ERROR: You need to add the rpm fusion repository as a source."
+                exit 2
+            fi
             sudo dnf install gstreamer1-plugin-libav phonon-qt4-backend-gstreamer phonon-qt5-backend-gstreamer gstreamer1-plugins-good gstreamer1-plugins-bad-free gstreamer1-plugins-base qt5-qtquickcontrols2 qt5-qtgraphicaleffects qt6-qtbase qt6-qtshadertools-devel qt6-qt5compat qt6-qtquickcontrols2 qt5-qtwayland qt6-qtwayland xrandr nodejs nodejs-npm megadl x265 x265-libs
             ;;
         * )
@@ -269,9 +269,17 @@ function skipLoadingAnimation {
 function compileShaders {
     if [ ! -f components/doorShader.frag.qsb ]; then
         echo "Compiling shaders..."
-        cd components
-        . compile_shader.sh
-        cd ..
+        if [[ ! -f "$components/doorShader.frag.qsb" && -z "$RECOMPILE_SHADERS" ]]; then  
+            echo "Compiling shaders..."
+            if [[ -x components/compile_shader.sh ]]; then 
+                cd components 
+                bash components/compile_shader.sh || { echo "Shader compilation failed"; exit 1; }
+                cd ..
+            else  
+                echo "Error: compile_shader.sh not found or not executable"
+                exit 1  
+            fi
+        fi
     fi
 }
 
@@ -306,7 +314,6 @@ function mainOperations {
         done
     else
         selectOS
-        compileShaders
         if [[ -z "$SKIPDOWNLOAD" ]]; then
             choose_server
         fi
@@ -323,4 +330,5 @@ displayArtAndWelcome
 if [[ -z "$SKIPACCOUNTS" ]]; then
     handleMultipleAccounts
 fi
+compileShaders
 mainOperations
