@@ -272,7 +272,7 @@ function compileShaders {
             echo "Compiling shaders..."
             if [[ -x components/compile_shader.sh ]]; then 
                 cd components 
-                bash components/compile_shader.sh || { echo "Shader compilation failed"; exit 1; }
+                bash compile_shader.sh || { echo "Shader compilation failed"; exit 1; }
                 cd ..
             else  
                 echo "Error: compile_shader.sh not found or not executable"
