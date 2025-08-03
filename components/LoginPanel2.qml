@@ -7,10 +7,16 @@ Item {
     property var user: userPanel.username
     property var password: passwordField.text
     property var session: sessionPanel.session
-    property var inputHeight: Screen.height * config.LoginScale * 0.25
-    property var inputWidth: Screen.width * config.LoginScale
-	property var users: []
-	property var credentialsLoaded: false
+    // Make these responsive to actual screen dimensions
+    property var inputHeight: Math.max(40, Screen.height * config.LoginScale * 0.04)
+    property var inputWidth: Math.min(400, Screen.width * config.LoginScale * 0.25)
+    property var users: []
+    property var credentialsLoaded: false
+    
+    // Add scaling factors for different screen sizes
+    property real scaleFactor: Math.min(Screen.width / 1920, Screen.height / 1080)
+    property real baseFontSize: Math.max(12, 15 * scaleFactor)
+    property real baseMargin: Math.max(15, 19 * scaleFactor)
 
     function sha256(message) {
     const k = [
@@ -182,19 +188,16 @@ Item {
         passwordField.text = "";
         }
     }
-	
-
 
     Column {
-        spacing: 8
+        spacing: 8 * scaleFactor
         opacity: 0
-
 
         anchors {
             bottom: parent.bottom
             left: parent.left
-			bottomMargin: 65
-            leftMargin: 19
+            bottomMargin: baseMargin * 3.4  // 65 scaled
+            leftMargin: baseMargin
         }
 
         PowerPanel {
@@ -202,16 +205,15 @@ Item {
         }
     }
     
-        Column {
-        spacing: 8
+    Column {
+        spacing: 8 * scaleFactor
         opacity: 1
-
 
         anchors {
             top: parent.top
             right: parent.right
-			topMargin: 450
-            rightMargin: 19
+            topMargin: Math.max(300, Screen.height * 0.42)  // Responsive top margin
+            rightMargin: baseMargin
         }
 
         DateTimePanel {
@@ -220,13 +222,13 @@ Item {
     }
 
     Column {
-        spacing: 8
+        spacing: 8 * scaleFactor
         opacity: 1
         anchors {
             top: parent.top
             left: parent.left
-			topMargin: 450
-            leftMargin: 19
+            topMargin: Math.max(300, Screen.height * 0.42)
+            leftMargin: baseMargin
         }
 
         PlayerPanel {
@@ -235,14 +237,14 @@ Item {
     }    
 
     Column {
-        spacing: 8
-		opacity: 0
+        spacing: 8 * scaleFactor
+        opacity: 0
 
         anchors {
             bottom: parent.bottom
             right: parent.right
-			bottomMargin: 65
-			rightMargin: 19
+            bottomMargin: baseMargin * 3.4
+            rightMargin: baseMargin
         }
 
         SessionPanel {
@@ -250,25 +252,30 @@ Item {
         }
     }	
 
-
     Image {
         id: basicImage
         visible: root.state === "login"
-        source: "/usr/share/sddm/themes/genshin-sddm-theme/1.png" 
-        width: Math.min(parent.width, sourceSize.width)
-        height: sourceSize.height * (width / sourceSize.width)
+        source: "1.png"
+        
+        // Make image size responsive
+        property real maxImageWidth: Math.min(parent.width * 0.6, 800)
+        property real maxImageHeight: Math.min(parent.height * 0.7, 600)
+        
+        width: Math.min(maxImageWidth, sourceSize.width * scaleFactor)
+        height: Math.min(maxImageHeight, sourceSize.height * (width / sourceSize.width))
+        
         anchors.horizontalCenter: parent.horizontalCenter
-        anchors.top : parent.top
-        anchors.topMargin: (Screen.height / 2) + 100
+        anchors.verticalCenter: parent.verticalCenter
+        anchors.verticalCenterOffset: Math.max(50, 100 * scaleFactor)
         z: 3
 
         Button {
             id: xbutton
             anchors.top: parent.top
             anchors.right: parent.right
-            anchors.topMargin: 15
-            anchors.rightMargin: 20
-            width: 30
+            anchors.topMargin: 15 * scaleFactor
+            anchors.rightMargin: 20 * scaleFactor
+            width: 30 * scaleFactor
             height: width
             onClicked: {
                 root.state = "first"
@@ -278,55 +285,70 @@ Item {
 
             background: Rectangle {
                 color: "white" 
+                radius: 4 * scaleFactor
             }
+            
+            contentItem: Text {
+                text: parent.text
+                font.pixelSize: baseFontSize
+                color: "black"
+                horizontalAlignment: Text.AlignHCenter
+                verticalAlignment: Text.AlignVCenter
             }
+        }
     	
         Text {
             anchors.top: parent.top
-		    anchors.topMargin: 385
-		    anchors.right: parent.right	
-		    anchors.rightMargin: 350
+            anchors.topMargin: parent.height * 0.8  // Relative to image height
+            anchors.left: parent.left
+            anchors.leftMargin: parent.width * 0.1  // Relative to image width
             text: "nicefaa6waa"
-            font.pixelSize: 15 
+            font.pixelSize: baseFontSize
             color: "black"     
-		    z:3
-            }
+            z: 3
+        }
+        
         Text {
             anchors.top: parent.top
-		    anchors.topMargin:385
-		    anchors.right: parent.right 
-		    anchors.rightMargin: 80
+            anchors.topMargin: parent.height * 0.8
+            anchors.right: parent.right
+            anchors.rightMargin: parent.width * 0.1
             text: "ibrahim-mammadli"
-            font.pixelSize: 15 
+            font.pixelSize: baseFontSize
             color: "black"   
-		    z:3
-            }
+            z: 3
+        }
 
         Column {
-            width: inputWidth + 10
-            anchors.top : parent.top
-            anchors.right : parent.right
-            anchors.topMargin: 120
-            anchors.rightMargin: 82
+            // Make login form responsive
+            width: Math.min(inputWidth, parent.width * 0.8)
+            
+            anchors {
+                top: parent.top
+                right: parent.right
+                topMargin: Math.max(80, parent.height * 0.2)
+                rightMargin: Math.max(20, parent.width * 0.05)
+            }
+            
             visible: root.state === "login"
-            spacing: 10
+            spacing: 10 * scaleFactor
 
             UserPanel {
                 id: userPanel
-                height: inputHeight - 5
-                width: parent.width + 10
+                height: inputHeight
+                width: parent.width
                 onActiveFocusChanged: {
                     if (activeFocus) {
                         inputFocusSound.play()  
                     }
-                    }
                 }
+            }
 
             PasswordPanel {
                 id: passwordField
                 opacity: 1
-                height: inputHeight - 5
-                width: parent.width + 20
+                height: inputHeight
+                width: parent.width
                 onActiveFocusChanged: {
                     if (activeFocus) {
                         inputFocusSound.play()  
@@ -336,18 +358,15 @@ Item {
             }
 
             Item {
-                height: 30  
+                height: 20 * scaleFactor
                 width: 1   
             }
 
             Button {
                 id: loginButton
-			    opacity:1
-            
-                height: inputHeight -5
-                width: parent.width + 20
-
-			
+                opacity: 1
+                height: inputHeight
+                width: parent.width
 
                 enabled: user != "" && password != "" ? true : false
                 hoverEnabled: true
@@ -355,13 +374,11 @@ Item {
 
                 contentItem: Text {
                     id: buttonText
-
                     renderType: Text.NativeRendering
-                    font.pointSize: config.GeneralFontSize
+                    font.pointSize: Math.max(8, config.GeneralFontSize * scaleFactor)
                     font.bold: true
                     horizontalAlignment: Text.AlignHCenter
                     verticalAlignment: Text.AlignVCenter
-
                     color: config.LoginButtonTextColor
                     opacity: 0.5
                     text: config.LoginButtonText
@@ -371,8 +388,8 @@ Item {
                     id: buttonBackground
                     color: config.LoginButtonBgColor
                     opacity: 0.5
-                        radius: config.CornerRadius
-                    }
+                    radius: Math.max(4, config.CornerRadius * scaleFactor)
+                }
     
                 states: [
                     State {
@@ -422,11 +439,11 @@ Item {
                     }
                 }
     
-        onClicked: { 
-            loadCredentials(checkAndLogin);
-            loginSuccessSound.play();
-          }   
-        } 
-      }   
+                onClicked: { 
+                    loadCredentials(checkAndLogin);
+                    loginSuccessSound.play();
+                }   
+            } 
+        }   
     } 
 }

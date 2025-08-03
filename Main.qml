@@ -34,15 +34,13 @@ Item {
 
 
 function changeSong(direction) {
-    
-
     if (direction === 1) {
         currentSongIndex = (currentSongIndex + 1) % songList.length;
         isPaused = 0;
     } else if (direction === -1) {
         currentSongIndex = (currentSongIndex - 1 + songList.length) % songList.length;
         isPaused = 0;
-    } else if (direction === 0 ) {
+    } else if (direction === 0) {
         if (isPaused === 1) {
             musicPlayer.play();
             isPaused = 0; 
@@ -50,29 +48,71 @@ function changeSong(direction) {
             musicPlayer.pause();
             isPaused = 1;
         }
+        return; // Don't change source when just pausing/playing
     }
     
     if (currentSongIndex === songList.length) {
         currentSongIndex = 0;
     }
 
-    musicPlayer.source = "/usr/share/sddm/themes/genshin-sddm-theme/sounds/" + songList[currentSongIndex];
-    console.log("/usr/share/sddm/themes/genshin-sddm-theme/sounds/" + songList[currentSongIndex]);
-    console.log(currentSongIndex);
+    // Use consistent path resolution
+    musicPlayer.source = Qt.resolvedUrl("sounds/" + songList[currentSongIndex]);
+    console.log("Now playing: " + Qt.resolvedUrl("sounds/" + songList[currentSongIndex]));
+    console.log("Song index: " + currentSongIndex);
+}
+
+function nextSong() {
+    currentSongIndex = (currentSongIndex + 1) % songList.length;
+    musicPlayer.source = Qt.resolvedUrl("sounds/" + songList[currentSongIndex]);
+    console.log("Now playing: " + Qt.resolvedUrl("sounds/" + songList[currentSongIndex]));
+    console.log("Song index: " + currentSongIndex);
 }
 
     MouseArea {
-    id: clickArea
-    anchors.fill: parent
-    onClicked: {
-
-        if (root.state === "door") {
-
-        } else {
-            root.state = "login";
-               }
-             }
-           }
+        id: clickArea
+        anchors.fill: parent
+        
+        onClicked: {
+            // Check if SessionPanel popup is open and click is inside it
+            var sessionPanel = contentPanel.children[0].sessionPanel; // Get SessionPanel from LoginPanel
+            if (sessionPanel && sessionPanel.menuOpen) {
+                // Convert click coordinates to SessionPanel coordinates
+                var sessionPanelPoint = mapToItem(sessionPanel, mouse.x, mouse.y);
+                
+                // Check if click is inside the sessionMenu
+                var sessionMenu = null;
+                for (var i = 0; i < sessionPanel.children.length; i++) {
+                    if (sessionPanel.children[i].objectName === "sessionMenu") {
+                        sessionMenu = sessionPanel.children[i];
+                        break;
+                    }
+                }
+                
+                if (sessionMenu && sessionMenu.visible) {
+                    // Convert to sessionMenu coordinates
+                    var menuPoint = mapToItem(sessionMenu, mouse.x, mouse.y);
+                    
+                    // If click is inside sessionMenu, don't do anything
+                    if (menuPoint.x >= 0 && menuPoint.x <= sessionMenu.width && 
+                        menuPoint.y >= 0 && menuPoint.y <= sessionMenu.height) {
+                        return; // Don't process this click
+                    } else {
+                        // Click outside sessionMenu but popup is open - just close popup
+                        sessionPanel.menuOpen = false;
+                        sessionMenu.visible = false;
+                        return; // Don't open LoginPanel
+                    }
+                }
+            }
+            
+            // Normal behavior - open LoginPanel only if nothing else is open
+            if (root.state === "door") {
+                // Don't do anything during door animation
+            } else {
+                root.state = "login";
+            }
+        }
+    }
 	 
 
 	Image {
@@ -81,80 +121,76 @@ function changeSong(direction) {
         height: parent.height
         width: parent.width
         fillMode: Image.PreserveAspectCrop
-        source: "/usr/share/sddm/themes/genshin-sddm-theme/backgrounds/bg.png"
-        asynchronous: false
+        source: Qt.resolvedUrl("backgrounds/bg.png")
+        asynchronous: true
         cache: true
         mipmap: true
         clip: true
-        z:1
-	    visible : true
-    }
-
-	
-    MediaPlayer {
-    id: musicPlayer
-    source: "/usr/share/sddm/themes/genshin-sddm-theme/sounds/blue_dream.mp3"
-    volume: 1.0
-    muted: false
-    autoPlay: true
-    loops: -1
+        z: 1
+        visible: true
     }
 
     MediaPlayer {
-    id: ambiancePlayer
-    source: "/usr/share/sddm/themes/genshin-sddm-theme/sounds/ambiance.mp3"
-    volume: 0.1
-    muted: false
-    autoPlay: true
-    loops: -1
+        id: musicPlayer
+        source: Qt.resolvedUrl("sounds/" + songList[currentSongIndex])
+        volume: 1.0
+        muted: false
+        autoPlay: true
+        loops: -1
     }
 
     MediaPlayer {
-        id: closeSound
-        source: "/usr/share/sddm/themes/genshin-sddm-theme/sounds/close.mp3"  
-        autoPlay: false
+        id: ambiancePlayer
+        source: Qt.resolvedUrl("sounds/ambiance.mp3")
+        volume: 0.1
+        muted: false
+        autoPlay: true
+        loops: -1
     }
 
     MediaPlayer {
         id: inputFocusSound
-        source: "/usr/share/sddm/themes/genshin-sddm-theme/sounds/input_focus.mp3"  
-        volume: 0.8
+        source: Qt.resolvedUrl("sounds/input.mp3")
+        autoPlay: false
+    }
+
+    MediaPlayer {
+        id: closeSound
+        source: Qt.resolvedUrl("sounds/close.mp3")
         autoPlay: false
     }
 
     MediaPlayer {
         id: loginSuccessSound
-        source: "/usr/share/sddm/themes/genshin-sddm-theme/sounds/succesfull.mp3"  
+        source: Qt.resolvedUrl("sounds/succesfull.mp3")
         autoPlay: false
     }
 
     MediaPlayer {
         id: popupSound
-        source: "/usr/share/sddm/themes/genshin-sddm-theme/sounds/popup.mp3"  
+        source: Qt.resolvedUrl("sounds/popup.mp3")
         autoPlay: false
     }
 
-
     MediaPlayer {
         id: videoPlayer1
-        source: "/usr/share/sddm/themes/genshin-sddm-theme/backgrounds/" + getTimeOfDay() + "bg.mp4"
+        source: Qt.resolvedUrl("backgrounds/" + getTimeOfDay() + "bg.mp4")
         autoPlay: true
         muted: true
-		volume: 1.0
-
+        volume: 1.0
         loops: -1
     }
 
     MediaPlayer {
         id: videoPlayer2
-        source: "/usr/share/sddm/themes/genshin-sddm-theme/backgrounds/doorbg/" + getTimeOfDay() + "door.webm"
+        source: Qt.resolvedUrl("backgrounds/doorbg/" + getTimeOfDay() + "door.webm")
         autoPlay: false
         muted: false
     }
 
     MediaPlayer {
         id: videoPlayer3
-        source: "/usr/share/sddm/themes/genshin-sddm-theme/backgrounds/loading.mp4"
+        source: Qt.resolvedUrl("backgrounds/loading.mp4")
         autoPlay: false
         muted: true
     }	
@@ -163,60 +199,58 @@ function changeSong(direction) {
         id: videoOutput1
         source: videoPlayer1
         fillMode: VideoOutput.Stretch
-        z: 2
+        z: 1  // Base video layer
         layer.enabled: true
         anchors.fill: parent
-        }
+    }
 
     VideoOutput {
-    id: videoOutput2
-    source: videoPlayer2
-    fillMode: VideoOutput.Stretch
+        id: videoOutput2
+        source: videoPlayer2
+        fillMode: VideoOutput.Stretch
+        z: 2  // Door video layer
+        layer.enabled: true
+        layer.effect: ShaderEffect {
+            property real alphaValue: 1
+            property variant source: ShaderEffectSource { sourceItem: videoOutput2; hideSource: false }
+            anchors.fill: parent
 
-    z: 3
-    layer.enabled: true
-    layer.effect: ShaderEffect {
-        property real alphaValue: 1
-        property variant source: ShaderEffectSource { sourceItem: videoOutput2; hideSource: false }
-        anchors.fill: parent
+            fragmentShader: "
+                varying highp vec2 qt_TexCoord0;
+                uniform sampler2D source;
 
-        fragmentShader: "
-            varying highp vec2 qt_TexCoord0;
-            uniform sampler2D source;
+                void main(void)
+                {
+                    vec4 color = texture2D(source, qt_TexCoord0);
+                    
+                    // Adjust threshold to prevent artifacts
+                    float threshold = 0.15;
+                    
+                    if (color.r < threshold && color.g < threshold && color.b < threshold) {
+                        color.a = 0.0;
+                    }
 
-            void main(void)
-            {
-                vec4 color = texture2D(source, qt_TexCoord0);
-                
-                // Adjust threshold to prevent artifacts
-                float threshold = 0.15;
-                
-                if (color.r < threshold && color.g < threshold && color.b < threshold) {
-                    color.a = 0.0;
+                    gl_FragColor = color;
                 }
-
-                gl_FragColor = color;
-            }
-        "
-   	  }
-	}
+            "
+        }
+    }
 
     VideoOutput {
         id: videoOutput3
         source: videoPlayer3
         fillMode: VideoOutput.Stretch
-		visible: true
-
-        z: 3
+        visible: true
+        z: 2  // Loading video layer
     }			
-	
+    
     Item {
         id: contentPanel
-		z:3
+        z: 4  // UI layer - highest priority
 
         anchors {
             fill: parent
-            topMargin: -400
+            topMargin: 0  // Remove negative margin
             rightMargin: config.Padding
             leftMargin: config.Padding
         }

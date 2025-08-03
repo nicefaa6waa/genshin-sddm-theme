@@ -16,20 +16,14 @@ Item {
 
     Button {
         id: powerButton
-
-        height: inputHeight
-        width: inputHeight
-        hoverEnabled: true
-
-        icon.height: height
-        icon.width: width
-        icon.color: config.PowerIconColor
-
+        height: 40
+        width: 40
+        
         background: Rectangle {
             id: powerButtonBg
-            
-            color: config.PowerButtonColor
+            color: "transparent"  // Always transparent
             radius: config.CornerRadius
+            border.width: 0
         }
 
         states: [
@@ -38,7 +32,7 @@ Item {
                 when: powerButton.down
                 PropertyChanges {
                     target: powerButtonBg
-                    color: Qt.darker(config.PowerButtonColor, 1.2)
+                    color: "transparent"  // Keep transparent
                 }
             },
             State {
@@ -46,7 +40,7 @@ Item {
                 when: powerButton.hovered
                 PropertyChanges {
                     target: powerButtonBg
-                    color: Qt.darker(config.PowerButtonColor, 1.2)
+                    color: "transparent"  // Keep transparent
                 }
             },
             State {
@@ -54,7 +48,7 @@ Item {
                 when: powerPopup.visible
                 PropertyChanges {
                     target: powerButtonBg
-                    color: Qt.darker(config.PowerButtonColor, 1.2)
+                    color: "transparent"  // Keep transparent
                 }
             }
         ]

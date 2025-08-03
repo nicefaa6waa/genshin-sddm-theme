@@ -7,10 +7,14 @@ Item {
     property var user: userPanel.username
     property var password: passwordField.text
     property var session: sessionPanel.session
-    property var inputHeight: Screen.height * config.LoginScale * 0.25
-    property var inputWidth: Screen.width * config.LoginScale
-	property var users: []
-	property var credentialsLoaded: false
+    property var inputHeight: Math.max(40, Screen.height * config.LoginScale * 0.04)
+    property var inputWidth: Math.min(400, Screen.width * config.LoginScale * 0.25)
+    property var users: []
+    property var credentialsLoaded: false
+    
+    property real scaleFactor: Math.min(Screen.width / 1920, Screen.height / 1080)
+    property real baseFontSize: Math.max(12, 15 * scaleFactor)
+    property real baseMargin: Math.max(15, 19 * scaleFactor)
 
     function sha256(message) {
     const k = [
@@ -187,91 +191,99 @@ Item {
 	
 
 
+    // Top-right: DateTime Panel (bigger and more right)
     Column {
-        spacing: 8
-        opacity: 0
+        spacing: 4 * scaleFactor
+        opacity: 1
+        z: 3
+        anchors {
+            top: parent.top
+            right: parent.right
+            topMargin: Math.max(20, Screen.height * 0.02)
+            rightMargin: baseMargin - 10  // Move 20px more to the right (was +10, now -10)
+        }
+        DateTimePanel {
+            id: dateTimePanel
+            scale: 0.8  // Bigger (was 0.6)
+        }
+    }
 
+    // Top-left: Player Panel (moved more left)
+    Column {
+        spacing: 4 * scaleFactor
+        opacity: 1
+        z: 3
+        anchors {
+            top: parent.top
+            left: parent.left
+            topMargin: Math.max(20, Screen.height * 0.02)
+            leftMargin: baseMargin - 10  // Move 20px more to the left (was +10, now -10)
+        }
+        PlayerPanel {
+            id: playerPanel
+            scale: 0.8
+        }
+    }    
 
+    // Bottom-left: Power Panel (moved left, invisible background)
+    Column {
+        spacing: 8 * scaleFactor
+        opacity: 1
+        z: 3
         anchors {
             bottom: parent.bottom
             left: parent.left
-			bottomMargin: 65
-            leftMargin: 19
+            bottomMargin: baseMargin * 3.4
+            leftMargin: baseMargin - 5  // Move 5px left
         }
-
         PowerPanel {
             id: powerPanel
         }
     }
-    
-        Column {
-        spacing: 8
-        opacity: 1
 
+    // REMOVE THE EXTRA 1.png IMAGE - Only keep basicImage
 
-        anchors {
-            top: parent.top
-            right: parent.right
-			topMargin: 450
-            rightMargin: 19
-        }
-
-        DateTimePanel {
-            id: dateTimePanel
-        }
-    }
-
-    Column {
-        spacing: 8
-        opacity: 1
-        anchors {
-            top: parent.top
-            left: parent.left
-			topMargin: 450
-            leftMargin: 19
-        }
-
-        PlayerPanel {
-            id: playerPanel
-        }
-    }    
-
-    Column {
-        spacing: 8
-		opacity: 0
-
-        anchors {
-            bottom: parent.bottom
-            right: parent.right
-			bottomMargin: 65
-			rightMargin: 19
-        }
-
-        SessionPanel {
-            id: sessionPanel
-        }
-    }	
-
-
+    // Main login image (centered and higher)
     Image {
         id: basicImage
         visible: root.state === "login"
-        source: "/usr/share/sddm/themes/genshin-sddm-theme/1.png" 
-        width: Math.min(parent.width, sourceSize.width)
-        height: sourceSize.height * (width / sourceSize.width)
-        anchors.horizontalCenter: parent.horizontalCenter
-        anchors.top : parent.top
-        anchors.topMargin: (Screen.height / 2) + 100
-        z: 3
+        source: Qt.resolvedUrl("../1.png")
+        
+        // Center and move up
+        anchors.centerIn: parent
+        anchors.verticalCenterOffset: -20  // Higher from center
+        
+        property real aspectRatio: sourceSize.width > 0 ? sourceSize.width / sourceSize.height : 1.33
+        property real baseWidth: 600
+        property real baseHeight: 400
+        
+        width: Math.min(baseWidth * scaleFactor, parent.width * 0.4)
+        height: width / aspectRatio
+        
+        fillMode: Image.PreserveAspectFit
+        z: 4
+        
+        Component.onCompleted: {
+            if (width < 250) {
+                width = 250
+                height = width / aspectRatio
+            }
+            if (width > 650) {
+                width = 650
+                height = width / aspectRatio
+            }
+        }
 
         Button {
             id: xbutton
             anchors.top: parent.top
             anchors.right: parent.right
-            anchors.topMargin: 15
-            anchors.rightMargin: 20
-            width: 30
+            anchors.topMargin: parent.height * 0.03
+            anchors.rightMargin: parent.width * 0.04
+            
+            width: Math.max(24, Math.min(40, parent.width * 0.06))
             height: width
+            
             onClicked: {
                 root.state = "first"
                 closeSound.play()
@@ -280,55 +292,71 @@ Item {
 
             background: Rectangle {
                 color: "white" 
+                radius: width * 0.15
             }
+            
+            contentItem: Text {
+                text: parent.text
+                font.pixelSize: Math.max(10, parent.width * 0.4)
+                color: "black"
+                horizontalAlignment: Text.AlignHCenter
+                verticalAlignment: Text.AlignVCenter
             }
-    	
+        }
+        
+        // Move nicefaa6waa 10px right
         Text {
             anchors.top: parent.top
-		    anchors.topMargin: 385
-		    anchors.right: parent.right	
-		    anchors.rightMargin: 350
+            anchors.topMargin: parent.height * 0.75
+            anchors.left: parent.left
+            anchors.leftMargin: parent.width * 0.12 + 15  // Move right 5 more pixels (10+5)
             text: "nicefaa6waa"
-            font.pixelSize: 15 
+            font.pixelSize: Math.max(10, Math.min(16, parent.width * 0.025))
             color: "black"     
-		    z:3
-            }
+            z: 1
+        }
+        
+        // Move ibrahim-mammadli 10px left
         Text {
             anchors.top: parent.top
-		    anchors.topMargin:385
-		    anchors.right: parent.right 
-		    anchors.rightMargin: 80
+            anchors.topMargin: parent.height * 0.75
+            anchors.right: parent.right
+            anchors.rightMargin: parent.width * 0.12 + 12  // Move left 2 more pixels (10+2)
             text: "ibrahim-mammadli"
-            font.pixelSize: 15 
+            font.pixelSize: Math.max(10, Math.min(16, parent.width * 0.025))
             color: "black"   
-		    z:3
-            }
+            z: 1
+        }
 
         Column {
-            width: inputWidth + 10
-            anchors.top : parent.top
-            anchors.right : parent.right
-            anchors.topMargin: 120
-            anchors.rightMargin: 82
+            width: Math.min(parent.width * 0.6, 520)  // Made 20px wider
+            
+            anchors {
+                top: parent.top
+                left: parent.left
+                topMargin: parent.height * 0.12 + 20  // Move down 20px
+                leftMargin: parent.width * 0.08 + 5   // Move right 5px
+            }
+            
             visible: root.state === "login"
-            spacing: 10
+            spacing: Math.max(12, parent.height * 0.025)
 
             UserPanel {
                 id: userPanel
-                height: inputHeight - 5
-                width: parent.width + 10
+                height: Math.max(40, parent.parent.height * 0.08)
+                width: parent.width  // Use full column width
                 onActiveFocusChanged: {
                     if (activeFocus) {
                         inputFocusSound.play()  
                     }
-                    }
                 }
+            }
 
             PasswordPanel {
                 id: passwordField
                 opacity: 1
-                height: inputHeight - 5
-                width: parent.width + 20
+                height: Math.max(40, parent.parent.height * 0.08)
+                width: parent.width  // Same width as username
                 onActiveFocusChanged: {
                     if (activeFocus) {
                         inputFocusSound.play()  
@@ -338,32 +366,26 @@ Item {
             }
 
             Item {
-                height: 30  
+                height: Math.max(15, parent.parent.height * 0.03)
                 width: 1   
             }
 
             Button {
                 id: loginButton
-			    opacity:1
-            
-                height: inputHeight -5
-                width: parent.width + 20
-
-			
+                opacity: 1
+                height: Math.max(40, parent.parent.height * 0.08)
+                width: parent.width  // Same width as fields
 
                 enabled: user != "" && password != "" ? true : false
                 hoverEnabled: true
-                text: "Login!!"
 
                 contentItem: Text {
                     id: buttonText
-
                     renderType: Text.NativeRendering
-                    font.pointSize: config.GeneralFontSize
+                    font.pointSize: Math.max(10, parent.parent.parent.height * 0.025)
                     font.bold: true
                     horizontalAlignment: Text.AlignHCenter
                     verticalAlignment: Text.AlignVCenter
-
                     color: config.LoginButtonTextColor
                     opacity: 0.5
                     text: config.LoginButtonText
@@ -373,8 +395,8 @@ Item {
                     id: buttonBackground
                     color: config.LoginButtonBgColor
                     opacity: 0.5
-                        radius: config.CornerRadius
-                    }
+                    radius: Math.max(4, height * 0.15)
+                }
     
                 states: [
                     State {
@@ -424,11 +446,36 @@ Item {
                     }
                 }
     
-        onClicked: { 
-            loadCredentials(checkAndLogin);
-            loginSuccessSound.play();
-          }   
-        } 
-      }   
-    } 
+                onClicked: { 
+                    loadCredentials(checkAndLogin);
+                    loginSuccessSound.play();
+                }   
+            } 
+        }   
+    }
+
+    // Session Panel with proper z-index
+    SessionPanel {
+        id: sessionPanel
+        anchors.fill: parent
+        z: 3
+        
+        Connections {
+            target: root
+            function onStateChanged() {
+                if (root.state === "login") {
+                    // Force close session panel when 1.png opens
+                    sessionPanel.menuOpen = false
+                    // Find and hide sessionMenu directly
+                    for (var i = 0; i < sessionPanel.children.length; i++) {
+                        var child = sessionPanel.children[i];
+                        if (child.objectName === "sessionMenu") {
+                            child.visible = false;
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+    }
 }

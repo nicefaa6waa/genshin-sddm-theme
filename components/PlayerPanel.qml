@@ -2,41 +2,51 @@ import QtQuick 2.12
 import QtQuick.Controls 2.12
 import QtGraphicalEffects 1.12
 
-
 Item {
     implicitHeight: playerButton.height
     implicitWidth: playerButton.width
 
-
     property var musicDictionary: {
-    "file:///usr/share/sddm/themes/genshin-sddm-theme/sounds/snow_buried_tales.mp3": "Snow Buried Tales",
-    "file:///usr/share/sddm/themes/genshin-sddm-theme/sounds/moonlike_smile.mp3" : "Moonlike Smile",
-    "file:///usr/share/sddm/themes/genshin-sddm-theme/sounds/unfinished_frescoes.mp3":"Unfinished Frescoes",
-    "file:///usr/share/sddm/themes/genshin-sddm-theme/sounds/the_flourishing_past.mp3":"The Flourishing Past",
-    "file:///usr/share/sddm/themes/genshin-sddm-theme/sounds/finale_of_the_snowtomb.mp3":"Finale of The Snowtomb",
-    "file:///usr/share/sddm/themes/genshin-sddm-theme/sounds/spin_of_the_ice_crystals.mp3":"Spin of The Ice Crystals",
-    "file:///usr/share/sddm/themes/genshin-sddm-theme/sounds/ballad_of_many_waters.mp3":"Ballad of Many Waters",
-    "file:///usr/share/sddm/themes/genshin-sddm-theme/sounds/another_hopeful_tomorrow.mp3":"Another Hopeful Tomorr",
-    "file:///usr/share/sddm/themes/genshin-sddm-theme/sounds/ad_oblivione.mp3":"Ad Oblivione",
-    "file:///usr/share/sddm/themes/genshin-sddm-theme/sounds/twilight_serenity.mp3":"Twilight Serenity",
-    "file:///usr/share/sddm/themes/genshin-sddm-theme/sounds/clear_sky_over_liyue.mp3":"Clear Sky over Liyue",
-    "file:///usr/share/sddm/themes/genshin-sddm-theme/sounds/enchanting_bedtime_stories.mp3":"Enchanting Bedtime Sto",
-    "file:///usr/share/sddm/themes/genshin-sddm-theme/sounds/glistening_shards.mp3":"Glistening Shards",
-    "file:///usr/share/sddm/themes/genshin-sddm-theme/sounds/her_serenity.mp3":"The Land of Her Serenity",
-    "file:///usr/share/sddm/themes/genshin-sddm-theme/sounds/blue_dream.mp3":"Blue Dream",
-
-    
+        "snow_buried_tales.mp3": "Snow Buried Tales",
+        "moonlike_smile.mp3": "Moonlike Smile", 
+        "unfinished_frescoes.mp3": "Unfinished Frescoes",
+        "the_flourishing_past.mp3": "The Flourishing Past",
+        "finale_of_the_snowtomb.mp3": "Finale Of The Snowtomb",
+        "spin_of_the_ice_crystals.mp3": "Spin Of The Ice Crystals",
+        "ballad_of_many_waters.mp3": "Ballad Of Many Waters",
+        "another_hopeful_tomorrow.mp3": "Another Hopeful Tomorrow",
+        "ad_oblivione.mp3": "Ad Oblivione",
+        "twilight_serenity.mp3": "Twilight Serenity",
+        "clear_sky_over_liyue.mp3": "Clear Sky Over Liyue",
+        "blue_dream.mp3": "Blue Dream",
+        "enchanting_bedtime_stories.mp3": "Enchanting Bedtime Stories",
+        "glistening_shards.mp3": "Glistening Shards",
+        "her_serenity.mp3": "Her Serenity"
     }
 
     function currentlyPlaying() {
-        var currentMusicPath = musicPlayer.source;
-        return musicDictionary[currentMusicPath];
+        // Better song detection using songList array from Main.qml
+        if (typeof currentSongIndex !== 'undefined' && typeof songList !== 'undefined') {
+            var currentFile = songList[currentSongIndex];
+            return musicDictionary[currentFile] || toTitleCase(currentFile.replace('.mp3', '').replace(/_/g, ' '));
+        }
+        
+        // Fallback to source detection
+        var currentSource = musicPlayer.source.toString();
+        var filename = currentSource.substring(currentSource.lastIndexOf("/") + 1);
+        filename = filename.split("?")[0].split("#")[0];
+        return musicDictionary[filename] || toTitleCase(filename.replace('.mp3', '').replace(/_/g, ' '));
     }
     
+    // Function to convert text to Title Case
+    function toTitleCase(str) {
+        return str.replace(/\w\S*/g, function(txt) {
+            return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
+        });
+    }
 
     ListModel {
         id: playerModel
-
         ListElement { name: "Image" }
         ListElement { name: "Previous" }
         ListElement { name: "Pause" }
@@ -45,44 +55,38 @@ Item {
 
     Button {
         id: playerButton
-
-        height: 40
-        width: 200
+        height: 50
+        width: 250
         hoverEnabled: true
 
+        background: Rectangle {
+            id: playerButtonBg
+            width: 250
+            height: 50
+            color: config.PlayerButtonColor
+            radius: 50
 
+            Row {
+                Image {
+                    id: iconImage
+                    source: "../icons/play.png"
+                    width: 50
+                    height: 50
+                    fillMode: Image.PreserveAspectFit
+                }
 
-    background: Rectangle {
-        id: playerButtonBg
-        width: 200
-        height: 40
-
-        color: config.PlayerButtonColor
-        radius: 40
-
-        Row {
-
-            Image {
-                id: iconImage
-                source: "../icons/play.png"
-                width: 40
-                height: 40
-                fillMode: Image.PreserveAspectFit
-                 
-            }
-
-            Text {
-                id: playerText
-                renderType: Text.NativeRendering
-                font.pointSize: config.GeneralFontSize
-                font.bold: true
-                horizontalAlignment: Text.AlignLeft
-                color: config.PlayerTextColor
-                text: currentlyPlaying()
-                y:10 
+                Text {
+                    id: playerText
+                    renderType: Text.NativeRendering
+                    font.pointSize: config.GeneralFontSize
+                    font.bold: true
+                    horizontalAlignment: Text.AlignLeft
+                    color: config.PlayerTextColor
+                    text: currentlyPlaying()
+                    y: 15
+                }
             }
         }
-    }
 
         onClicked: {
             playerPopup.visible ? playerPopup.close() : playerPopup.open()
@@ -93,8 +97,7 @@ Item {
 
     Popup {
         id: playerPopup
-
-        height: inputHeight * 2 + padding * 2
+        height: inputHeight * 1.5 + padding * 2
         x: playerButton.width + playerList.spacing + 30
         y: -height + playerButton.height - 40
 
@@ -105,42 +108,42 @@ Item {
 
         contentItem: ListView {
             id: playerList
-            
             implicitWidth: contentWidth
             orientation: Qt.Horizontal
             clip: true
-
             model: playerModel
+            
             delegate: ItemDelegate {
                 id: playerEntry
+                height: inputHeight * 1.5
+                width: inputHeight * 1.5
+                
+                contentItem: Item {
+                    Image {
+                        id: playerIcon
+                        anchors.centerIn: parent
+                        source: index == 0 ? Qt.resolvedUrl("../icons/snow-buried-tales.jpg") : ""
+                        sourceSize: Qt.size(playerEntry.width * 0.8, playerEntry.height * 0.8)
+                    }
 
-                height: inputHeight * 2
-                width: inputHeight * 2               
-                        contentItem: Item {
-            Image {
-                id: playerIcon
-                anchors.centerIn: parent
-                source: index == 0 ? Qt.resolvedUrl("../icons/snow-buried-tales.jpg") : ""
-                sourceSize: Qt.size(playerEntry.width, playerEntry.height)
-            }
+                    // Smaller and centered control buttons
+                    Item {
+                        anchors.centerIn: parent  // Center the control buttons
+                        width: 40   // Smaller overlay icons
+                        height: 40
+                        visible: index > 0  // Only show for control buttons
 
-            
-
-            Item {
-                anchors.bottom: parent.bottom
-                anchors.right: parent.right 
-                width: 80
-                height: 80
-
-                Image {
-                    source: index == 1 ? Qt.resolvedUrl("../icons/previous.png") :
-                            index == 2 ? Qt.resolvedUrl("../icons/pause.png") : 
-                            index == 3 ? Qt.resolvedUrl("../icons/next.png") : ""
-                    anchors.fill: parent
-                    fillMode: Image.PreserveAspectFit
+                        Image {
+                            anchors.centerIn: parent  // Center within the item
+                            source: index == 1 ? Qt.resolvedUrl("../icons/previous.png") :
+                                    index == 2 ? Qt.resolvedUrl("../icons/pause.png") : 
+                                    index == 3 ? Qt.resolvedUrl("../icons/next.png") : ""
+                            width: 30   // Smaller icons
+                            height: 30
+                            fillMode: Image.PreserveAspectFit
+                        }
+                    }
                 }
-            }
-        }
 
                 transitions: Transition {
                     PropertyAnimation {

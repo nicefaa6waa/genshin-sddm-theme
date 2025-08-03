@@ -6,11 +6,11 @@ import QtQml.Models 2.12
 Column {
     property var username: usernameField.text
 
-    spacing: 30
+    spacing: 0  // Remove extra spacing
 
     UserFieldPanel {
         id: usernameField
         height: inputHeight
-        width: inputWidth +30
+        width: parent.width  // Use parent width instead of inputWidth +30
     }
 }
