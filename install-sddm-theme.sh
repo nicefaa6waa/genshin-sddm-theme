@@ -363,31 +363,19 @@ function createConfig {
     echo "Configuration file created in $CFG"
 }
 
-function skipLoadingAnimation {
+function toggleLoadingAnimation {
   echo -e "\nDo you want to skip the login screen loading animation?"
   select sel in "Yes" "No"; do
     case $sel in
       Yes )
-        echo "Loading animation will be skipped."
-        if [ -f "components/LoginPanel.qml" ]; then
-          rm "components/LoginPanel.qml"
-        fi
-
-        if [ -f "components/LoginPanel2.qml" ]; then
-          mv "components/LoginPanel2.qml" "components/LoginPanel.qml"
-        else
-          echo "LoginPanel2.qml not found. Skipping rename."
-        fi
+        echo "Disabling loading animation in LoginPanel.qml"
+        sed -i 's/\(property[[:space:]]\+bool[[:space:]]\+enableLoadingAnimation:[[:space:]]*\)true/\1false/' "components/LoginPanel.qml"
         ;;
       No )
-        echo "Loading animation will be displayed."
-        if [ -f "components/LoginPanel2.qml" ]; then
-          rm "components/LoginPanel2.qml"
-        fi
+        echo "Keeping loading animation enabled"
+        sed -i 's/\(property[[:space:]]\+bool[[:space:]]\+enableLoadingAnimation:[[:space:]]*\)false/\1true/' "components/LoginPanel.qml"
         ;;
-      * )
-        echo "Invalid selection. Please try again."
-        ;;
+      * ) echo "Invalid selection. Please try again." ;;
     esac
     break
   done
@@ -444,7 +432,7 @@ function mainOperations {
     fi
     
     # Handle loading animation
-    skipLoadingAnimation
+    toggleLoadingAnimation
     
     # Copy theme files
     safe_copy_theme

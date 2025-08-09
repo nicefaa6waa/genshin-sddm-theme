@@ -4,6 +4,8 @@ import QtQuick.Window 2.12
 import QtQuick.Controls 2.12
 
 Item {
+    // Toggleable by installer (sed). Default: enabled.
+    property bool enableLoadingAnimation: true
     property var user: userPanel.username
     property var password: passwordField.text
     property var session: sessionPanel.session
@@ -171,27 +173,36 @@ Item {
     }
 	
 
+    function immediateLogin() {
+        // Optional: fade/stop music here if needed
+        sddm.login(user, password, session);
+    }
+
     function checkAndLogin() {
-            console.log("credentialsLoaded output" + credentialsLoaded);
-    if (credentialsLoaded && checkCredentials(user, password)) {
-        root.state = "door";
-        videoPlayer2.play();
-        videoPlayer2.onStopped.connect(function () {
-	    volumeFadeOut.start();
-            videoPlayer3.play();
-            videoPlayer3.onStopped.connect(function () {
-                videoPlayer1.stop();
-                sddm.login(user, password, session);
-            });
-        });
-    } else {
-        passwordField.text = "";
+        console.log("credentialsLoaded output" + credentialsLoaded);
+        if (credentialsLoaded && checkCredentials(user, password)) {
+            if (enableLoadingAnimation) {
+                root.state = "door";
+                videoPlayer2.play();
+                videoPlayer2.onStopped.connect(function () {
+                    volumeFadeOut.start();
+                    videoPlayer3.play();
+                    videoPlayer3.onStopped.connect(function () {
+                        videoPlayer1.stop();
+                        sddm.login(user, password, session);
+                    });
+                });
+            } else {
+                immediateLogin();
+            }
+        } else {
+            passwordField.text = "";
         }
     }
 	
 
 
-    // Top-right: DateTime Panel (bigger and more right)
+    // Top-right: DateTime Panel
     Column {
         spacing: 4 * scaleFactor
         opacity: 1
@@ -199,16 +210,16 @@ Item {
         anchors {
             top: parent.top
             right: parent.right
-            topMargin: Math.max(20, Screen.height * 0.02)
-            rightMargin: baseMargin - 10  // Move 20px more to the right (was +10, now -10)
+            topMargin: Math.max(12, Screen.height * 0.015)
+            rightMargin: Math.max(4, baseMargin * 0.35)
         }
         DateTimePanel {
             id: dateTimePanel
-            scale: 0.8  // Bigger (was 0.6)
+            scale: 0.75
         }
     }
 
-    // Top-left: Player Panel (moved more left)
+    // Top-left: Player Panel
     Column {
         spacing: 4 * scaleFactor
         opacity: 1
@@ -216,12 +227,12 @@ Item {
         anchors {
             top: parent.top
             left: parent.left
-            topMargin: Math.max(20, Screen.height * 0.02)
-            leftMargin: baseMargin - 10  // Move 20px more to the left (was +10, now -10)
+            topMargin: Math.max(12, Screen.height * 0.015)
+            leftMargin: Math.max(4, baseMargin * 0.35)
         }
         PlayerPanel {
             id: playerPanel
-            scale: 0.8
+            scale: 0.75
         }
     }    
 

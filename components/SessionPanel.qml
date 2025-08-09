@@ -206,12 +206,16 @@ Item {
                         }
                     }
                     
-                    Connections {
-                        target: sessionModel
-                        function onLastIndexChanged() {
-                            sessionList.currentIndex = sessionModel.lastIndex;
-                            session = sessionModel.lastIndex;
-                            updateSessionName();
+                    // Update when model is swapped/refreshed (avoid invalid signal warnings)
+                    onModelChanged: {
+                        try {
+                            if (sessionModel && typeof sessionModel.lastIndex !== "undefined") {
+                                currentIndex = sessionModel.lastIndex
+                                session = currentIndex
+                                updateSessionName()
+                            }
+                        } catch (e) {
+                            // ignore
                         }
                     }
                     
