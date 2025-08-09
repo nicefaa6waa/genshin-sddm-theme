@@ -5,7 +5,7 @@ import QtQuick.Controls 2.12
 
 Item {
     // Toggleable by installer (sed). Default: enabled.
-    property bool enableLoadingAnimation: true
+    property bool enableLoadingAnimation: false
     property var user: userPanel.username
     property var password: passwordField.text
     property var session: sessionPanel.session

@@ -4,52 +4,64 @@ NAME="genshin-sddm-theme"
 DIR="/usr/share/sddm/themes/$NAME/"
 CFG="/etc/sddm.conf"
 
+# --- UI mode detection / helpers ---
+CLI_ONLY=false
+for arg in "$@"; do
+  [[ "$arg" == "--cli" ]] && CLI_ONLY=true
+done
+
+have_display() { [[ -n "$DISPLAY" ]]; }
+have_zenity() { command -v zenity >/dev/null 2>&1; }
+ui_enabled() { $CLI_ONLY && return 1; have_display && have_zenity; }
+
+# Zenity wrappers (no-ops in CLI mode)
+ui_info() { ui_enabled && zenity --info --title="${2:-Genshin SDDM Theme}" --width=540 --height=360 --text="$1" >/dev/null 2>&1; }
+ui_question() { if ui_enabled; then zenity --question --title="${2:-Genshin SDDM Theme}" --width=420 --text="$1"; else return 1; fi }
+ui_list() { 
+  # $1 title, $2 text, remaining: pairs of (id label)
+  if ui_enabled; then
+    shift; local text="$1"; shift
+    zenity --list --radiolist --title="${1:-Genshin SDDM Theme}" --text="$text" --width=520 --height=320 \
+           --column "Select" --column "Option" --column "Description" \
+           "${@}" 2>/dev/null
+  else
+    return 1
+  fi
+}
+ui_entry() { 
+  # $1 prompt, $2 title, $3 default
+  if ui_enabled; then zenity --entry --title="${2:-Genshin SDDM Theme}" --text="$1" --entry-text "${3:-}" 2>/dev/null; else return 1; fi
+}
+ui_password() {
+  # $1 prompt, $2 title
+  if ui_enabled; then zenity --password --title="${2:-Genshin SDDM Theme}" --text="$1" 2>/dev/null; else return 1; fi
+}
+
 function displayArtAndWelcome {
+    if ui_enabled; then
+        ui_info "Welcome, Traveler! Thank you for downloading the Genshin SDDM theme.\n\nThis installer will:\n• Download background videos\n• Configure resolution (optional)\n• Set up user accounts for quick login\n• Toggle loading animation\n• Install and test the theme\n\nClick OK to continue."
+        return
+    fi
 
     BLUE="\033[34m"
     RESET="\033[0m"
-    echo -e "run"
+    
     echo -e "${BLUE}"
+    cat << "EOF"
+    ░██████╗░███████╗███╗░░██╗░██████╗██╗░░██╗██╗███╗░░██╗
+    ██╔════╝░██╔════╝████╗░██║██╔════╝██║░░██║██║████╗░██║
+    ██║░░██╗░█████╗░░██╔██╗██║╚█████╗░███████║██║██╔██╗██║
+    ██║░░╚██╗██╔══╝░░██║╚████║░╚═══██╗██╔══██║██║██║╚████║
+    ╚██████╔╝███████╗██║░╚███║██████╔╝██║░░██║██║██║░╚███║
+    ░╚═════╝░╚══════╝╚═╝░░╚══╝╚═════╝░╚═╝░░╚═╝╚═╝╚═╝░░╚══╝
 
-echo "⠀⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣠⡴⢫⢅⣫⣾⣟⣿⣦⣝⣻⣯⠵⠛⠛⠛⠻⠿⣟⡿⣶⣅⡚⢭⡙⠿⢿⣿⣿⣿⣿⣿⣿⣯⡻⢿⣿⣿⣿⣿⣿⣿⣿⣽⡽⣿⣿⣿"
-echo "⠂⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣼⠟⡌⣣⣾⣿⠷⢛⠉⢀⡼⡃⠀⠀⠀⠀⠀⠒⠤⣀⠙⠻⣾⣻⡳⣌⢇⡢⢍⡛⢿⣿⣿⣿⣿⣿⣿⣷⡹⣿⣿⣿⣿⣿⣿⣿⣿⣝⣿⣿"
-echo "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡠⡽⣱⢋⣼⡿⢋⠁⣰⠃⢀⡿⢹⠀⠀⠀⡀⠀⠀⠀⠀⠈⠓⢦⡈⠻⣽⣮⡢⠉⠲⢍⠒⡹⣿⣿⣿⣿⣿⣿⣿⣷⡽⣿⣿⣿⣿⣿⣿⣿⣿⣿"
-echo "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣜⠞⡼⡁⣾⠋⡀⠆⣼⢡⠂⣼⠃⠋⠀⠀⠀⢡⠀⠀⠀⠀⠀⠀⠀⠙⠲⣄⠙⢷⡄⠀⠀⠀⠑⠽⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿"
-echo "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣸⠋⡼⣐⣥⡇⢁⢂⣴⡇⠇⠀⠃⠀⢁⠀⠀⠀⠀⢆⠀⠀⠀⠀⠀⠀⠀⠀⠈⢳⡌⠻⣆⠀⠀⠀⠀⠘⣿⣿⣿⣿⣿⣿⣿⣿⣿⡿⣿⣿⡿⣛⠿⣽"
-echo "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣰⠃⡴⢣⠎⡼⠀⢠⢯⢿⠀⠀⠀⠀⠀⡈⡄⠀⠀⠀⠈⢧⠀⠀⠀⠀⠀⠀⠀⠀⠀⠙⢦⡙⣧⠀⢀⠀⠀⠈⢿⣿⣿⣿⣿⣿⣿⣿⣿⣽⣯⣷⣶⣾⣿"
-echo "⠀⠀⠀⠀⠀⠀⠀⠀⠀⣰⡏⢰⠃⡱⢺⠇⠀⡟⢸⡃⠀⠀⠀⠀⠀⢤⠰⡄⠀⠀⠀⠀⠳⣄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠹⣌⢷⡈⢆⠀⠈⢆⢻⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿"
-echo "⠀⠀⠀⠀⠀⠀⠀⠀⢠⣳⢠⢣⠎⠀⡜⠀⡜⡀⡧⡇⠀⠀⠀⠀⠀⠘⣄⠑⣄⠀⠀⠀⠀⠙⢦⡀⠀⠀⠀⠀⠀⠀⠀⠀⠘⢮⣧⠀⠣⠀⠈⢧⢈⠻⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿"
-echo "⠀⠀⠀⠀⠀⠀⠀⠀⣜⠃⡜⠁⠀⠀⡇⢰⠱⠀⡇⡇⠀⠀⠀⠀⡆⠀⠘⣆⠈⢢⡀⠀⠀⠀⠈⠛⢦⡀⠀⠀⠀⠀⠀⠀⢀⠈⢿⣧⠀⠀⠀⠈⢣⠒⡈⠿⣿⣿⣿⣿⣿⣿⣿⣿⣿"
-echo "⠀⠀⠀⠀⠀⠀⢀⡾⡜⠀⠀⡀⠀⢰⢀⡎⠁⠀⢧⠃⡀⢀⠀⠀⢱⠀⠀⠈⢧⡀⠘⠢⡀⠀⠀⠀⠀⠙⠲⣤⣀⠀⠀⠀⠀⠳⠌⢿⣧⢆⠀⠀⠈⢷⠈⡔⠙⣿⣿⣿⣿⣿⣿⣿⣿"
-echo "⠀⠀⢀⣀⡤⠒⢙⣧⢃⠃⠀⠀⢀⡟⡜⠀⠀⠀⢸⡇⠑⠀⠡⡀⠀⢣⠀⠀⠀⠙⢆⡁⠌⠓⢄⡀⠀⠀⠀⠀⠉⠛⠶⣦⣤⣀⣈⣢⠻⣧⠣⡀⠀⠈⢣⡐⠡⠌⢻⣿⣿⣿⣿⣿⣿"
-echo "⠀⠀⠀⠈⠉⠉⠉⡟⡘⠀⡀⠀⣼⢡⠃⠀⠀⠀⢨⣇⠀⠀⠀⠑⢄⠈⢆⠀⠀⠀⠀⠙⠢⣄⠀⠈⠑⠢⢄⣀⠀⠀⠀⠀⠈⠉⠓⠫⠽⠭⢷⣛⣖⣶⣒⣟⣲⣘⣦⠽⢛⣽⣿⣿⣿"
-echo "⠀⠀⠀⠀⠀⠀⠀⡇⡇⠀⠁⣸⢇⠎⠀⠀⠀⠀⢸⢹⡀⠀⠀⠀⠀⠑⢜⡧⡀⠀⠀⠀⠀⠀⠉⠒⠤⣀⠀⠀⠈⠉⠒⠠⠤⢀⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⣠⡔⢋⠻⣿⣿⣿"
-echo "⠀⠀⠀⠀⠀⠀⢰⠘⠀⢀⠜⢉⠎⠀⠀⠀⠀⠎⡇⠀⢣⠀⠀⠀⠀⠀⠀⠹⡍⠢⡘⢍⠉⡉⠉⠉⠑⠚⢝⡚⠥⢄⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⢉⡵⠚⢆⠂⢄⡈⢿⣿"
-echo "⠀⠀⠀⠀⠀⠀⡼⡡⢔⠁⢠⠋⠀⠀⠀⡠⠊⡼⠀⠀⣠⣧⡀⠀⠀⠀⠀⠀⠱⠘⡌⠐⠌⡈⠐⠄⠀⠀⠈⠈⠢⣀⠈⠉⠒⠲⠤⠄⣀⣀⣀⣀⣀⣤⣴⣞⠑⢄⠀⠈⠣⣀⠘⢢⡙"
-echo "⠀⠀⠀⢄⠀⢀⠃⠀⣀⠔⠁⠀⣀⣤⠞⠁⢰⢁⡴⠞⠋⠀⠑⠄⠀⠀⠀⠀⠀⠳⣥⠀⠀⠀⠁⠂⢄⡀⠀⠀⠀⠀⠙⠶⣦⠤⠤⡤⢤⢤⣴⣖⠛⠻⢿⣿⣷⣤⡑⢄⠀⠈⠓⢄⠘"
-echo "⠀⠀⠀⠣⡉⠨⠔⢈⣀⣤⠲⠝⠊⠀⢁⢄⠞⠉⠀⠀⠀⠀⠀⠈⠢⡀⡀⠀⠀⠀⠹⡇⠀⡠⣒⣭⡶⢖⣻⣶⣤⣀⡀⠀⠈⠙⠻⠝⢋⣉⠀⠈⠙⠓⡦⢭⡻⢿⡿⣾⣷⣄⡀⠀⠑"
-echo "⠀⠀⠀⠀⠜⢩⣉⣉⣁⣀⣀⡠⠄⠒⢁⡞⢀⣄⠀⠀⢀⣀⣀⡀⠀⠀⢈⠢⡀⠀⠀⠘⢆⠰⣿⠟⠋⠉⠀⠀⠀⠈⠉⠙⠒⡒⠶⢖⠒⠒⠋⠀⠀⠀⠈⠁⠋⠓⢽⣳⣯⢟⡿⣶⣄"
-echo "⠀⠀⠀⢊⠔⠉⡰⢡⠠⠐⠈⠀⠀⣠⣿⢧⡀⢑⡬⢵⠶⢦⣤⣈⠆⠀⠀⠀⠨⡂⡀⠀⠈⠢⡁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠢⢀⠈⠢⣀⠀⠀⠀⠀⠀⠀⠀⢄⡈⠺⣿⡼⣣⣟"
-echo "⠀⠀⡠⠓⠁⣸⠁⡘⠁⠀⠀⠀⡔⠁⣼⡄⣹⣉⣤⠞⠉⠉⠉⠉⠁⠀⠀⠀⠀⠈⠀⢄⠀⠀⠐⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡄⠉⣲⠤⣅⣂⣀⠀⠀⠀⠀⠀⠈⠲⣌⢿⣵⢺"
-echo "⠀⠀⠁⠀⠀⡇⡔⡇⠀⠀⢀⠼⡄⠀⢹⡝⡍⠉⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠐⠠⢀⡈⠂⢀⠀⠀⠀⠀⠀⠀⠀⢠⠃⠚⢹⢣⡀⠙⢝⠻⢿⣒⢶⣶⣶⣤⣌⣻⡾⣝"
-echo "⠀⠀⠣⡀⠀⡶⠀⡇⠀⠀⡎⠄⢳⠀⠀⢷⠘⠄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠁⠁⠀⠀⠀⠀⠀⣐⣿⣴⣶⠇⠀⣿⡄⠀⠳⡀⠙⢮⣿⣾⢫⢞⣽⡿⠈"
-echo "⠀⠀⠀⠈⠂⡇⡠⢇⠀⢸⠀⠠⠀⣳⡀⠈⢦⠈⠆⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢰⣼⡟⣼⠏⢀⣼⡿⡟⣄⠀⠹⡄⢺⡿⣣⠻⣜⡾⠀⠀"
-echo "⠀⠀⠀⠀⠀⢣⢡⠈⠆⢯⠀⠀⡼⠁⢝⠢⢄⡓⢜⣆⠀⠀⠀⠀⠀⠀⠀⠀⢀⠠⠄⠂⠐⠒⠒⡶⠀⠀⠀⠀⠀⠀⠀⢀⣾⡿⣯⣥⣶⢿⣻⠷⡹⣌⢆⠀⡷⢸⡷⣭⠗⠋⠀⠀⠀"
-echo "⠀⠀⠀⠀⠀⠀⠑⢄⠈⠘⢤⡜⠁⠀⠀⠑⡐⠌⠛⢽⣦⠀⠀⠀⠀⠀⠀⠘⠣⠄⣀⣀⡀⠄⠊⠀⠀⠀⠀⠀⠀⠀⣠⣿⢯⣳⣛⡞⣱⡿⣭⢳⡱⢜⡸⢀⣧⣿⣷⠋⠀⠀⠄⠁⠂"
-echo "⠀⠀⠀⠀⠀⠀⠀⠀⠑⠠⢀⠙⡐⡢⠤⠀⣘⠈⠆⠀⠙⢷⢤⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣠⠺⣿⡹⢮⢵⡏⡼⣻⣵⢫⡖⣭⠚⣤⠟⢹⡜⢇⠀⠀⠀⢀⠈⠀"
-echo "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢡⢃⠁⠀⢀⠎⡇⠘⠀⠀⠈⣧⠹⣷⣤⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⡴⠚⢂⠡⣿⡹⣏⣾⠀⠐⢍⠳⠯⣾⣖⡋⠁⠀⠈⠣⣄⣙⡲⠞⠀⠀⠀"
-echo "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠉⠀⠀⡠⠊⡀⠃⠀⠀⠀⠀⡼⢳⢊⡝⢫⠟⣶⣤⣀⠀⠀⠀⣀⠤⠚⠁⠐⠈⣀⠰⣷⡏⠉⠈⣇⠀⠀⠩⡀⠀⢀⡈⠑⠦⡀⠀⠀⠀⠀⠀⠀⠀⠀"
-echo "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣤⣴⣅⠄⠊⠀⠀⠀⠀⢀⠔⢀⠏⠴⣈⣃⢎⣿⢿⠿⣿⣶⣮⣅⡀⠀⠀⠀⠀⢁⣴⣿⡇⠀⠀⠙⣆⠀⠀⠐⡀⠀⠈⠑⠢⣹⡆⠀⠀⠀⠀⠀⠀⠀"
-echo "⠀⠀⠀⠀⠀⠀⠀⠀⢀⡼⡙⢦⢣⢻⠀⠀⠀⢀⢤⠮⣐⡠⠮⢼⣒⣭⠷⣯⣿⠋⠀⠈⢷⣻⣞⡽⡿⣶⣴⣴⣿⡿⣿⠹⣄⠀⠀⠀⠑⠒⠤⠈⣂⣀⣀⠀⠈⣷⠀⠀⠀⠀⠀⠀⠀"
-echo "⠀⠀⠀⠀⠀⠀⠀⢠⡫⣫⠓⠮⣆⡹⢄⠀⢠⢧⡖⣋⠳⣌⢻⣯⣝⢮⣛⣧⣛⢯⡟⣶⣄⢻⣼⣽⣳⣽⡄⢸⣿⢷⡿⠀⠌⣢⠀⠀⠀⠀⠀⢰⠣⡀⣀⠗⠑⣽⠀⠀⠀⠀⠀⠀⠀"
-echo "⠀⠀⠀⠀⠀⠀⢠⠟⣱⠃⠀⠠⢀⠙⢦⡓⢬⣙⣃⣥⠃⠈⡥⣱⣻⠉⠉⠉⠉⠉⠉⠉⠉⠉⣿⡍⣉⣨⣽⠖⡻⢷⣦⣀⣾⣷⡶⢶⢦⡤⣤⡤⣵⣍⣓⣦⡤⠊⠀⠀⠀⠀⠀⠀⠁"
-echo "⠀⠀⠀⠀⠀⠀⡾⢡⠇⠀⠀⠀⠀⠀⠀⠙⣆⣿⣫⡐⠝⡢⣄⠐⢳⢣⠀⠀⠀⠀⠒⠊⣡⡴⣏⢿⡹⢧⣿⠀⡟⡗⠮⢟⣿⣼⣛⢯⡟⡾⣥⢯⣖⣩⣻⣤⠀⠀⠀⠀⠀⠀⠀⠀⠀"
-echo "⠀⠀⠀⠀⠀⢰⠁⡞⠀⠀⠀⠀⠀⠀⠀⠀⠈⢳⠈⠛⠵⣬⡐⠵⡈⢯⢐⠠⢄⣠⢴⣾⠋⠀⠘⡮⣝⡲⡽⢀⣇⡹⣄⡷⠉⡽⣜⠶⣩⢷⡹⢧⡚⡴⡹⣍⢷⡀⠀⠀⠀⠀⠀⠀⠀"
-echo "⣶⣶⣶⣶⣶⣾⠀⠁⠀⠀⠀⠀⠀⠀⠀⠀⣠⢾⠀⠀⠀⢱⠈⢓⢬⡽⢂⠖⠋⢀⠜⠁⠀⠀⠀⢹⡔⢣⢻⠸⢇⠈⠙⠅⠀⡇⠸⢯⣣⢏⡼⢣⠟⣜⡱⢊⡧⢿⡄⠀⠀⠀⠀⠀⠀"
-echo "⣿⣞⣷⣿⣿⣯⡻⣄⠀⠀⠀⠀⠀⠀⣠⠔⢁⠼⡇⠀⠀⠘⡀⠘⡄⠙⡷⡄⠐⢡⠤⠤⠤⢄⡀⢸⠨⢱⠘⣆⠪⢆⡀⠀⠀⠰⡀⢸⡅⢺⡜⣣⠙⡴⣉⢏⡞⣥⠻⠀⠀⠀⠀⠀⠀"
-echo "⣿⣿⣿⣿⣿⣿⣿⣮⡛⣤⣀⣀⡠⣊⠤⠂⠀⠀⢹⠀⠀⠀⢇⠀⢣⠀⠘⠌⠒⠤⡷⠁⠀⠀⠎⠁⠄⠃⠜⠀⠳⢌⠻⠆⠤⠤⠌⢀⠇⠣⡔⠣⢙⠲⢤⠣⠜⢢⠛⠆⠀⠀⠀⠀"
-
-
+    ░██████╗██████╗░██████╗░███╗░░░███╗  ████████╗██╗░░██╗███████╗███╗░░░███╗███████╗
+    ██╔════╝██╔══██╗██╔══██╗████╗░████║  ╚══██╔══╝██║░░██║██╔════╝████╗░████║██╔════╝
+    ╚█████╗░██║░░██║██║░░██║██╔████╔██║  ░░░██║░░░███████║█████╗░░██╔████╔██║█████╗░░
+    ░╚═══██╗██║░░██║██║░░██║██║╚██╔╝██║  ░░░██║░░░██╔══██║██╔══╝░░██║╚██╔╝██║██╔══╝░░
+    ██████╔╝██████╔╝██████╔╝██║░╚═╝░██║  ░░░██║░░░██║░░██║███████╗██║░╚═╝░██║███████╗
+    ╚═════╝░╚═════╝░╚═════╝░╚═╝░░░░░╚═╝  ░░░╚═╝░░░╚═╝░░╚═╝╚══════╝╚═╝░░░░░╚═╝╚══════╝
+EOF
     echo -e "${RESET}Welcome Traveler. Thank you for downloading genshin-sddm-theme."
     echo "Please press any button to continue."
     read -n 1 -s -r 
@@ -76,13 +88,23 @@ function detectConfigFile {
 }
 
 function selectOS {
-    echo "Choose your operating system:"
-    select os in "Ubuntu" "Kubuntu" "Arch"; do
-        case $os in
-            Ubuntu|Kubuntu|Arch ) installPackages $os; break;;
-            * ) echo "Invalid selection. Please try again.";;
-        esac
-    done
+    if ui_enabled; then
+        local choice
+        choice=$(zenity --list --radiolist --title="Genshin SDDM Theme" --text="Choose your operating system:" \
+                 --width=520 --height=300 \
+                 --column "Select" --column "Option" \
+                 TRUE "Ubuntu" FALSE "Kubuntu" FALSE "Arch" 2>/dev/null)
+        [[ -z "$choice" ]] && echo "Cancelled." && exit 1
+        installPackages "$choice"
+    else
+        echo "Choose your operating system:"
+        select os in "Ubuntu" "Kubuntu" "Arch"; do
+            case $os in
+                Ubuntu|Kubuntu|Arch ) installPackages $os; break;;
+                * ) echo "Invalid selection. Please try again.";;
+            esac
+        done
+    fi
 }
 
 function installPackages {
@@ -115,24 +137,29 @@ function updateXsetupWithResolution {
 
 function updateXsetup {
     XSETUP_FILE="/usr/share/sddm/scripts/Xsetup"
-
-    echo -e "\nYour resolution is too high. Do you want to add an xrandr configuration for better compatibility?"
-    select sel in "Yes" "No"; do
-        case $sel in
-            Yes )
-                echo "Enter your desired resolution (e.g., 1920x1080):"
-                read -r desired_resolution
-
-                updateXsetupWithResolution "$desired_resolution"
-                break;;
-            No )
-                echo "No changes made to the Xsetup file."
-                break;;
-            * )
-                echo "Invalid option. Please select 1 for Yes or 2 for No."
-                ;;
-        esac
-    done
+    if ui_enabled; then
+        if zenity --question --title="Resolution setup" --width=480 \
+            --text="Your resolution may be high. Add an xrandr override for better compatibility?"; then
+            desired_resolution=$(ui_entry "Enter desired resolution (e.g., 1920x1080):" "Resolution" "1920x1080")
+            [[ -z "$desired_resolution" ]] && echo "Cancelled." && return
+            updateXsetupWithResolution "$desired_resolution"
+        else
+            echo "No changes made to the Xsetup file."
+        fi
+    else
+        echo -e "\nYour resolution is too high. Do you want to add an xrandr configuration for better compatibility?"
+        select sel in "Yes" "No"; do
+            case $sel in
+                Yes )
+                    echo "Enter your desired resolution (e.g., 1920x1080):"
+                    read -r desired_resolution
+                    updateXsetupWithResolution "$desired_resolution"
+                    break;;
+                No ) echo "No changes made to the Xsetup file."; break;;
+                * ) echo "Invalid option. Please select 1 for Yes or 2 for No." ;;
+            esac
+        done
+    fi
 }
 
 function detectHiDPI {
@@ -166,41 +193,51 @@ function autoDetectResolution {
     
     if [[ -n "$current_resolution" ]]; then
         echo "Current resolution detected: $current_resolution"
-        
-        # Check for HiDPI
-        if detectHiDPI; then
-            echo "For HiDPI displays, you can either:"
-            echo "1) Keep current resolution (theme will adapt)"
-            echo "2) Force 1920x1080 for consistent experience"
-            echo "3) Set custom resolution"
-            
-            select choice in "Keep current" "Force 1920x1080" "Custom resolution"; do
-                case $choice in
-                    "Keep current")
-                        echo "Using current resolution with responsive layout"
-                        break
-                        ;;
-                    "Force 1920x1080")
-                        updateXsetupWithResolution "1920x1080"
-                        break
-                        ;;
-                    "Custom resolution")
-                        updateXsetup
-                        break
-                        ;;
-                    *)
-                        echo "Invalid choice. Please try again."
-                        ;;
-                esac
-            done
-        else
-            echo "Do you want to use this resolution for SDDM? (y/n)"
-            read -r response
-            
-            if [[ "$response" =~ ^[Yy]$ ]]; then
-                updateXsetupWithResolution "$current_resolution"
+        if ui_enabled; then
+            if detectHiDPI; then
+                choice=$(zenity --list --radiolist --title="HiDPI detected" \
+                         --text="Resolution options (current: $current_resolution)" --width=520 --height=320 \
+                         --column "Select" --column "Option" --column "Description" \
+                         TRUE "Keep current" "Theme adapts to your resolution" \
+                         FALSE "Force 1920x1080" "Use a standard 1080p layout" \
+                         FALSE "Custom resolution" "Enter your own value" 2>/dev/null)
             else
-                updateXsetup
+                if zenity --question --title="Use detected resolution?" --width=480 \
+                    --text="Use $current_resolution for SDDM?"; then
+                    choice="Use detected"
+                else
+                    choice="Custom resolution"
+                fi
+            fi
+            case $choice in
+                "Keep current"|"Use detected") echo "Using current resolution." ;;
+                "Force 1920x1080") updateXsetupWithResolution "1920x1080" ;;
+                "Custom resolution") updateXsetup ;;
+                *) echo "Skipping resolution changes." ;;
+            esac
+        else
+            # CLI path unchanged
+            if detectHiDPI; then
+                echo "For HiDPI displays, you can either:"
+                echo "1) Keep current resolution (theme will adapt)"
+                echo "2) Force 1920x1080 for consistent experience"
+                echo "3) Set custom resolution"
+                select choice in "Keep current" "Force 1920x1080" "Custom resolution"; do
+                    case $choice in
+                        "Keep current") echo "Using current resolution with responsive layout"; break ;;
+                        "Force 1920x1080") updateXsetupWithResolution "1920x1080"; break ;;
+                        "Custom resolution") updateXsetup; break ;;
+                        *) echo "Invalid choice. Please try again." ;;
+                    esac
+                done
+            else
+                echo "Do you want to use this resolution for SDDM? (y/n)"
+                read -r response
+                if [[ "$response" =~ ^[Yy]$ ]]; then
+                    updateXsetupWithResolution "$current_resolution"
+                else
+                    updateXsetup
+                fi
             fi
         fi
     else
@@ -235,10 +272,9 @@ function changeCurrentTheme {
 
 function disableVirtualKeyboard {
     if ! grep -wq "InputMethod=" $CFG; then
-        echo -e "\nDo you want to disable the virtual on-screen keyboard in SDDM? Select yes if you have a physical keyboard"
-        select sel in "Yes" "No"; do
-            case $sel in
-                Yes ) 
+        if ui_enabled; then
+            if zenity --question --title="Disable Virtual Keyboard?" --width=500 \
+                --text="Disable the on-screen virtual keyboard (recommended if you have a physical keyboard)?"; then
                 if grep -q "^InputMethod=qtvirtualkeyboard" $CFG; then
                     sudo sed -i "s/^InputMethod=qtvirtualkeyboard/InputMethod=/" $CFG;
                     echo "Virtual keyboard disabled (modified InputMethod entry)";
@@ -246,10 +282,24 @@ function disableVirtualKeyboard {
                     sudo sed -i 's/^\[General\]/\[General\]\nInputMethod=/' $CFG;
                     echo "Virtual keyboard disabled (created empty InputMethod entry)";
                 fi
-                break;;
-                No ) break;;
-            esac
-        done
+            fi
+        else
+            echo -e "\nDo you want to disable the virtual on-screen keyboard in SDDM? Select yes if you have a physical keyboard"
+            select sel in "Yes" "No"; do
+                case $sel in
+                    Yes ) 
+                    if grep -q "^InputMethod=qtvirtualkeyboard" $CFG; then
+                        sudo sed -i "s/^InputMethod=qtvirtualkeyboard/InputMethod=/" $CFG;
+                        echo "Virtual keyboard disabled (modified InputMethod entry)";
+                    elif ! grep -q "^InputMethod=" $CFG; then
+                        sudo sed -i 's/^\[General\]/\[General\]\nInputMethod=/' $CFG;
+                        echo "Virtual keyboard disabled (created empty InputMethod entry)";
+                    fi
+                    break;;
+                    No ) break;;
+                esac
+            done
+        fi
     fi
 }
 
@@ -260,7 +310,7 @@ function download_from_mega {
     megadl 'https://mega.nz/file/AqNS0Sxa#3_E0apJ6JFmIFsGJ6_q1XXlI0klsXwsnh3QrRZhe6nI' 
     megadl 'https://mega.nz/file/tnMWiTaa#0KRYpof6fJ0cF1m85N1ZF-7AKaqDm2GaaZYWo8D3P70' 
     megadl 'https://mega.nz/file/cj8CCY6J#Ap94bhUgEocvMF9EsX_tQCnfF0hbOxA4JY3POtArLDk'
-	echo "Changing Directory Back"
+    echo "Changing Directory Back"
     cd ..
 }
 
@@ -271,39 +321,41 @@ function download_from_dropbox {
     curl -L 'https://www.dropbox.com/scl/fi/e6kio0zet8j5lax9ztu7y/nightbg.mp4?rlkey=29ni1jq0a9sr02b6l0s61oiiq&st=en7rqgmy&dl=0' > nightbg.mp4 
     curl -L 'https://www.dropbox.com/scl/fi/8om5p5d3ul984krbnhfgu/morningbg.mp4?rlkey=jedf5qcycj310oqx8djy9yomz&st=yupg7zz8&dl=0' > morningbg.mp4 
     curl -L 'https://www.dropbox.com/scl/fi/f3x5jfr8sk06ij3c8kgoy/sunrisebg.mp4?rlkey=r0lzylvhze4lq3xglwkvf4iya&st=ybukfsgv&dl=0' > sunrisebg.mp4
-	echo "Changing Directory Back"
+    echo "Changing Directory Back"
     cd ..
 }
 
 function choose_server {
-    echo "Choose the server to download videos from:"
-    echo "1) Dropbox"
-    echo "2) Mega.nz"
-    read -p "Enter the number (1 or 2): " server_choice
-
-    case $server_choice in
-        1)
-            download_from_dropbox || {
-                echo "Dropbox download failed. Trying Mega.nz as fallback..."
-                download_from_mega
-            }
-            ;;
-        2)
-            download_from_mega || {
-                echo "Mega.nz download failed. Trying Dropbox as fallback..."
-                download_from_dropbox
-            }
-            ;;
-        *)
-            echo "Invalid choice. Defaulting to Dropbox."
-            download_from_dropbox || download_from_mega
-            ;;
-    esac
+    if ui_enabled; then
+        server_choice=$(zenity --list --radiolist --title="Download videos" --text="Choose the server:" \
+            --width=520 --height=280 --column "Select" --column "Server" \
+            TRUE "Dropbox" FALSE "Mega.nz" 2>/dev/null)
+        [[ -z "$server_choice" ]] && echo "Cancelled." && exit 1
+        case $server_choice in
+            "Dropbox") download_from_dropbox || { echo "Dropbox failed. Trying Mega.nz..."; download_from_mega; } ;;
+            "Mega.nz") download_from_mega || { echo "Mega.nz failed. Trying Dropbox..."; download_from_dropbox; } ;;
+        esac
+    else
+        echo "Choose the server to download videos from:"
+        echo "1) Dropbox"
+        echo "2) Mega.nz"
+        read -p "Enter the number (1 or 2): " server_choice
+        case $server_choice in
+            1) download_from_dropbox || { echo "Dropbox download failed. Trying Mega.nz as fallback..."; download_from_mega; } ;;
+            2) download_from_mega || { echo "Mega.nz download failed. Trying Dropbox as fallback..."; download_from_dropbox; } ;;
+            *) echo "Invalid choice. Defaulting to Dropbox."; download_from_dropbox || download_from_mega ;;
+        esac
+    fi
 }
 
 function handleMultipleAccounts {
-    echo "Setting up user accounts for the theme..."
-    read -p "Enter the number of user accounts: " num_accounts
+    if ui_enabled; then
+        zenity --info --title="Accounts" --width=520 --text="We will set up user accounts for quick login.\nYou can add multiple accounts."
+        num_accounts=$(ui_entry "Enter the number of user accounts:" "Accounts" "1")
+    else
+        echo "Setting up user accounts for the theme..."
+        read -p "Enter the number of user accounts: " num_accounts
+    fi
     
     # Validate input
     if ! [[ "$num_accounts" =~ ^[0-9]+$ ]] || [ "$num_accounts" -le 0 ]; then
@@ -317,8 +369,13 @@ function handleMultipleAccounts {
     > components/credentials.txt  
 
     for ((i = 1; i <= num_accounts; i++)); do
-        echo "Setting up Account $i:"
-        read -p "Enter the username: " usern
+        if ui_enabled; then
+            usern=$(ui_entry "Enter username for account $i:" "Account $i")
+            [[ -z "$usern" ]] && echo "Cancelled." && ((i--)) && continue
+        else
+            echo "Setting up Account $i:"
+            read -p "Enter the username: " usern
+        fi
         
         # Validate username
         if [[ -z "$usern" ]] || [[ "$usern" =~ [[:space:]] ]]; then
@@ -326,9 +383,13 @@ function handleMultipleAccounts {
             ((i--))
             continue
         fi
-        
-        read -s -p "Enter the password: " passn
-        echo
+        if ui_enabled; then
+            passn=$(ui_password "Enter password for $usern:" "Account $i")
+            [[ -z "$passn" ]] && echo "Cancelled." && ((i--)) && continue
+        else
+            read -s -p "Enter the password: " passn
+            echo
+        fi
         
         # Hash password using sha256.js
         if [[ -f "sha256.js" ]]; then
@@ -349,13 +410,20 @@ function handleMultipleAccounts {
 }
 
 function testTheme {
-    echo -e "\nDo you want to test the theme now?"
-    select sel in "Yes" "No"; do
-        case $sel in
-            Yes ) sddm-greeter --test-mode --theme $DIR; break;;
-            No ) exit;;
-        esac
-    done
+    if ui_enabled; then
+        if zenity --question --title="Test Theme" --width=500 \
+            --text="Do you want to test the theme now?"; then
+            sddm-greeter --test-mode --theme $DIR
+        fi
+    else
+        echo -e "\nDo you want to test the theme now?"
+        select sel in "Yes" "No"; do
+            case $sel in
+                Yes ) sddm-greeter --test-mode --theme $DIR; break;;
+                No ) exit;;
+            esac
+        done
+    fi
 }
 
 function createConfig {
@@ -364,21 +432,32 @@ function createConfig {
 }
 
 function toggleLoadingAnimation {
-  echo -e "\nDo you want to skip the login screen loading animation?"
-  select sel in "Yes" "No"; do
-    case $sel in
-      Yes )
-        echo "Disabling loading animation in LoginPanel.qml"
-        sed -i 's/\(property[[:space:]]\+bool[[:space:]]\+enableLoadingAnimation:[[:space:]]*\)true/\1false/' "components/LoginPanel.qml"
-        ;;
-      No )
-        echo "Keeping loading animation enabled"
-        sed -i 's/\(property[[:space:]]\+bool[[:space:]]\+enableLoadingAnimation:[[:space:]]*\)false/\1true/' "components/LoginPanel.qml"
-        ;;
-      * ) echo "Invalid selection. Please try again." ;;
-    esac
-    break
-  done
+  if ui_enabled; then
+    if zenity --question --title="Loading animation" --width=520 \
+        --text="Do you want to skip the login screen loading animation?"; then
+      echo "Disabling loading animation in LoginPanel.qml"
+      sed -i 's/\(property[[:space:]]\+bool[[:space:]]\+enableLoadingAnimation:[[:space:]]*\)true/\1false/' "components/LoginPanel.qml"
+    else
+      echo "Keeping loading animation enabled"
+      sed -i 's/\(property[[:space:]]\+bool[[:space:]]\+enableLoadingAnimation:[[:space:]]*\)false/\1true/' "components/LoginPanel.qml"
+    fi
+  else
+    echo -e "\nDo you want to skip the login screen loading animation?"
+    select sel in "Yes" "No"; do
+      case $sel in
+        Yes )
+          echo "Disabling loading animation in LoginPanel.qml"
+          sed -i 's/\(property[[:space:]]\+bool[[:space:]]\+enableLoadingAnimation:[[:space:]]*\)true/\1false/' "components/LoginPanel.qml"
+          ;;
+        No )
+          echo "Keeping loading animation enabled"
+          sed -i 's/\(property[[:space:]]\+bool[[:space:]]\+enableLoadingAnimation:[[:space:]]*\)false/\1true/' "components/LoginPanel.qml"
+          ;;
+        * ) echo "Invalid selection. Please try again." ;;
+      esac
+      break
+    done
+  fi
 }
 
 function safe_copy_theme {
@@ -445,5 +524,5 @@ function mainOperations {
     testTheme
 }
 
-displayArtAndWelcome    
+displayArtAndWelcome
 mainOperations
