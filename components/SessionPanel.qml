@@ -48,9 +48,29 @@ Item {
         updateSessionName();
     }
 
+    // Helper to keep source image aspect ratio (letterboxed, centered)
+    Component {
+        id: aspectImage
+        Item {
+            id: aspectRoot
+            property alias source: img.source
+            property bool smooth: true
+            property bool async: true
+            Image {
+                id: img
+                anchors.fill: parent
+                fillMode: Image.PreserveAspectFit
+                horizontalAlignment: Image.AlignHCenter
+                verticalAlignment: Image.AlignVCenter
+                smooth: aspectRoot.smooth
+                asynchronous: aspectRoot.async
+            }
+        }
+    }
+
     // Custom session button using sessionselect.png
     Button {
-        id: sessionButton
+        id: sessionButtonAlt
         
         // Center horizontally and move down slightly
         anchors.horizontalCenter: parent.horizontalCenter
@@ -67,24 +87,51 @@ Item {
         hoverEnabled: true
         z: 1  // Base level for session button
         
-        background: Item {
+        background: Rectangle {
+            radius: config.CornerRadius * 2
+            color: "transparent"
+            border.width: 0
+            anchors.fill: parent
+
             Image {
-                id: sessionSelectImage
                 anchors.fill: parent
+                anchors.margins: 6 * scaleFactor
                 source: Qt.resolvedUrl("../backgrounds/session/sessionselect.png")
-                fillMode: Image.Stretch
-                
-                // Session name text overlay - USE THE PROPERTY
-                Text {
-                    anchors.centerIn: parent
-                    text: currentSessionName  // Use the property that gets updated
-                    font.family: config.Font || "Arial"
-                    font.pointSize: Math.max(10, (config.GeneralFontSize || 12))
-                    font.bold: true
-                    color: config.SessionTextColor || "#FFFFFF"
-                    horizontalAlignment: Text.AlignHCenter
-                    verticalAlignment: Text.AlignVCenter
+                onStatusChanged: if (status === Image.Error)
+                    source = Qt.resolvedUrl("../backgrounds/sesspn/sessionselect.png")
+                fillMode: Image.PreserveAspectFit
+                horizontalAlignment: Image.AlignHCenter
+                verticalAlignment: Image.AlignVCenter
+                smooth: true
+                asynchronous: true
+            }
+        }
+        
+        // If you show current session icon/text inside:
+        contentItem: Row {
+            spacing: 8 * scaleFactor
+            anchors.fill: parent
+            anchors.margins: 10 * scaleFactor
+            
+            // Current session icon (keeps aspect)
+            Loader {
+                width: 28 * scaleFactor
+                height: 28 * scaleFactor
+                sourceComponent: aspectImage
+                onLoaded: {
+                    // Keep your existing icon source here if you have one
+                    // item.source = someIconPath
                 }
+            }
+            Text {
+                anchors.verticalCenter: parent.verticalCenter
+                text: currentSessionName  // Use the property that gets updated
+                font.family: config.Font || "Arial"
+                font.pointSize: Math.max(10, (config.GeneralFontSize || 12))
+                font.bold: true
+                color: config.SessionTextColor || "#FFFFFF"
+                horizontalAlignment: Text.AlignHCenter
+                verticalAlignment: Text.AlignVCenter
             }
         }
         
@@ -367,4 +414,162 @@ Item {
             }
         }
     }
-}
+    
+    // Centralized, file-relative icon path (repo: backgrounds/session/sessionselect.png)
+    property url sessionIcon: Qt.resolvedUrl("../backgrounds/session/sessionselect.png")
+
+    // Session button (icon keeps aspect ratio)
+    Button {
+        id: sessionButton
+        text: ""                      // no default label
+
+        // Center horizontally and move down slightly
+        anchors.horizontalCenter: parent.horizontalCenter
+        anchors.verticalCenter: parent.verticalCenter
+        anchors.verticalCenterOffset: parent.height * 0.40  // Moved down more
+
+        // Reduce height while maintaining aspect ratio
+        property real aspectRatio: 4.0  // Keep width-to-height ratio
+        property real targetWidth: Math.min(300, parent.width * 0.20)
+
+        width: targetWidth
+        height: (width / aspectRatio) * 0.8  // Make 20% shorter
+
+        hoverEnabled: true
+        z: 1  // Base level for session button
+
+        background: Rectangle {
+            radius: config.CornerRadius * 2
+            color: "transparent"
+            border.width: 0
+            anchors.fill: parent
+
+            Image {
+                anchors.fill: parent
+                anchors.margins: 6 * scaleFactor
+                source: Qt.resolvedUrl("../backgrounds/session/sessionselect.png")
+                onStatusChanged: if (status === Image.Error)
+                    source = Qt.resolvedUrl("../backgrounds/sesspn/sessionselect.png")
+                fillMode: Image.PreserveAspectFit
+                horizontalAlignment: Image.AlignHCenter
+                verticalAlignment: Image.AlignVCenter
+                smooth: true
+                asynchronous: true
+            }
+
+            // Centered name only (moved slightly higher)
+            Text {
+                id: sessionNameLabel
+                text: currentSessionName
+                anchors.horizontalCenter: parent.horizontalCenter
+                anchors.bottom: parent.bottom
+                anchors.bottomMargin: 18 * scaleFactor
+                width: parent.width - 16 * scaleFactor
+                horizontalAlignment: Text.AlignHCenter
+                elide: Text.ElideRight
+                color: config.DateColor
+                renderType: Text.NativeRendering
+                font.pointSize: Math.max(12, baseFontSize)
+                font.bold: true
+            }
+        }
+
+        onClicked: {
+            // Close 1.png if it's open
+            if (root.state === "login") {
+                root.state = "first"
+            }
+
+            menuOpen = !menuOpen
+            sessionMenu.visible = menuOpen
+            if (menuOpen && typeof popupSound !== 'undefined') {
+                popupSound.play()
+            }
+        }
+    }
+
+    // Transparent scrim that sits under the popup and eats outside clicks
+    Rectangle {
+        id: sessionPopupScrim
+        anchors.fill: parent
+        visible: sessionPopup.visible
+        color: "transparent"
+        z: 998
+        MouseArea {
+            anchors.fill: parent
+            onClicked: sessionPopup.close()   // close only when clicking outside
+        }
+    }
+
+    // The popup itself; do NOT auto-close on inside clicks
+    Popup {
+        id: sessionPopup
+        modal: true
+        focus: true
+        padding: 0
+        z: 999
+        // Only ESC should close automatically. Outside clicks handled by the scrim above.
+        closePolicy: Popup.CloseOnEscape
+
+        background: Rectangle {
+            radius: config.CornerRadius * 3
+            color: config.PopupBgColor
+        }
+
+        contentItem: Item {
+            id: popupRoot
+            anchors.fill: parent
+
+            // Main image (clicking here should NOT close)
+            Image {
+                id: sessionPreview
+                anchors.fill: parent
+                anchors.margins: 10 * scaleFactor
+                source: Qt.resolvedUrl("../backgrounds/session/sessionselect.png")
+                onStatusChanged: if (status === Image.Error)
+                    source = Qt.resolvedUrl("../backgrounds/sesspn/sessionselect.png")
+                fillMode: Image.PreserveAspectFit
+                horizontalAlignment: Image.AlignHCenter
+                verticalAlignment: Image.AlignVCenter
+                smooth: true
+                asynchronous: true
+            }
+
+            // Optional: centered name inside popup as well
+            Text {
+                id: popupSessionName
+                text: currentSessionName
+                anchors.horizontalCenter: parent.horizontalCenter
+                anchors.bottom: parent.bottom
+                anchors.bottomMargin: 20 * scaleFactor    // higher than before
+                width: parent.width - 20 * scaleFactor
+                horizontalAlignment: Text.AlignHCenter
+                elide: Text.ElideRight
+                color: config.DateColor
+                renderType: Text.NativeRendering
+                font.pointSize: Math.max(12, baseFontSize)
+                font.bold: true
+            }
+
+            // Close button (X)
+            Button {
+                id: closeBtn
+                anchors.top: parent.top
+                anchors.right: parent.right
+                anchors.margins: 8 * scaleFactor
+                width: Math.max(28, 28 * scaleFactor)
+                height: width
+                background: Rectangle { radius: height / 2; color: "transparent" }
+                contentItem: Text {
+                    anchors.centerIn: parent
+                    text: "✕"
+                    color: config.PlayerTextColor
+                    font.pointSize: Math.max(10, 10 * scaleFactor)
+                    renderType: Text.NativeRendering
+                }
+                onClicked: sessionPopup.close()
+            }
+        }
+    } // end sessionPopup
+} // end of root Item
+

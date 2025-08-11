@@ -10,6 +10,7 @@ Item {
     property var password: passwordField.text
     property var session: sessionPanel.session
     property var inputHeight: Math.max(40, Screen.height * config.LoginScale * 0.04)
+    // +30px wider inputs
     property var inputWidth: Math.min(400, Screen.width * config.LoginScale * 0.25)
     property var users: []
     property var credentialsLoaded: false
@@ -17,6 +18,9 @@ Item {
     property real scaleFactor: Math.min(Screen.width / 1920, Screen.height / 1080)
     property real baseFontSize: Math.max(12, 15 * scaleFactor)
     property real baseMargin: Math.max(15, 19 * scaleFactor)
+
+    // Exact corner margin for top-left/right panels
+    property int cornerMargin: 10
 
     function sha256(message) {
     const k = [
@@ -202,37 +206,36 @@ Item {
 	
 
 
-    // Top-right: DateTime Panel
-    Column {
-        spacing: 4 * scaleFactor
-        opacity: 1
-        z: 3
-        anchors {
-            top: parent.top
-            right: parent.right
-            topMargin: Math.max(12, Screen.height * 0.015)
-            rightMargin: Math.max(4, baseMargin * 0.35)
-        }
+    // Top-right: DateTime Panel (10px from top/right)
+    Item {
+        id: dateTimePanelSlot
+        anchors.top: parent.top
+        anchors.right: parent.right
+        anchors.topMargin: 10
+        anchors.rightMargin: 10
+        // let the panel size itself; slot follows child bounds if needed
         DateTimePanel {
             id: dateTimePanel
             scale: 0.75
+            anchors.top: parent.top
+            anchors.right: parent.right
+            anchors.margins: 0
         }
     }
 
-    // Top-left: Player Panel
-    Column {
-        spacing: 4 * scaleFactor
-        opacity: 1
-        z: 3
-        anchors {
-            top: parent.top
-            left: parent.left
-            topMargin: Math.max(12, Screen.height * 0.015)
-            leftMargin: Math.max(4, baseMargin * 0.35)
-        }
+    // Top-left: Player Panel (10px from top/left)
+    Item {
+        id: playerPanelSlot
+        anchors.top: parent.top
+        anchors.left: parent.left
+        anchors.topMargin: 10
+        anchors.leftMargin: 10
         PlayerPanel {
             id: playerPanel
             scale: 0.75
+            anchors.top: parent.top
+            anchors.left: parent.left
+            anchors.margins: 0
         }
     }    
 
@@ -317,27 +320,27 @@ Item {
         
         // Move nicefaa6waa 10px right
         Text {
-            anchors.top: parent.top
-            anchors.topMargin: parent.height * 0.75
-            anchors.left: parent.left
-            anchors.leftMargin: parent.width * 0.12 + 15  // Move right 5 more pixels (10+5)
+            id: nicefaa6waaText
             text: "nicefaa6waa"
             font.pixelSize: Math.max(10, Math.min(16, parent.width * 0.025))
             color: "black"     
             z: 1
+
+            // Center with +10px nudge to the right
+            anchors.horizontalCenter: undefined
+            x: Math.round(parent.width/2 - width/2 + 10)
         }
-        
-        // Move ibrahim-mammadli 10px left
-        Text {
-            anchors.top: parent.top
-            anchors.topMargin: parent.height * 0.75
-            anchors.right: parent.right
-            anchors.rightMargin: parent.width * 0.12 + 12  // Move left 2 more pixels (10+2)
-            text: "ibrahim-mammadli"
-            font.pixelSize: Math.max(10, Math.min(16, parent.width * 0.025))
-            color: "black"   
-            z: 1
-        }
+Text {
+    id: ibrahimMammadliText
+    text: "ibrahim-mammadli"
+    font.pixelSize: Math.max(10, Math.min(16, parent.width * 0.025))
+    color: "black"   
+    z: 1
+
+    // Center with -5px nudge to the left
+    anchors.horizontalCenter: undefined
+    x: Math.round(parent.width/2 - width/2 - 5)
+}
 
         Column {
             width: Math.min(parent.width * 0.6, 520)  // Made 20px wider
@@ -352,10 +355,11 @@ Item {
             visible: root.state === "login"
             spacing: Math.max(12, parent.height * 0.025)
 
+            // Username field/panel
             UserPanel {
                 id: userPanel
                 height: Math.max(40, parent.parent.height * 0.08)
-                width: parent.width  // Use full column width
+                width: inputWidth
                 onActiveFocusChanged: {
                     if (activeFocus) {
                         inputFocusSound.play()  
@@ -363,11 +367,12 @@ Item {
                 }
             }
 
-            PasswordPanel {
+            // Password field
+            TextField {
                 id: passwordField
                 opacity: 1
                 height: Math.max(40, parent.parent.height * 0.08)
-                width: parent.width  // Same width as username
+                width: inputWidth
                 onActiveFocusChanged: {
                     if (activeFocus) {
                         inputFocusSound.play()  
@@ -381,11 +386,12 @@ Item {
                 width: 1   
             }
 
+            // Login button
             Button {
                 id: loginButton
                 opacity: 1
                 height: Math.max(40, parent.parent.height * 0.08)
-                width: parent.width  // Same width as fields
+                width: inputWidth
 
                 enabled: user != "" && password != "" ? true : false
                 hoverEnabled: true
