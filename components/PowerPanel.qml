@@ -1,10 +1,12 @@
 import QtQuick 2.12
 import QtQuick.Controls 2.12
+import QtQuick.Window 2.12
 import QtGraphicalEffects 1.12
 
 Item {
     implicitHeight: powerButton.height
     implicitWidth: powerButton.width
+    readonly property real scaleFactor: (Screen.height > 0 ? Screen.height : 1080) / 1080
 
     ListModel {
         id: powerModel
@@ -77,9 +79,9 @@ Item {
         id: powerPopup
 
         height: inputHeight * 2.2 + padding * 2
-        x: powerButton.width + powerList.spacing + 30
+        x: powerButton.width + powerList.spacing + 30 * scaleFactor
         y: -height + powerButton.height 
-        padding: 15
+        padding: 15 * scaleFactor
 
         background: Rectangle {
             radius: config.CornerRadius * 1.8

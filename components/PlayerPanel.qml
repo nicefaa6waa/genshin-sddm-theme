@@ -1,5 +1,6 @@
 import QtQuick 2.12
 import QtQuick.Controls 2.12
+import QtQuick.Window 2.12
 import QtGraphicalEffects 1.12
 
 
@@ -8,6 +9,7 @@ Item {
     implicitWidth: playerButton.width
 
 
+    readonly property real scaleFactor: Screen.height / 1080
     property var musicDictionary: {
     "file:///usr/share/sddm/themes/genshin-sddm-theme/sounds/snow_buried_tales.mp3": "Snow Buried Tales",
     "file:///usr/share/sddm/themes/genshin-sddm-theme/sounds/moonlike_smile.mp3" : "Moonlike Smile",
@@ -46,43 +48,39 @@ Item {
     Button {
         id: playerButton
 
-        height: 40
-        width: 200
+        height: 40 * scaleFactor
+        width: 200 * scaleFactor
         hoverEnabled: true
 
-
-
-    background: Rectangle {
-        id: playerButtonBg
-        width: 200
-        height: 40
-
-        color: config.PlayerButtonColor
-        radius: 40
-
-        Row {
-
+        contentItem: Row {
+            spacing: 5 * scaleFactor
             Image {
                 id: iconImage
                 source: "../icons/play.png"
-                width: 40
-                height: 40
+                width: 40 * scaleFactor
+                height: 40 * scaleFactor
                 fillMode: Image.PreserveAspectFit
-                 
             }
 
             Text {
                 id: playerText
                 renderType: Text.NativeRendering
-                font.pointSize: config.GeneralFontSize
+                font.pointSize: Math.max(1, (config.GeneralFontSize || 9) * scaleFactor)
                 font.bold: true
                 horizontalAlignment: Text.AlignLeft
+                verticalAlignment: Text.AlignVCenter
                 color: config.PlayerTextColor
                 text: currentlyPlaying()
-                y:10 
+                anchors.verticalCenter: parent.verticalCenter
             }
         }
-    }
+
+        background: Rectangle {
+            id: playerButtonBg
+            color: config.PlayerButtonColor
+            radius: 40 * scaleFactor
+            border.width: 0
+        }
 
         onClicked: {
             playerPopup.visible ? playerPopup.close() : playerPopup.open()
@@ -95,8 +93,8 @@ Item {
         id: playerPopup
 
         height: inputHeight * 2 + padding * 2
-        x: playerButton.width + playerList.spacing + 30
-        y: -height + playerButton.height - 40
+        x: playerButton.width + playerList.spacing + 30 * scaleFactor
+        y: -height + playerButton.height - 40 * scaleFactor
 
         background: Rectangle {
             radius: config.CornerRadius * 4
@@ -129,8 +127,8 @@ Item {
             Item {
                 anchors.bottom: parent.bottom
                 anchors.right: parent.right 
-                width: 80
-                height: 80
+                width: 80 * scaleFactor
+                height: 80 * scaleFactor
 
                 Image {
                     source: index == 1 ? Qt.resolvedUrl("../icons/previous.png") :

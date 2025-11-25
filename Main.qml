@@ -10,6 +10,8 @@ Item {
     id: root
     height: Screen.height
     width: Screen.width
+    readonly property real scaleFactor: Screen.height / 1080
+    state: "login"
     property var isPaused: 0
     property var songList: [
         "blue_dream.mp3","enchanting_bedtime_stories.mp3","clear_sky_over_liyue.mp3","twilight_serenity.mp3",
@@ -18,7 +20,33 @@ Item {
         "the_flourishing_past.mp3","finale_of_the_snowtomb.mp3","spin_of_the_ice_crystals.mp3",
     ]
 
-	
+
+    Connections {
+        target: sddm
+        function onLoginSucceeded() {
+            console.log("Login Succeeded");
+        }
+        function onLoginFailed() {
+            console.log("Login Failed");
+            root.state = "login";
+            musicPlayer.volume = 1.0;
+            musicPlayer.play();
+            videoPlayer2.stop();
+        }
+    }
+
+    NumberAnimation {
+        id: volumeFadeOut
+        target: musicPlayer
+        property: "volume"
+        from: musicPlayer.volume
+        to: 0
+        duration: 2000
+        onStopped: {
+            musicPlayer.stop(); 
+        }
+    }
+
     function getTimeOfDay() {
         var currentTime = new Date();
         var hours = currentTime.getHours();
@@ -103,7 +131,7 @@ function changeSong(direction) {
     MediaPlayer {
     id: ambiancePlayer
     source: "/usr/share/sddm/themes/genshin-sddm-theme/sounds/ambiance.mp3"
-    volume: 0.1
+    volume: 0.2
     muted: false
     autoPlay: true
     loops: -1
@@ -150,13 +178,12 @@ function changeSong(direction) {
         source: "/usr/share/sddm/themes/genshin-sddm-theme/backgrounds/doorbg/" + getTimeOfDay() + "door.webm"
         autoPlay: false
         muted: false
-    }
-
-    MediaPlayer {
-        id: videoPlayer3
-        source: "/usr/share/sddm/themes/genshin-sddm-theme/backgrounds/loading.mp4"
-        autoPlay: false
-        muted: true
+        onStatusChanged: {
+            if (status == MediaPlayer.EndOfMedia) {
+                root.state = "login";
+                sddm.login(loginPanel.user, loginPanel.password, loginPanel.session);
+            }
+        }
     }	
 	
     VideoOutput {
@@ -172,6 +199,7 @@ function changeSong(direction) {
     id: videoOutput2
     source: videoPlayer2
     fillMode: VideoOutput.Stretch
+    visible: root.state === "door"
 
     z: 3
     layer.enabled: true
@@ -201,14 +229,7 @@ function changeSong(direction) {
    	  }
 	}
 
-    VideoOutput {
-        id: videoOutput3
-        source: videoPlayer3
-        fillMode: VideoOutput.Stretch
-		visible: true
-
-        z: 3
-    }			
+			
 	
     Item {
         id: contentPanel
@@ -216,9 +237,9 @@ function changeSong(direction) {
 
         anchors {
             fill: parent
-            topMargin: -400
-            rightMargin: config.Padding
-            leftMargin: config.Padding
+            topMargin: -400 * scaleFactor
+            rightMargin: config.Padding * scaleFactor
+            leftMargin: config.Padding * scaleFactor
         }
         
         LoginPanel {

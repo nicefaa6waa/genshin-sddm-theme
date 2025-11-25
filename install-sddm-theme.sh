@@ -4,6 +4,8 @@ NAME="genshin-sddm-theme"
 DIR="/usr/share/sddm/themes/$NAME/"
 CFG="/etc/sddm.conf"
 
+cd "$(dirname "$0")"
+
 function displayArtAndWelcome {
 
     BLUE="\033[34m"
@@ -57,9 +59,9 @@ echo "⣿⣿⣿⣿⣿⣿⣿⣮⡛⣤⣀⣀⡠⣊⠤⠂⠀⠀⢹⠀⠀⠀⢇⠀�
 
 function selectOS {
     echo "Choose your operating system:"
-    select os in "Ubuntu" "Kubuntu" "Arch"; do
+    select os in "Debian Based" "Arch Based" "Fedora"; do
         case $os in
-            Ubuntu|Kubuntu|Arch ) installPackages $os; break;;
+            "Debian Based"|"Arch Based"|"Fedora" ) installPackages "$os"; break;;
             * ) echo "Invalid selection. Please try again.";;
         esac
     done
@@ -69,14 +71,14 @@ function selectOS {
 
 function installPackages {
     case $1 in
-        Ubuntu )
-            sudo apt-get install gstreamer1.0-libav qml-module-qtmultimedia libqt5multimedia5-plugins qt6-base nodejs npm
+        "Debian Based" )
+            sudo apt-get install qml-module-qtmultimedia qml-module-qtgraphicaleffects qml-module-qtquick-controls2 libqt5multimedia5-plugins gstreamer1.0-libav gstreamer1.0-plugins-good qt6-base
             ;;
-        Kubuntu )
-            sudo apt install gstreamer1.0-libav phonon4qt5-backend-gstreamer gstreamer1.0-plugins-good qml-module-qtquick-controls qml-module-qtgraphicaleffects qml-module-qtmultimedia qt5-default qt6-base nodejs npm
+        "Arch Based" )
+            sudo pacman -S --needed gst-libav phonon-qt5-gstreamer gst-plugins-base gst-plugins-good gst-plugins-bad gst-plugins-ugly qt5-quickcontrols2 qt5-graphicaleffects qt5-multimedia qt6-base xorg-xrandr --overwrite '*'
             ;;
-        Arch )
-            sudo pacman -S --needed gst-libav phonon-qt5-gstreamer gst-plugins-base gst-plugins-good gst-plugins-bad gst-plugins-ugly qt5-quickcontrols2 qt5-graphicaleffects qt5-multimedia qt6-base xorg-xrandr nodejs npm --overwrite '*'
+        "Fedora" )
+            sudo dnf install qt5-qtmultimedia qt5-qtgraphicaleffects qt5-qtquickcontrols2 gstreamer1-plugins-good gstreamer1-libav qt6-qtbase
             ;;
         * )
             echo "Error: Invalid OS option"
@@ -84,39 +86,20 @@ function installPackages {
     esac
 }
 
-function updateXsetup {
-    XSETUP_FILE="/usr/share/sddm/scripts/Xsetup"
 
-    echo -e "\nYour resolution is too high. Do you want to add an xrandr configuration for better compatibility?"
-    select sel in "Yes" "No"; do
-        case $sel in
-            Yes )
-                echo "Enter your desired resolution (e.g., 1920x1080):"
-                read -r desired_resolution
-
-                XRANDR_CMD="xrandr --output eDP-1 --mode $desired_resolution --pos 0x0 --rotate normal"
-
-                if ! sudo grep -Fxq "$XRANDR_CMD" "$XSETUP_FILE"; then
-                    echo "$XRANDR_CMD" | sudo tee -a "$XSETUP_FILE" > /dev/null
-                    echo "Xsetup file updated with xrandr command for resolution $desired_resolution."
-                else
-                    echo "xrandr command for resolution $desired_resolution already exists in Xsetup file."
-                fi
-                break;;
-            No )
-                echo "No changes made to the Xsetup file."
-                break;;
-            * )
-                echo "Invalid option. Please select 1 for Yes or 2 for No."
-                ;;
-        esac
-    done
-}
 
 
 
 function changeCurrentTheme {
-    sudo sed -i "s/^Current=.*/Current=$NAME/" $CFG
+    if grep -q "^\[Theme\]" $CFG; then
+        if grep -q "^Current=" $CFG; then
+            sudo sed -i "s/^Current=.*/Current=$NAME/" $CFG
+        else
+            sudo sed -i "/^\[Theme\]/a Current=$NAME" $CFG
+        fi
+    else
+        echo -e "\n[Theme]\nCurrent=$NAME" | sudo tee -a $CFG > /dev/null
+    fi
     echo "Current theme changed to $NAME"
 }
 
@@ -179,23 +162,9 @@ function choose_server {
     fi
 }
 
-function handleMultipleAccounts {
-    read -p "Enter the number of user accounts: " num_accounts
-    
-    > components/credentials.txt  
 
-    for ((i = 1; i <= num_accounts; i++)); do
-        read -p "Enter the username for Account $i: " usern
-        read -s -p "Enter the password for Account $i: " passn
-        echo  
 
-       
-        hashed_pass=$(node sha256.js "$passn")
 
-       
-        echo "$usern:$hashed_pass" >> components/credentials.txt
-    done
-}
 
 function testTheme {
     echo -e "\nDo you want to test the theme now?"
@@ -212,37 +181,14 @@ function createConfig {
     echo "Configuration file created in $CFG"
 }
 
-function skipLoadingAnimation {
-  echo -e "\nDo you want to skip the login screen loading animation?"
-  select sel in "Yes" "No"; do
-    case $sel in
-      Yes )
-        echo "Loading animation will be skipped."
-        if [ -f "components/LoginPanel.qml" ]; then
-          rm "components/LoginPanel.qml"
-        fi
-
-        if [ -f "components/LoginPanel2.qml" ]; then
-          mv "components/LoginPanel2.qml" "components/LoginPanel.qml"
-        else
-          echo "LoginPanel2.qml not found. Skipping rename."
-        fi
-        ;;
-      No )
-        echo "Loading animation will be displayed."
-        if [ -f "components/LoginPanel2.qml" ]; then
-          rm "components/LoginPanel2.qml"
-        fi
-        ;;
-      * )
-        echo "Invalid selection. Please try again."
-        ;;
-    esac
-    break
-  done
+function installThemeFiles {
+    echo "Installing theme to $DIR..."
+    if [ -d "$DIR" ]; then
+        sudo rm -rf "$DIR"
+    fi
+    sudo mkdir -p "$DIR"
+    sudo cp -R ./* "$DIR"
 }
-
-
 
 function mainOperations {
     if [ ! -f $CFG ]; then
@@ -251,12 +197,10 @@ function mainOperations {
             case $sel in
                 Yes )
                     createConfig
-		    updateXsetup
                     changeCurrentTheme
                     selectOS
                     choose_server
-                    skipLoadingAnimation
-                    sudo cp -R . $DIR
+                    installThemeFiles
                     disableVirtualKeyboard
                     testTheme
                     break
@@ -264,9 +208,7 @@ function mainOperations {
                 No )
                     echo "Theme will be installed in $DIR but configuration not changed."
                     choose_server
-		    updateXsetup
-                    skipLoadingAnimation
-                    sudo cp -R . $DIR
+                    installThemeFiles
                     testTheme
                     break
                     ;;
@@ -275,9 +217,7 @@ function mainOperations {
     else
         selectOS
         choose_server
-        updateXsetup
-        skipLoadingAnimation
-        sudo cp -R . $DIR
+        installThemeFiles
         changeCurrentTheme
         disableVirtualKeyboard
         testTheme
@@ -285,5 +225,5 @@ function mainOperations {
 }
 
 displayArtAndWelcome    
-handleMultipleAccounts
+
 mainOperations

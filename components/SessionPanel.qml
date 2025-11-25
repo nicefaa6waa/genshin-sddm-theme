@@ -1,5 +1,6 @@
 import QtQuick 2.12
 import QtQuick.Controls 2.12
+import QtQuick.Window 2.12
 import QtQml.Models 2.12
 
 Item {
@@ -7,6 +8,7 @@ Item {
 
     implicitHeight: sessionButton.height
     implicitWidth: sessionButton.width
+    readonly property real scaleFactor: (Screen.height > 0 ? Screen.height : 1080) / 1080
 
     DelegateModel {
         id: sessionWrapper
@@ -131,7 +133,7 @@ Item {
         width: inputWidth + padding * 2
         x: -(sessionButton.width + sessionList.spacing + width)
         y: -(contentHeight + padding * 2) + sessionButton.height
-        padding: 15
+        padding: 15 * scaleFactor
 
         background: Rectangle {
             radius: config.CornerRadius * 1.8

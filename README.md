@@ -101,15 +101,14 @@ You can change almost all the colors within the 'theme.conf' file.More color opt
 
 </details>
 
-
-
 <details>
-    <summary>✔️<b>Loading Animation (1/1)</b></summary>
+    <summary>✔️<b>HDPI Support (New!)</b></summary>
   
-- [x] 1:1 Replica of Genshins Loading animation when you succesfully log in.
-      ![](preview/image6.png)
+- [x] Dynamic scaling based on screen resolution.
+- [x] Looks great on 1080p, 2K, and 4K screens.
 
 </details>
+
 
 <details>
     <summary>✔️<b>Variable Animations for different time of the day (3/3)</b></summary>
@@ -133,9 +132,9 @@ You can change almost all the colors within the 'theme.conf' file.More color opt
 <details>
     <summary>✔️ <b>Install Script</b> (3/3)</summary>
 
-- [x] Auto-download videos (Some of the videos are uploaded to rep whioe the others are uploaded to Google Drive/Mega/Dropbox.Only Dropbox and Mega are automatic.Will add automatic installation for Google Drive in the future)
-- [x] Add Users
-- [x] Change current theme
+- [x] Auto-download videos (Choose from multiple mirrors)
+- [x] Auto-detects OS (Arch, Debian, Fedora) and installs dependencies
+- [x] Sets theme in sddm.conf
 </details>
 
 <details>
@@ -161,14 +160,7 @@ Currently most features doesn't work or removed for compatibility and transition
 
 </details>
 
-<details>
-    <summary>✔️ <b>SHA-256 Encryption</b> (3/3)</summary>
 
-- [x] Write a custom pure JS code to encrypt password
-- [x] New Script to update users
-- [x] Update scripts
-
-</details>
 
 <details>
     <summary>⚙️ <b>Custom Grub theme</b> (1/7)</summary>
@@ -225,18 +217,18 @@ Before creating an issue, please check the Wiki for common issues and their solu
 For **Arch** based distros using **pacman**
 (Obarun/Artix/Manjaro/KaOS/Chakra etc.)
 ```bash
-sudo pacman -S gst-libav phonon-qt5-gstreamer gst-plugins-base gst-plugins-good gst-plugins-bad gst-plugins-ugly qt5-quickcontrols2 qt5-graphicaleffects qt5-multimedia qt6-base xorg-xrandr nodejs npm --overwrite '*'
-
+sudo pacman -S gst-libav phonon-qt5-gstreamer gst-plugins-base gst-plugins-good gst-plugins-bad gst-plugins-ugly qt5-quickcontrols2 qt5-graphicaleffects qt5-multimedia qt6-base xorg-xrandr --overwrite '*'
 ```
+
 For **Debian** based distros using **apt**
-(Ubuntu/Kali/Neon/antiX etc.Excluding Kubuntu)
+(Ubuntu/Kali/Neon/antiX etc.)
 ```bash
-sudo apt-get install gstreamer1.0-libav qml-module-qtmultimedia libqt5multimedia5-plugins qt6-base-dev nodejs npm
+sudo apt-get install gstreamer1.0-libav qml-module-qtmultimedia libqt5multimedia5-plugins qml-module-qtquick-controls2 gstreamer1.0-plugins-good qt6-base-dev
 ```
 
-For **Kubuntu** using **apt**
+For **Fedora** based distros using **dnf**
 ```bash
-sudo apt install gstreamer1.0-libav phonon4qt5-backend-gstreamer gstreamer1.0-plugins-good qml-module-qtquick-controls qml-module-qtgraphicaleffects qml-module-qtmultimedia qt5-default qt6-base nodejs npm
+sudo dnf install qt5-qtmultimedia qt5-qtgraphicaleffects qt5-qtquickcontrols2 gstreamer1-plugins-good gstreamer1-libav qt6-qtbase
 ```
 
 
@@ -246,7 +238,7 @@ Videos will be installed using megatools.
 ```bash
 git clone https://github.com/nicefaa6waa/genshin-sddm-theme.git
 cd genshin-sddm-theme
-bash install-sddm-theme.sh
+sudo ./install-sddm-theme.sh
 ```
 
 
