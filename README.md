@@ -1,324 +1,159 @@
-![CodeRabbit Pull Request Reviews](https://img.shields.io/coderabbit/prs/github/nicefaa6waa/genshin-sddm-theme?utm_source=oss&utm_medium=github&utm_campaign=nicefaa6waa%2Fgenshin-sddm-theme&labelColor=171717&color=FF570A&link=https%3A%2F%2Fcoderabbit.ai&label=CodeRabbit+Reviews)
-# Genshin Sddm Theme
-
-An animated genshin sddm-theme, comes with animated background
-implemented changing backgrounds for the time of day.With every login-session,new wallpaper
-will be shown based on the time on your OS. 
-
-![](preview/image1.png)
-
-
-## Features and Development (84.75% Completed)
-
-
-You can change almost all the colors within the 'theme.conf' file.More color options will be added in the future
-
-<details>
-  <summary><b>✔️Animated Background (2/2)</b></summary>
-    
-- [x] Uncompressed Videos
-    - [x] Morning Background
-    - [x] Sunlight Backround
-    - [x] Night Background
-- [x] Compressed Videos
-    - [x] Morning Background
-    - [x] Sunlight Background
-    - [x] Night Background
-![](preview/image.png)
-
-</details>
-
-
-<details>
-  <summary>✔️<b>Login Menu (4/4)</b></summary>
-
-- [x] Login Background
-- [x] Username Area
-- [x] Password Area
-- [x] Github and Linkedin Credits
-      
-![](preview/image4.png)
-
-</details>
-
-
-<details>
-   <summary>✔️<b>Power Menu (2/2)</b></summary>
-    
-- [x] Mouse Area
-- [x] Pop-Up Menu
-   - [x] Shutdown
-   - [x] Restart
-   - [x] Sleep
-  ![](preview/image3.png)
-
-</details>
-      
-<details>
-   <summary>✔️<b>Session Menu (2/2)</b></summary>
-    
-- [x] Mouse Area
-- [x] Pop Up Menu
-   - [x] Ability to choose session
-         
-  ![](preview/image2.png)
+<div align="center">
 
-</details>
-      
-<details>
-<summary><b>✔️Date&Time Menu (1/1)</b></summary>
+![Genshin SDDM Banner](preview/image1.png)
 
-- [x] Layout
-</details>
-      
-<details>
-   <summary>✔️<b>Door Animation (5/5)</b></summary>
+# 🌌 Genshin Impact SDDM Theme
 
-- [x] Function to validate Username and Password
-- [x] fragmentShader config for Transparent videos
-- [x] Door Videos
-    - [x] Morning Door
-    - [x] Sunlight Door
-    - [x] Night Door
-- [x] Transparent Videos
-    - [x] Morning Door
-    - [x] Sunlight Door
-    - [x] Night Door
-- [x] Encoded Videos
+[![CodeRabbit Pull Request Reviews](https://img.shields.io/coderabbit/prs/github/nicefaa6waa/genshin-sddm-theme?labelColor=171717&color=FF570A&label=CodeRabbit+Reviews)](https://coderabbit.ai)
+[![License](https://img.shields.io/github/license/nicefaa6waa/genshin-sddm-theme?style=flat-square)](LICENSE)
+[![Stars](https://img.shields.io/github/stars/nicefaa6waa/genshin-sddm-theme?style=flat-square)](https://github.com/nicefaa6waa/genshin-sddm-theme/stargazers)
 
-      ❌ Transparent MOV (Didn't work)
-      
-      ❌ Transparent Webm (Didn't work)
-      
-      ❌ Custom Function For Png Sequence (Didn't work)
-      
-     ✔️ Currently fragmentShader config with black background kind of works but looks weird.Will try to find a better solution in the future.
-      
-    - [x] Morning Door
-    - [x] Sunlight Door
-    - [x] Night Door
-   ![](preview/image5.png)
+**An animated, dynamic SDDM login theme.**
+*Features time-based video backgrounds, custom soundtracks, and full HDPI support.*
 
-</details>
+[Report Bug](https://github.com/nicefaa6waa/genshin-sddm-theme/issues) · [Request Feature](https://github.com/nicefaa6waa/genshin-sddm-theme/issues)
 
-<details>
-    <summary>✔️<b>HDPI Support (New!)</b></summary>
-  
-- [x] Dynamic scaling based on screen resolution.
-- [x] Looks great on 1080p, 2K, and 4K screens.
+</div>
 
-</details>
+---
 
+## ✨ Features
 
-<details>
-    <summary>✔️<b>Variable Animations for different time of the day (3/3)</b></summary>
+This theme is approximately **85% complete**. It automatically detects the time of day on your OS to serve specific video backgrounds and animations.
 
+| Feature | Description |
+| :--- | :--- |
+| **🕰️ Dynamic Backgrounds** | Changes automatically between **Morning**, **Day**, and **Night** video wallpapers. |
+| **🖥️ HDPI Support** | Dynamic scaling that looks sharp on 1080p, 2K, and 4K monitors. |
+| **🎵 Music Player** | Integrated player with custom song list support. |
+| **🚪 Door Animations** | Unique transition animations upon login (Morning, Day, Night variants). |
+| **⚙️ Customization** | Edit `theme.conf` to change colors, sounds, and settings. |
 
-- [x] Morning Animations
-- [x] Sunlight Animations
-- [x] Night Animations
-  
-</details>
+### 📸 Preview Gallery
 
-<details>
-  <summary><b>✔️Custom songs and Music Player (2/2)</b></summary>
+| Login Screen | Power Menu |
+| :---: | :---: |
+| <img src="preview/image4.png" width="100%"> | <img src="preview/image3.png" width="100%"> |
+| **Session Select** | **Background Variance** |
+| <img src="preview/image2.png" width="100%"> | <img src="preview/image.png" width="100%"> |
 
-- [x] List of custom songs
-- [x] Music Player on login screen to change the currently playing song
+---
 
-</details>
+## 📦 Dependencies
 
+Please install the required packages for your distribution before proceeding.
 
-<details>
-    <summary>✔️ <b>Install Script</b> (3/3)</summary>
+| Distribution | Install Command |
+| :--- | :--- |
+| **Arch Linux** <br> *(Manjaro, Artix, Endeavour)* | ```bash sudo pacman -S gst-libav phonon-qt5-gstreamer gst-plugins-base gst-plugins-good gst-plugins-bad gst-plugins-ugly qt5-quickcontrols2 qt5-graphicaleffects qt5-multimedia qt6-base xorg-xrandr --overwrite '*' ``` |
+| **Debian / Ubuntu** <br> *(Kali, Pop!_OS, Mint)* | ```bash sudo apt-get install gstreamer1.0-libav qml-module-qtmultimedia libqt5multimedia5-plugins qml-module-qtquick-controls2 gstreamer1.0-plugins-good qt6-base-dev ``` |
+| **Fedora** <br> *(RHEL, CentOS)* | ```bash sudo dnf install qt5-qtmultimedia qt5-qtgraphicaleffects qt5-qtquickcontrols2 gstreamer1-plugins-good gstreamer1-libav qt6-qtbase ``` |
 
-- [x] Auto-download videos (Choose from multiple mirrors)
-- [x] Auto-detects OS (Arch, Debian, Fedora) and installs dependencies
-- [x] Sets theme in sddm.conf
-</details>
+---
 
-<details>
-   <summary>✔️<b> <b>Windows Version</b> (Finished and published in another repository.Check my profile for more information.) (6/6)</b></summary>
-    
-- [x] Re-Create whole qml theme in QT 6 Framework
-- [x] Re-Create or fix Types and Arguments
-- [x] Optimize Variables
-- [x] Change os-based settings
-- [x] Build Application
-- [x] Deploy Build
+## 🚀 Installation
 
-Currently most features doesn't work or removed for compatibility and transition to qt6.I will try to replace windows locksreen first then add removed features. 
+### Option 1: Automatic Installer (Recommended)
+The script will auto-detect your OS, install dependencies, download the heavy video files, and configure SDDM.
 
-</details>
-
-<details>
-    <summary>✔️ <b>Add Custom SFX</b> (2/2)</summary>
-
-- [X] SFX For Button Click
-- [X] SFX For Door Animations
-
-
-</details>
-
-
-
-<details>
-    <summary>⚙️ <b>Custom Grub theme</b> (1/7)</summary>
-
-- [x] Design a custom background image.
-- [ ] Customize fonts and colors for the menu items.
-- [ ] Add icons for different menu entries.
-- [ ] Configure the boot menu layout.
-- [ ] Test the theme on a virtual machine.
-- [ ] Troubleshoot and fix any display issues.
-- [ ] Write a script for automated installation.
-
-</details>
-
-<details>
-    <summary>⏸️ <b>Custom Ui for Installer</b> (0/?)(Paused)</summary>
-
-- [ ] Add installer UI with qt6 for better usability and easier installation for new people.
-
-
-</details>
-
-
-<details>
-    <summary>⏸️ <b>Custom lock theme</b> (0/2)(Paused)</summary>
-
-- [ ] So i will need to create my own lockscreen since swaylock won't work with widgets because of layers 
-- [ ] From this point i will mainly work on optimization,layout fixes and lock screen.
-
-
-
-</details>
-
-
-❌ ~~<b>Add AUR compatibility for easier installs on Arch based systems</b>~~ (Maybe Later)
-
-
-❌ ~~<b>Custom plymouth theme</b>~~ (Maybe Later)
-
-
-
-❌ ~~<b>Custom wlogout theme</b>~~ (Maybe Later)
-      
-
-
-## Issues and Contribution
-
-Before creating an issue, please check the Wiki for common issues and their solutions first.If you would like to contribute to this repo, feel free to do so by creating a PR. I am open to suggestions.
-
-
-## Dependencies
-
-
-For **Arch** based distros using **pacman**
-(Obarun/Artix/Manjaro/KaOS/Chakra etc.)
 ```bash
-sudo pacman -S gst-libav phonon-qt5-gstreamer gst-plugins-base gst-plugins-good gst-plugins-bad gst-plugins-ugly qt5-quickcontrols2 qt5-graphicaleffects qt5-multimedia qt6-base xorg-xrandr --overwrite '*'
-```
-
-For **Debian** based distros using **apt**
-(Ubuntu/Kali/Neon/antiX etc.)
-```bash
-sudo apt-get install gstreamer1.0-libav qml-module-qtmultimedia libqt5multimedia5-plugins qml-module-qtquick-controls2 gstreamer1.0-plugins-good qt6-base-dev
-```
-
-For **Fedora** based distros using **dnf**
-```bash
-sudo dnf install qt5-qtmultimedia qt5-qtgraphicaleffects qt5-qtquickcontrols2 gstreamer1-plugins-good gstreamer1-libav qt6-qtbase
-```
-
-
-## Installing and Testing
-Installation just got easier.Just clone this repo then cd into repo and run installer.
-Videos will be installed using megatools.
-```bash
-git clone https://github.com/nicefaa6waa/genshin-sddm-theme.git
+git clone [https://github.com/nicefaa6waa/genshin-sddm-theme.git](https://github.com/nicefaa6waa/genshin-sddm-theme.git)
 cd genshin-sddm-theme
 sudo ./install-sddm-theme.sh
+
 ```
 
+### Option 2: Manual Installation
 
-If you want manual installation:
 <details>
-<summary><b>⚙️Manual Installation Instructions </b></summary>
+<summary><b>Click to expand manual instructions</b></summary>
 
-
-Follow the steps below to install and test it:
-
-To test it before use you need to install this repo and copy it to your sddm themes folder.
-
-
-In order to do this:
-
-
-For Arch based distros:
+1. **Clone the repository:**
 ```bash
-cd
-git clone https://github.com/nicefaa6waa/genshin-sddm-theme.git
-sudo cp -r genshin-sddm-theme/ /usr/share/sddm/themes/
+git clone [https://github.com/nicefaa6waa/genshin-sddm-theme.git](https://github.com/nicefaa6waa/genshin-sddm-theme.git)
+
 ```
-For Debian based distros:
+
+
+2. **Copy to themes directory:**
 ```bash
-cd
-git clone https://github.com/nicefaa6waa/genshin-sddm-theme.git
 sudo cp -r genshin-sddm-theme /usr/share/sddm/themes/
+
 ```
 
-[Google Drive](https://drive.google.com/drive/folders/1Yz2GxV8uvZJM16YSbE2yPRMT58H5o0Bs?usp=drive_link)
 
-Then unzip the downloaded folder to your themes folder.In order to do so:
-```bash
-For Uncompressed zip
-sudo unzip -q -d /usr/share/sddm/themes/genshin-sddm-theme/backgrounds/ ~/Downloads/Uncompressed*.zip
-For Compressed zip
-sudo unzip -q -d /usr/share/sddm/themes/genshin-sddm-theme/backgrounds/ ~/Downloads/Compressed*.zip
+3. **Download Background Videos:**
+* Download the video assets from [Google Drive](https://drive.google.com/drive/folders/1Yz2GxV8uvZJM16YSbE2yPRMT58H5o0Bs?usp=drive_link).
+* Unzip the contents into `/usr/share/sddm/themes/genshin-sddm-theme/backgrounds/`.
+
+
+4. **Enable the Theme:**
+Edit `/etc/sddm.conf` (or `/etc/sddm.conf.d/kde_settings.conf`):
+```ini
+[Theme]
+Current=genshin-sddm-theme
+
 ```
 
-I HIGHLY RECOMMEND TESTING FIRST.
 
-There may be some visual bugs on varying distros so before changing your theme test it first with the command.
-Now, assuming that you've installed it correctly to test it:
+
+</details>
+
+### 🧪 Testing
+
+> [!IMPORTANT]
+> Always test the theme before logging out to avoid getting locked out of your system due to errors.
+
+Run the following command to preview the theme in a window:
 
 ```bash
 sddm-greeter --test-mode --theme genshin-sddm-theme
+
 ```
 
-## Applying
+---
 
-If you are new and you don't know how to change the SDDM theme, follow these steps:
+## 🗺️ Roadmap & Status
 
-If you are on KDE Plasma you can easily change sddm theme from settings.If you use something else
+<details>
+<summary><b>✅ Completed Features</b></summary>
 
-1. Edit the config file in '/etc/sddm.conf'. If you don't have 'sddm.conf' file, then copy it from '/usr/lib/sddm/default.conf'. If you are on hyprdots, then the config file will be in '/etc/sddm.conf.d/kde_settings.conf'.Furthermore you may have kde_settings.conf in your current active sddm theme.
+* **Backgrounds:** Uncompressed & Compressed videos (Morning, Sun, Night).
+* **Login Menu:** User/Pass area, Credits, styling.
+* **Power & Session Menus:** Fully functional pop-ups.
+* **Door Animation:** Logic for transparency and time-based selection.
+* **Sound:** SFX for buttons and door opening.
+* **Windows Version:** Ported to QT6 (See profile for repo).
 
-    ```bash
-    sudo nano /path/to/your/config/file
-    ```
-
-2. Look for the following section in the configuration file:
-
-    ```ini
-    [Theme]
-    Current=
-    ```
-
-3. Change your theme to `genshin-sddm-theme`.
 </details>
 
-## Credits
+<details open>
+<summary><b>🚧 In Progress / Planned</b></summary>
 
-This is the modified version of [aczw's corner theme](https://github.com/aczw/sddm-theme-corners)
+* [ ] **Custom Grub Theme**
+* [x] Background Design
+* [ ] Font/Color customization
+* [ ] Boot menu layout
+* [ ] Automated install script
 
 
-!DISCLAIMER ALL VIDEOS BELONGS TO HOYOVERSE.I DO NOT OWN ANY OF THEM
+* [ ] **Installer UI:** Create a QT6 GUI for easier installation.
+* [ ] **Lock Screen:** Create a custom lock screen (swaylock/hyprlock integration).
 
-## Stars
+</details>
 
-Thank you all!
+---
 
-[![Stargazers over time](https://starchart.cc/nicefaa6waa/genshin-sddm-theme.svg?variant=adaptive)](https://starchart.cc/nicefaa6waa/genshin-sddm-theme)
+## 🤝 Contributing
 
+Issues and Pull Requests are welcome!
+
+1. Check the [Wiki](https://www.google.com/search?q=https://github.com/nicefaa6waa/genshin-sddm-theme/wiki) for common issues.
+2. Fork the Project.
+3. Create your Feature Branch.
+4. Open a Pull Request.
+
+## ❤️ Credits
+
+* Based on [aczw's corner theme](https://github.com/aczw/sddm-theme-corners).
+* **Disclaimer:** All video assets belong to HoYoverse. I do not own any of them.
